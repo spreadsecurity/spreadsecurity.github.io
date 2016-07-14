@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spread Security</title>
+    <description>ICT Security thoughts
+</description>
+    <link>http://spreadsecurity.github.io/</link>
+    <atom:link href="http://spreadsecurity.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 14 Jul 2016 23:37:00 +0200</pubDate>
+    <lastBuildDate>Thu, 14 Jul 2016 23:37:00 +0200</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Introduction</title>
+        <description>&lt;p&gt;The title of this blog is pretty self-explanatory: “Spread Security”, in other words, share knowledge to increase awareness.&lt;/p&gt;
+
+&lt;p&gt;The reason why I started this project is because Information Security is a very interesting argument which is getting more and more 
+critical as time goes by due to the growing presence of devices on the Internet.&lt;/p&gt;
+
+&lt;p&gt;In this scenario it is important to understand what type of attacks are in the wild and how to secure our devices, i.e. our data, from 
+malicious users trying to steal personal informations such as credentials and documents.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://192.168.1.200:4000/images/cybersecurity.jpg&quot; style=&quot;width: 800px; &quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Theory is fundamental in every discipline, but I think that to understand deeply some concepts it is a must to consider also practice.
+This is why the idea is to show theory of attacks followed by “hands-on” demonstrations performed on a virtual laboratory environment.
+&lt;br /&gt;
+&lt;br /&gt;
+Following a portion of the steps presented in the Penetration Testing Execution Standards (PTES), which represents a technical
+guideline for performing a penetration test, i.e. a simulation of a real attack against a certain target, we will focus on the theory and
+practice behind the following main phases:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Information gathering or reconnaissance;&lt;/li&gt;
+  &lt;li&gt;Vulnerability analysis;&lt;/li&gt;
+  &lt;li&gt;Exploitation;&lt;/li&gt;
+  &lt;li&gt;Post-exploitation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We will see the huge amount of informations we can acquire about a certain target by simply crawling the Internet using proper searches
+and tools; understanding how it is important to limit the visibility of our personal informations to public access is a first important
+step in the road to security.
+&lt;br /&gt;
+Many times users are the same ones giving the attackers a huge help by simply leaving personal data publicly
+available on the net.
+&lt;br /&gt;
+&lt;br /&gt;
+We will go from Web Application testing (for example SQL Injection, Cross-Site Scripting, Local/Remote File Inclusion) to Client-side
+exploitation taking advantage of vulnerabilities in the software installed on victim machines.
+&lt;br /&gt;
+Since today Social Engineering techniques represent one of the most effective way to gather informations as they are based on the weak link
+of the chain, i.e. users, we will show how attackers use this “art” to trick victims to obtain remote access to their machines and 
+how it can be combined with Man In The Middle attacks to steal confidential data.
+&lt;br /&gt;
+We will see how it is important to choose complex passwords for our accounts since the increasing power of processors makes dictionary 
+and brute force attacks more and more effective. This type of attacks can be performed also in the case of Wi-Fi networks where we will
+see some techniques to check if an access point is set up in a secure way. 
+&lt;br /&gt;
+&lt;br /&gt;
+Of course this is just a brief overview of the arguments treated in this blog, but I think it will give you an idea of what you can look
+for here.
+&lt;br /&gt;
+I hope you will find this blog useful. Enjoy the reading and see you in the next post.
+&lt;br /&gt;
+&lt;br /&gt;
+References: http://www.pentest-standard.org&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Jul 2016 23:23:44 +0200</pubDate>
+        <link>http://spreadsecurity.github.io/2016/07/05/introduction.html</link>
+        <guid isPermaLink="true">http://spreadsecurity.github.io/2016/07/05/introduction.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>
+

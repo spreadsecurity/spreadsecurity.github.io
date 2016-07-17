@@ -4,10 +4,10 @@
     <title>Spread Security</title>
     <description>© 2016 Spread Security | All Rights Reserved 
 </description>
-    <link>http://192.168.1.200/</link>
-    <atom:link href="http://192.168.1.200/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Jul 2016 10:38:05 +0200</pubDate>
-    <lastBuildDate>Sun, 17 Jul 2016 10:38:05 +0200</lastBuildDate>
+    <link>https://spreadsecurity.github.io//</link>
+    <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 17 Jul 2016 10:46:38 +0200</pubDate>
+    <lastBuildDate>Sun, 17 Jul 2016 10:46:38 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -20,7 +20,7 @@
   &lt;li&gt;Post-exploitation.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!--more--&gt;
-&lt;p&gt;&lt;img src=&quot;/images/main_phases.png&quot; alt=&quot;&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;https://spreadsecurity.github.io/images/main_phases.png&quot; alt=&quot;&quot; /&gt;
 &lt;br /&gt;
 &lt;br /&gt;
 &lt;b&gt;Information gathering&lt;/b&gt;
@@ -61,8 +61,8 @@ In the next articles, we will discuss about topics regarding these four macro-ph
 References: &lt;i&gt;http://www.pentest-standard.org&lt;/i&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 15 Jul 2016 22:11:51 +0200</pubDate>
-        <link>http://192.168.1.200/2016/07/15/main-steps-of-an-attack.html</link>
-        <guid isPermaLink="true">http://192.168.1.200/2016/07/15/main-steps-of-an-attack.html</guid>
+        <link>https://spreadsecurity.github.io//2016/07/15/main-steps-of-an-attack.html</link>
+        <guid isPermaLink="true">https://spreadsecurity.github.io//2016/07/15/main-steps-of-an-attack.html</guid>
         
         
       </item>
@@ -76,7 +76,7 @@ References: &lt;i&gt;http://www.pentest-standard.org&lt;/i&gt;&lt;/p&gt;
 &lt;p&gt;In this scenario it is important to understand what type of attacks are in the wild and how to secure our devices, i.e. our data, from malicious users trying to steal personal informations such as credentials and documents.
 &lt;!--more--&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/cybersecurity.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://spreadsecurity.github.io/images/cybersecurity.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Theory is fundamental in every discipline, but I think that to understand deeply some concepts it is a must to consider also practice.
 This is why the idea here is to show theory of attacks followed by “hands-on” demonstrations performed on a virtual laboratory environment.&lt;/p&gt;
@@ -92,8 +92,8 @@ This is why the idea here is to show theory of attacks followed by “hands-on�
 &lt;p&gt;I really hope you will find this blog useful, so enjoy the reading and see you in the next post.&lt;/p&gt;
 </description>
         <pubDate>Tue, 05 Jul 2016 23:23:44 +0200</pubDate>
-        <link>http://192.168.1.200/2016/07/05/introduction.html</link>
-        <guid isPermaLink="true">http://192.168.1.200/2016/07/05/introduction.html</guid>
+        <link>https://spreadsecurity.github.io//2016/07/05/introduction.html</link>
+        <guid isPermaLink="true">https://spreadsecurity.github.io//2016/07/05/introduction.html</guid>
         
         
       </item>

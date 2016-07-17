@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 17 Jul 2016 11:47:11 +0200</pubDate>
-    <lastBuildDate>Sun, 17 Jul 2016 11:47:11 +0200</lastBuildDate>
+    <pubDate>Sun, 17 Jul 2016 11:48:47 +0200</pubDate>
+    <lastBuildDate>Sun, 17 Jul 2016 11:48:47 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -19,9 +19,9 @@
   &lt;li&gt;Exploitation;&lt;/li&gt;
   &lt;li&gt;Post-exploitation.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;Since these steps mimic how the attacker thinks and acts, performing this process via previous authorization is also called “Ethical Hacking”.
 &lt;!--more--&gt;
-&lt;p&gt;&lt;img src=&quot;https://spreadsecurity.github.io/images/main_phases.png&quot; alt=&quot;&quot; /&gt;
-Since these steps mimic how the attacker thinks and acts, performing this process via previous authorization is also called “Ethical Hacking”.
+&lt;img src=&quot;https://spreadsecurity.github.io/images/main_phases.png&quot; alt=&quot;&quot; /&gt;
 &lt;br /&gt;
 &lt;br /&gt;
 &lt;b&gt;Information gathering&lt;/b&gt;

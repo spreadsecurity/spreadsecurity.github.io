@@ -80,48 +80,38 @@
   <li>Post-exploitation.</li>
 </ul>
 <p>Since these steps mimic how the attacker thinks and acts, performing this process via previous authorization is also called “Ethical Hacking”.
-<!--more-->
-<br />
-<br />
-<img src="https://spreadsecurity.github.io/images/main_phases.png" alt="" />
-<br />
-<br />
-<b>Information gathering</b>
-<br />
-There is a huge amount of informations we can acquire about a certain target by simply crawling the Internet using proper searches and tools, namely <i>passive reconnaissance</i>; this type of information gathering is really safe for the attacker: in fact, since it does not interact directly with the systems because it uses only web search engines, it is difficult to detect.
-<br />
-Understanding how it is important to limit the visibility of our personal informations is a first important step in the road to security. Many times users are the same ones giving the attackers a huge help by simply leaving personal data publicly available on the net.
-<br />
-<br />
-On the other side, <i>active reconnaissance</i> is more invasive and can trigger alerts on Intrusion Detection Systems (IDS), but gives a lot more specific informations such as version of operating system and applications running on target machine, services and open ports.
-<br />
-<br />
-<b>Vulnerability Analysis</b>
-<br />
-Once we have collected enough informations about the target, we can start analyzing vulnerabilities, i.e. security flaws in target systems. Even if understanding how to find vulnerabilities by ourselves is important (especially in a security research perspective), sometimes it can be useful to take advantage of automatic tools for scanning a certain system in order to find known security issues, especially if the time available to discover them is limited. This is why we will look at some useful tools called Vulnerability Scanners: they namely scan the target, mostly in a invasive way, to check if there are known vulnerabilities or software misconfigurations; finally they report the results in a document.
-<br />
-<br />
-<b>Exploitation</b>
-<br />
-Finding a vulnerability does not necessarily mean we can exploit it to compromise systems or accounts: this is where the art of exploitation takes place and where the attacker shows his knowledge, capability and creativity.
-<br />
-We will go from Web Application testing (such as SQL Injection, Cross-Site Scripting, Local/Remote File Inclusion) to Client-side exploitation taking advantage of vulnerabilities in the software installed on target machines.
-<br />
-<br />
-<b>Post-exploitation</b>
-<br />
-Once the access to the system is obtained, the attacker can start the real intrusion: in fact, this is where the concrete attack starts. Generally, one of the first things to do is to try to escalate privileges, i.e. getting full access to all folders and files on the system so as to exfiltrate as much data as possible. Furthermore the attacker may want to be able to reconnect back to the compromised system whenever he wants to, so another post-exploitation activity could be the implemetation of the so called “persistence”.
-<br />
-Moreover, if the compromised system is connected to other systems it is possible to leverage this feature to get access to other devices connected to the same network interface subnet.
-<br />
-<br />
-This is just a high-level view of how an attacker plans and executes an attack; we will perform in detail these steps in a virtual laboratory environment on intentionally vulnerable machines created for didactic purpose.
-<br />
-<br />
-In the next articles, we will discuss about topics regarding these four macro-phases.
-<br />
-<br />
-References: <i>http://www.pentest-standard.org</i></p>
+<!--more--></p>
+
+<p><img src="https://spreadsecurity.github.io/images/main_phases.png" alt="" /></p>
+
+<p><b>Information gathering</b></p>
+
+<p>There is a huge amount of informations we can acquire about a certain target by simply crawling the Internet using proper searches and tools, namely <i>passive reconnaissance</i>; this type of information gathering is really safe for the attacker: in fact, since it does not interact directly with the systems because it uses only web search engines, it is difficult to detect.</p>
+
+<p>Understanding how it is important to limit the visibility of our personal informations is a first important step in the road to security. Many times users are the same ones giving the attackers a huge help by simply leaving personal data publicly available on the net.</p>
+
+<p>On the other side, <i>active reconnaissance</i> is more invasive and can trigger alerts on Intrusion Detection Systems (IDS), but gives a lot more specific informations such as version of operating system and applications running on target machine, services and open ports.</p>
+
+<p><b>Vulnerability Analysis</b></p>
+
+<p>Once we have collected enough informations about the target, we can start analyzing vulnerabilities, i.e. security flaws in target systems. Even if understanding how to find vulnerabilities by ourselves is important (especially in a security research perspective), sometimes it can be useful to take advantage of automatic tools for scanning a certain system in order to find known security issues, especially if the time available to discover them is limited. This is why we will look at some useful tools called Vulnerability Scanners: they namely scan the target, mostly in a invasive way, to check if there are known vulnerabilities or software misconfigurations; finally they report the results in a document.</p>
+
+<p><b>Exploitation</b></p>
+
+<p>Finding a vulnerability does not necessarily mean we can exploit it to compromise systems or accounts: this is where the art of exploitation takes place and where the attacker shows his knowledge, capability and creativity.</p>
+
+<p>We will go from Web Application testing (such as SQL Injection, Cross-Site Scripting, Local/Remote File Inclusion) to Client-side exploitation taking advantage of vulnerabilities in the software installed on target machines.</p>
+
+<p><b>Post-exploitation</b></p>
+
+<p>Once the access to the system is obtained, the attacker can start the real intrusion: in fact, this is where the concrete attack starts. Generally, one of the first things to do is to try to escalate privileges, i.e. getting full access to all folders and files on the system so as to exfiltrate as much data as possible. Furthermore the attacker may want to be able to reconnect back to the compromised system whenever he wants to, so another post-exploitation activity could be the implemetation of the so called “persistence”.
+Moreover, if the compromised system is connected to other systems it is possible to leverage this feature to get access to other devices connected to the same network interface subnet.</p>
+
+<p>This is just a high-level view of how an attacker plans and executes an attack; we will perform in detail these steps in a virtual laboratory environment on intentionally vulnerable machines created for didactic purpose.</p>
+
+<p>In the next articles, we will discuss about topics regarding these four macro-phases.</p>
+
+<p>References: <i>http://www.pentest-standard.org</i></p>
 
   </div>
 

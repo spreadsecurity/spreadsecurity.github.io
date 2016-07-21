@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 Jul 2016 23:07:41 +0200</pubDate>
-    <lastBuildDate>Thu, 21 Jul 2016 23:07:41 +0200</lastBuildDate>
+    <pubDate>Thu, 21 Jul 2016 23:08:47 +0200</pubDate>
+    <lastBuildDate>Thu, 21 Jul 2016 23:08:47 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -74,7 +74,7 @@ This is why it is important to configure properly the access to informations hos
 &lt;p&gt;Of course, a wrong access configuration of these devices can generate serious problem in term of privacy.&lt;br /&gt;
 The simplest example is given by private webcams, or better what they are intended to be: in fact, if they are set to have a public IP address and have not been secured properly, they can be accessed from anywhere in the world by anyone. Moreover, even if they are configured to request login credentials, many of them still have default access values, which can be easily acquired by reading the user manual.&lt;br /&gt;
 Generally the web control interface, depending from the webcam model, has a default page title and a defined pattern in the url used for the browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet.&lt;br /&gt;
-An example is given by this simple query which exploit the web console interface title:&lt;/p&gt;
+An example is given by this simple query which exploits the web console interface title:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;intitle:&quot;Live View / - AXIS&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 

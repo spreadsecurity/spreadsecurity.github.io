@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 Jul 2016 23:04:40 +0200</pubDate>
-    <lastBuildDate>Thu, 21 Jul 2016 23:04:40 +0200</lastBuildDate>
+    <pubDate>Thu, 21 Jul 2016 23:06:22 +0200</pubDate>
+    <lastBuildDate>Thu, 21 Jul 2016 23:06:22 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -65,7 +65,7 @@ So, interpreting the whole query: we are asking to search through the site www.n
 &lt;p&gt;You can easily see how powerful this syntax is and you will be surprised by discovering the amount of confidential informations left to public access.
 This is why it is important to configure properly the access to informations hosted on the net, for example in a website. However, if not really needed, it is a good practice to avoid hosting of confidential documents on websites, since they are the first contact point for attackers.&lt;/p&gt;
 
-&lt;p&gt;&lt;b&gt;Internet of things&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Internet of Things&lt;/b&gt;&lt;/p&gt;
 
 &lt;p&gt;Confidential documents are not the only problem in terms of Security. In fact, today a large number of devices are connected to Internet, from smartphones or watches to air-conditioning devices or even refrigerators: this is what has been called “Internet of Things” (IoT), i.e. the network composed by physical devices collecting and exchanging data between themselves.&lt;/p&gt;
 

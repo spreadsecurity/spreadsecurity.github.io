@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 22 Jul 2016 18:48:31 +0200</pubDate>
-    <lastBuildDate>Fri, 22 Jul 2016 18:48:31 +0200</lastBuildDate>
+    <pubDate>Fri, 22 Jul 2016 18:58:14 +0200</pubDate>
+    <lastBuildDate>Fri, 22 Jul 2016 18:58:14 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -65,7 +65,12 @@ So, interpreting the whole query: we are asking to search through the site www.n
 &lt;p&gt;You can easily see how powerful this syntax is and you will be surprised by discovering the amount of confidential informations left to public access.
 This is why it is important to configure properly the access to informations hosted on the net, for example in a website. However, if not really needed, it is a good practice to avoid hosting of confidential documents on websites, since they are the first contact point for attackers.&lt;/p&gt;
 
-&lt;p&gt;I suggest you to take a look&lt;/p&gt;
+&lt;p&gt;If you want to take a look at a really good list of Google dorks I suggest you to visit the following website:
+https://www.exploit-db.com/google-hacking-database&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/ghdb.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here you can search through the Google Hacking DataBase choosing the query category you are interested in and then simply use it to search through Google.&lt;/p&gt;
 </description>
         <pubDate>Mon, 18 Jul 2016 00:00:00 +0200</pubDate>
         <link>https://spreadsecurity.github.io//2016/07/18/information-gathering-with-google-search-engine.html</link>

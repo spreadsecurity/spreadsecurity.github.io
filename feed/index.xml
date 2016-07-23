@@ -6,19 +6,19 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 22 Jul 2016 19:06:56 +0200</pubDate>
-    <lastBuildDate>Fri, 22 Jul 2016 19:06:56 +0200</lastBuildDate>
+    <pubDate>Sat, 23 Jul 2016 16:15:50 +0200</pubDate>
+    <lastBuildDate>Sat, 23 Jul 2016 16:15:50 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
-        <title>Information Gathering with Google Search Engine</title>
+        <title>Information gathering with Google Search Engine</title>
         <description>&lt;p&gt;Generally, when we want to search for a particular argument, we open up our favourite browser, navigate to a Web Search Engine and type in some words related to that matter. Depending from how good we set up the research, we obtain more or less pertinent results.&lt;/p&gt;
 
 &lt;p&gt;Basically, everytime we launch a search we make a query to the web search engine: there are some particular expressions known to the engine, called Advanced Search Operators, which make a search more effective. Queries built like these are also called “Google dorks”.&lt;br /&gt;
 &lt;!--more--&gt;
 For example, we can make a simple search for “cyber security” using Google Search Engine:&lt;/p&gt;
 
-&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/google_search.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/google_search/google_search.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;By doing this we obtain a good amount of informations about the argument; note that we could achieve the same result by using the following url instead of compiling the search form:&lt;/p&gt;
 
@@ -36,7 +36,7 @@ In addition to search operators, there are special search characters like the do
 
 &lt;p&gt;A pretty good list of Google advanced search operators is this one from DEFCON 2005 Conference:&lt;/p&gt;
 
-&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/google_search_operators.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/google_search/google_search_operators.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;List for special search characters:&lt;/p&gt;
 &lt;ul&gt;
@@ -51,7 +51,7 @@ In addition to search operators, there are special search characters like the do
 
 &lt;p&gt;The special char “-“ is really interesting for listing subdomains. Considering the next query we obtain a list of the subdomains of nist.gov:&lt;/p&gt;
 
-&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/nist_search.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/google_search/nist_search.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Adding more “-“ condition allows to crawl even deeper: keep in mind that Google ranks the results, so the most searched stuff lies at the top, i.e. in the first pages, while the most interesting informations (from an attacker point of view) can be found at the bottom.&lt;/p&gt;
 
@@ -68,9 +68,12 @@ This is why it is important to configure properly the access to informations hos
 &lt;p&gt;If you want to take a look at a really good list of Google dorks I suggest you to visit the following website:
 https://www.exploit-db.com/google-hacking-database&lt;/p&gt;
 
-&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/ghdb.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/google_search/ghdb.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Here you can search through the Google Hacking DataBase choosing the query category you are interested in and then simply use it to search through Google.&lt;/p&gt;
+&lt;p&gt;Here you can search through the Google Hacking DataBase choosing the query category you are interested in and then simply use it to search through Google.
+Keep in mind that this type of information gathering through search engine is a passive reconnaissance activity since we are not interacting directly with the systems; this helps to maintain a low profile making hard to be detected.&lt;/p&gt;
+
+&lt;p&gt;All these search activities can be executed by using automatic tools, which leverage not only Google, but a huge variety of search engines and social network platforms; we will take a look at some of them in the next posts.&lt;/p&gt;
 </description>
         <pubDate>Mon, 18 Jul 2016 00:00:00 +0200</pubDate>
         <link>https://spreadsecurity.github.io//2016/07/18/information-gathering-with-google-search-engine.html</link>
@@ -81,8 +84,6 @@ https://www.exploit-db.com/google-hacking-database&lt;/p&gt;
         <category>Google advanced search operators</category>
         
         <category>OSINT</category>
-        
-        <category>IoT</category>
         
         
       </item>

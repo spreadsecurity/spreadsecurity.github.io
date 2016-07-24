@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Information gathering with Shodan</title>
+  <meta name="description" content="Today a large number of devices are connected to Internet, from smartphones or watches to air-conditioning devices or even refrigerators: this is what has be...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://spreadsecurity.github.io//2016/07/24/information-gathering-with-shodan.html">
+  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Spread Security</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+          <a class="page-link" href="/archive/">Archive</a>
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/feed/">Subscribe</a>
+          
+        
+          
+          <a class="page-link" href="/tags/">Tags</a>
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Information gathering with Shodan</h1>
+    <p class="post-meta"><time datetime="2016-07-24T00:00:00+02:00" itemprop="datePublished">Jul 24, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Today a large number of devices are connected to Internet, from smartphones or watches to air-conditioning devices or even refrigerators: this is what has been called “Internet of Things” (IoT), i.e. the network composed by physical devices collecting and exchanging data between themselves.</p>
+
+<!--more-->
+
+<p class="center"><img src="/images/shodan/IoT.png" alt="" /></p>
+
+<p>Of course, a wrong configuration of these devices can generate serious problems in term of privacy.<br />
+The simplest example is given by private webcams, or better what they are intended to be: in fact, in the case they are set to have a public IP address and have not been secured properly, they can be accessed from anywhere in the world by anyone.<br />
+Moreover, even if configured to request login credentials, many of them still have default access values, which can be easily acquired by reading the user manual.<br />
+Generally, depending from the webcam model, the web control interface has a default page title and a defined pattern in the url used for the browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet with the same technique used in the previous article.<br />
+An example is given by this simple query which exploits the web console interface title:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">intitle:"Live View / - AXIS"</code></pre></figure>
+
+<p>In this way we can find all webcams from AXIS manufacturer with a public IP address indexed by Google.</p>
+
+<p>However, there is a really powerful search engine for the IoT called <em>Shodan</em> that makes all the hard work for us: https://www.shodan.io</p>
+
+<p><b>The search engine for the Internet of Things</b></p>
+
+<p>The description in the website says that Shodan is the world’s first search engine for Internet-connected devices:</p>
+
+<p class="center"><img src="/images/shodan/shodan.png" alt="" /></p>
+
+<p>Here it is possible to look for industrial control systems, databases, video games servers, routers, webcams, refrigerators and so on; in fact, mainly using banner grabbing technique by interrogating ports, Shodan is able to discover a lot of informations about publicly exposed devices.</p>
+
+<p>We can either use directly the search form or use the Explore button for a guided search through the available categories using predefined queries.
+I highly suggest to register to the site in order to gain access to features like <em>filters</em> and <em>reports</em> (including the API key).</p>
+
+<p>Suppose we want to search again for AXIS devices, we compile the search form and launch the query:</p>
+
+<p class="center"><a href="/images/shodan/axis.png"><img src="/images/shodan/axis.png" alt="" /></a></p>
+
+<p>The above image shows the results page; on the left side of the screen we have five interesting groups (they change depending on the query):</p>
+<ul>
+	<li>Top countries;</li>
+	<li>Top services;</li>
+	<li>Top organizations;</li>
+	<li>Top operating systems;</li>
+	<li>Top products.</li>
+</ul>
+
+<p>Each of them reports the top five; for example, the first one shows the top five countries having the major number of devices of that type.
+On the right side, each result is reported with the corresponding IP address (which I have partially blacked out for privacy reasons) and the body text area which represents device response. By clicking on a device a new page opens up with more detailed informations, including a map showing the geolocation using Mapbox API (omitted in the next image).</p>
+
+<p class="center"><a href="/images/shodan/axis_detail.png"><img src="/images/shodan/axis_detail.png" alt="" /></a></p>
+
+<p>Moreover, it is possible to generate reports by clicking on Create Report (only for registered users):</p>
+
+<p class="center"><a href="/images/shodan/top_countries.png"><img src="/images/shodan/top_countries.png" alt="" /></a>
+<a href="/images/shodan/top_services.png"><img src="/images/shodan/top_services.png" alt="" /></a>
+<a href="/images/shodan/top_organizations.png"><img src="/images/shodan/top_organizations.png" alt="" /></a>
+<a href="/images/shodan/top_products.png"><img src="/images/shodan/top_products.png" alt="" /></a>
+<a href="/images/shodan/top_versions.png"><img src="/images/shodan/top_versions.png" alt="" /></a>
+<a href="/images/shodan/top_domains.png"><img src="/images/shodan/top_domains.png" alt="" /></a>
+<a href="/images/shodan/ssl_versions.png"><img src="/images/shodan/ssl_versions.png" alt="" /></a>
+<a href="/images/shodan/ssl_chain_lenght.png"><img src="/images/shodan/ssl_chain_lenght.png" alt="" /></a>
+<a href="/images/shodan/top_operating_systems.png"><img src="/images/shodan/top_operating_systems.png" alt="" /></a></p>
+
+<p>The other important feature is represented by filters; they are really useful to improve the search, just like we saw for Google advanced search operators and some of them are reported next:</p>
+
+<ul>
+	<li>country - filters by usign a two letters country code (es. US, JP, FR, IT, RU);</li>
+	<li>city - filters by a specific city name;</li>
+	<li>hostname - filters by specified hostname or domain;</li>
+	<li>net - filters by a specific IP range;</li>
+	<li>product - filters by a certain technology (es. MySQL, Apache, IIS, Nginx);</li>
+	<li>os - filters by operating system;</li>
+	<li>port - filters by specific port;</li>
+	<li>org - filters by organization;</li>
+	<li>geo - filters by geographic coordinates.</li>
+</ul>
+
+<p>The application of filters can be done by clicking on the items on the left contained in the top five groups seen before or manually in the search form by specifying the query in this way (example search for SSH port):</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">port:22</code></pre></figure>
+
+<p>Remember that making a search without filters, it is equivalent to tell to the engine to look for the requested information in the body text area.</p>
+
+<p>If we want to find all MySQL servers in USA, the query will be:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">product:"MySQL" country:"US"</code></pre></figure>
+
+<p>On the left side of the results page we get two interesting groups: top operating systems and top versions.</p>
+
+<p class="center"><a href="/images/shodan/mysql_us.png"><img src="/images/shodan/mysql_us.png" alt="" /></a></p>
+
+<p>They can be used to apply other two filters; for example, we can choose to search for old Windows XP operating systems (!) and then the 5.1.71-community version of MySQL (this version appears on the left after filtering the O.S.):</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">country:"US" product:"MySQL" os:"Windows XP" version:"5.1.71-community"</code></pre></figure>
+
+<p>There is also an interesting application, available at https://maps.shodan.io, through which we can even look at a map with pinpoints indicating the geolocation of public MySQL servers in USA:</p>
+
+<p class="center"><a href="/images/shodan/shodan_maps.png"><img src="/images/shodan/shodan_maps.png" alt="" /></a></p>
+
+<p>In terms of Industrial Control Systems (ICS), Shodan has also a pretty nice informative animated graph called Shodan ICS Radar showing a worldwide display of ICS accessible via web:</p>
+
+<p class="center"><a href="/images/shodan/ics_radar.png"><img src="/images/shodan/ics_radar.png" alt="" /></a></p>
+
+<p>I suggest to experiment with filters of all types to get familiar with queries and take advantage of the full potential of this search engine. Shodan can be a very useful tool to verify if a company network has critical nodes publicly exposed or not properly configured.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <!--<li>Spread Security</li>
+          <li><a href="mailto:spreadsec[at]gmail[dot]com">spreadsec[at]gmail[dot]com</a></li>-->
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>© 2016 Spread Security | All Rights Reserved 
+</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

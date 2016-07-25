@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 24 Jul 2016 23:52:13 +0200</pubDate>
-    <lastBuildDate>Sun, 24 Jul 2016 23:52:13 +0200</lastBuildDate>
+    <pubDate>Mon, 25 Jul 2016 17:58:08 +0200</pubDate>
+    <lastBuildDate>Mon, 25 Jul 2016 17:58:08 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -113,9 +113,9 @@ On the right side, each result is reported with the corresponding IP address (wh
 
 &lt;p&gt;I suggest to experiment with filters of all types to get familiar with queries and take advantage of the full potential of this search engine. Shodan can be a very useful tool to verify if a company network has critical nodes publicly exposed or not properly configured.&lt;/p&gt;
 </description>
-        <pubDate>Sun, 24 Jul 2016 00:00:00 +0200</pubDate>
-        <link>https://spreadsecurity.github.io//2016/07/24/information-gathering-with-shodan.html</link>
-        <guid isPermaLink="true">https://spreadsecurity.github.io//2016/07/24/information-gathering-with-shodan.html</guid>
+        <pubDate>Mon, 25 Jul 2016 00:00:00 +0200</pubDate>
+        <link>https://spreadsecurity.github.io//2016/07/25/information-gathering-with-shodan.html</link>
+        <guid isPermaLink="true">https://spreadsecurity.github.io//2016/07/25/information-gathering-with-shodan.html</guid>
         
         <category>Information gathering</category>
         

@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 25 Jul 2016 18:36:43 +0200</pubDate>
-    <lastBuildDate>Mon, 25 Jul 2016 18:36:43 +0200</lastBuildDate>
+    <pubDate>Mon, 25 Jul 2016 18:38:09 +0200</pubDate>
+    <lastBuildDate>Mon, 25 Jul 2016 18:38:09 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -103,7 +103,7 @@ On the right side, each result is reported with the corresponding device IP addr
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;country:&quot;US&quot; product:&quot;MySQL&quot; os:&quot;Windows XP&quot; version:&quot;5.1.71-community&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;There is also an interesting application, available at https://maps.shodan.io, through which we can even look at a map with pinpoints indicating the geolocation of public MySQL servers in USA:&lt;/p&gt;
+&lt;p&gt;There is also an interesting application, available at https://maps.shodan.io, through which we can even look at a map with pinpoints indicating the geolocation of devices, in this case public MySQL servers in USA:&lt;/p&gt;
 
 &lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/shodan/shodan_maps.png&quot;&gt;&lt;img src=&quot;/images/shodan/shodan_maps.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 

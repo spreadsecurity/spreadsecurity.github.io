@@ -96,7 +96,7 @@ An example is given by this simple query which exploits the web console interfac
 
 <p class="center"><img src="/images/shodan/shodan.png" alt="" /></p>
 
-<p>Here it is possible to look for industrial control systems, databases, video games servers, routers, webcams, refrigerators and so on; in fact, mainly using banner grabbing technique by interrogating ports, Shodan is able to discover a lot of informations about publicly exposed devices.</p>
+<p>Here it is possible to look for industrial control systems, databases, video games servers, routers, webcams, refrigerators and so on; in fact, mainly using banner grabbing technique by interrogating ports, Shodan is able to discover a lot of informations about publicly exposed devices. This is the big difference between Google and Shodan: while the first one crawls for data on web pages, the latter probes for ports and captures resulting banners.</p>
 
 <p>We can either use directly the search form or use the Explore button for a guided search through the available categories using predefined queries.
 I highly suggest to register to the site in order to gain access to features like <em>filters</em> and <em>reports</em> (including the API key).</p>
@@ -137,12 +137,13 @@ On the right side, each result is reported with the corresponding device IP addr
 	<li>country - filters by two letters country code (e.g. US, JP, FR, IT, RU);</li>
 	<li>city - filters by city name;</li>
 	<li>hostname - filters by hostname or domain;</li>
-	<li>net - filters by IP range;</li>
+	<li>net - filters by IP range (CIDR notation);</li>
 	<li>product - filters by technology (es. MySQL, Apache, IIS, Nginx);</li>
 	<li>os - filters by operating system;</li>
 	<li>port - filters by specific port;</li>
 	<li>org - filters by organization;</li>
-	<li>geo - filters by geographic coordinates.</li>
+	<li>geo - filters by geographic coordinates;</li>
+	<li>after/before - filters by date (format dd/mm/yyyy and dd-mm-yy).</li>
 </ul>
 
 <p>The application of filters can be done by clicking on the items on the left contained in the top five groups seen before or manually in the search form by specifying the query in this way (example search for SSH port):</p>

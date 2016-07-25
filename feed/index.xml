@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 25 Jul 2016 18:38:09 +0200</pubDate>
-    <lastBuildDate>Mon, 25 Jul 2016 18:38:09 +0200</lastBuildDate>
+    <pubDate>Mon, 25 Jul 2016 20:22:01 +0200</pubDate>
+    <lastBuildDate>Mon, 25 Jul 2016 20:22:01 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -36,7 +36,7 @@ An example is given by this simple query which exploits the web console interfac
 
 &lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/shodan/shodan.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Here it is possible to look for industrial control systems, databases, video games servers, routers, webcams, refrigerators and so on; in fact, mainly using banner grabbing technique by interrogating ports, Shodan is able to discover a lot of informations about publicly exposed devices.&lt;/p&gt;
+&lt;p&gt;Here it is possible to look for industrial control systems, databases, video games servers, routers, webcams, refrigerators and so on; in fact, mainly using banner grabbing technique by interrogating ports, Shodan is able to discover a lot of informations about publicly exposed devices. This is the big difference between Google and Shodan: while the first one crawls for data on web pages, the latter probes for ports and captures resulting banners.&lt;/p&gt;
 
 &lt;p&gt;We can either use directly the search form or use the Explore button for a guided search through the available categories using predefined queries.
 I highly suggest to register to the site in order to gain access to features like &lt;em&gt;filters&lt;/em&gt; and &lt;em&gt;reports&lt;/em&gt; (including the API key).&lt;/p&gt;
@@ -77,12 +77,13 @@ On the right side, each result is reported with the corresponding device IP addr
 	&lt;li&gt;country - filters by two letters country code (e.g. US, JP, FR, IT, RU);&lt;/li&gt;
 	&lt;li&gt;city - filters by city name;&lt;/li&gt;
 	&lt;li&gt;hostname - filters by hostname or domain;&lt;/li&gt;
-	&lt;li&gt;net - filters by IP range;&lt;/li&gt;
+	&lt;li&gt;net - filters by IP range (CIDR notation);&lt;/li&gt;
 	&lt;li&gt;product - filters by technology (es. MySQL, Apache, IIS, Nginx);&lt;/li&gt;
 	&lt;li&gt;os - filters by operating system;&lt;/li&gt;
 	&lt;li&gt;port - filters by specific port;&lt;/li&gt;
 	&lt;li&gt;org - filters by organization;&lt;/li&gt;
-	&lt;li&gt;geo - filters by geographic coordinates.&lt;/li&gt;
+	&lt;li&gt;geo - filters by geographic coordinates;&lt;/li&gt;
+	&lt;li&gt;after/before - filters by date (format dd/mm/yyyy and dd-mm-yy).&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;The application of filters can be done by clicking on the items on the left contained in the top five groups seen before or manually in the search form by specifying the query in this way (example search for SSH port):&lt;/p&gt;

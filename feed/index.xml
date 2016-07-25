@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 25 Jul 2016 18:07:13 +0200</pubDate>
-    <lastBuildDate>Mon, 25 Jul 2016 18:07:13 +0200</lastBuildDate>
+    <pubDate>Mon, 25 Jul 2016 18:36:43 +0200</pubDate>
+    <lastBuildDate>Mon, 25 Jul 2016 18:36:43 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -18,10 +18,10 @@
 
 &lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/shodan/IoT.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Of course, a wrong configuration of these devices can generate serious problems in term of privacy.&lt;br /&gt;
-The simplest example is given by private webcams, or better what they are intended to be: in fact, in the case they are set to have a public IP address and have not been secured properly, they can be accessed from anywhere in the world by anyone.&lt;br /&gt;
-Moreover, even if configured to request login credentials, many of them still have default access values, which can be easily acquired by reading the user manual.&lt;br /&gt;
-Generally, depending from the webcam model, the web control interface has a default page title and a defined pattern in the url used for the browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet with the same technique used in the previous article.&lt;br /&gt;
+&lt;p&gt;Of course, a wrong configuration of these devices can generate serious problems in terms of privacy.&lt;br /&gt;
+The simplest example is given by private webcams, or better what they are intended to be: in fact, if they are set to have a public IP address and have not been secured properly, they can be accessed from anywhere in the world by anyone.&lt;br /&gt;
+Moreover, even if configured to request login credentials, many of them still have default access values, which can be easily acquired by reading user manual.&lt;br /&gt;
+Generally, depending from the webcam model, the web control interface has a default page title and a defined pattern in the url used for browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet with the same technique used in the previous article.&lt;br /&gt;
 An example is given by this simple query which exploits the web console interface title:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;intitle:&quot;Live View / - AXIS&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -41,7 +41,7 @@ An example is given by this simple query which exploits the web console interfac
 &lt;p&gt;We can either use directly the search form or use the Explore button for a guided search through the available categories using predefined queries.
 I highly suggest to register to the site in order to gain access to features like &lt;em&gt;filters&lt;/em&gt; and &lt;em&gt;reports&lt;/em&gt; (including the API key).&lt;/p&gt;
 
-&lt;p&gt;Suppose we want to search again for AXIS devices, we compile the search form and launch the query:&lt;/p&gt;
+&lt;p&gt;Suppose we want to search for AXIS devices, we compile the search form and launch the query:&lt;/p&gt;
 
 &lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/shodan/axis.png&quot;&gt;&lt;img src=&quot;/images/shodan/axis.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
@@ -55,11 +55,11 @@ I highly suggest to register to the site in order to gain access to features lik
 &lt;/ul&gt;
 
 &lt;p&gt;Each of them reports the top five; for example, the first one shows the top five countries having the major number of devices of that type.
-On the right side, each result is reported with the corresponding IP address (which I have partially blacked out for privacy reasons) and the body text area which represents device response. By clicking on a device a new page opens up with more detailed informations, including a map showing the geolocation using Mapbox API (omitted in the next image).&lt;/p&gt;
+On the right side, each result is reported with the corresponding device IP address (which I have partially blacked out for privacy reasons) and the &lt;em&gt;body text area&lt;/em&gt; which represents device response. By clicking on a device a new page opens up with more detailed informations, including a map showing the geolocation using Mapbox API (omitted in the next image).&lt;/p&gt;
 
 &lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/shodan/axis_detail.png&quot;&gt;&lt;img src=&quot;/images/shodan/axis_detail.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Moreover, it is possible to generate reports by clicking on Create Report (only for registered users):&lt;/p&gt;
+&lt;p&gt;Moreover, it is possible to generate reports by clicking on “Create Report”:&lt;/p&gt;
 
 &lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/shodan/top_countries.png&quot;&gt;&lt;img src=&quot;/images/shodan/top_countries.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
 &lt;a href=&quot;/images/shodan/top_services.png&quot;&gt;&lt;img src=&quot;/images/shodan/top_services.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
@@ -71,14 +71,14 @@ On the right side, each result is reported with the corresponding IP address (wh
 &lt;a href=&quot;/images/shodan/ssl_chain_lenght.png&quot;&gt;&lt;img src=&quot;/images/shodan/ssl_chain_lenght.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
 &lt;a href=&quot;/images/shodan/top_operating_systems.png&quot;&gt;&lt;img src=&quot;/images/shodan/top_operating_systems.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;The other important feature is represented by filters; they are really useful to improve the search, just like we saw for Google advanced search operators and some of them are reported next:&lt;/p&gt;
+&lt;p&gt;The other important feature is represented by filters; they are really useful to improve the search, just like we saw for Google advanced search operators. Some of them are reported next:&lt;/p&gt;
 
 &lt;ul&gt;
-	&lt;li&gt;country - filters by usign a two letters country code (es. US, JP, FR, IT, RU);&lt;/li&gt;
-	&lt;li&gt;city - filters by a specific city name;&lt;/li&gt;
-	&lt;li&gt;hostname - filters by specified hostname or domain;&lt;/li&gt;
-	&lt;li&gt;net - filters by a specific IP range;&lt;/li&gt;
-	&lt;li&gt;product - filters by a certain technology (es. MySQL, Apache, IIS, Nginx);&lt;/li&gt;
+	&lt;li&gt;country - filters by two letters country code (e.g. US, JP, FR, IT, RU);&lt;/li&gt;
+	&lt;li&gt;city - filters by city name;&lt;/li&gt;
+	&lt;li&gt;hostname - filters by hostname or domain;&lt;/li&gt;
+	&lt;li&gt;net - filters by IP range;&lt;/li&gt;
+	&lt;li&gt;product - filters by technology (es. MySQL, Apache, IIS, Nginx);&lt;/li&gt;
 	&lt;li&gt;os - filters by operating system;&lt;/li&gt;
 	&lt;li&gt;port - filters by specific port;&lt;/li&gt;
 	&lt;li&gt;org - filters by organization;&lt;/li&gt;
@@ -99,7 +99,7 @@ On the right side, each result is reported with the corresponding IP address (wh
 
 &lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/shodan/mysql_us.png&quot;&gt;&lt;img src=&quot;/images/shodan/mysql_us.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;They can be used to apply other two filters; for example, we can choose to search for old Windows XP operating systems (!) and then the 5.1.71-community version of MySQL (this version appears on the left after filtering the O.S.):&lt;/p&gt;
+&lt;p&gt;They can be used to apply other two filters; for example, we can choose to search for old Windows XP operating systems (!) and then 5.1.71-community version of MySQL (this version appears on the left after filtering by O.S.):&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;country:&quot;US&quot; product:&quot;MySQL&quot; os:&quot;Windows XP&quot; version:&quot;5.1.71-community&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 

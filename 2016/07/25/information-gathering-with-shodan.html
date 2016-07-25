@@ -78,10 +78,10 @@
 
 <p class="center"><img src="/images/shodan/IoT.png" alt="" /></p>
 
-<p>Of course, a wrong configuration of these devices can generate serious problems in term of privacy.<br />
-The simplest example is given by private webcams, or better what they are intended to be: in fact, in the case they are set to have a public IP address and have not been secured properly, they can be accessed from anywhere in the world by anyone.<br />
-Moreover, even if configured to request login credentials, many of them still have default access values, which can be easily acquired by reading the user manual.<br />
-Generally, depending from the webcam model, the web control interface has a default page title and a defined pattern in the url used for the browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet with the same technique used in the previous article.<br />
+<p>Of course, a wrong configuration of these devices can generate serious problems in terms of privacy.<br />
+The simplest example is given by private webcams, or better what they are intended to be: in fact, if they are set to have a public IP address and have not been secured properly, they can be accessed from anywhere in the world by anyone.<br />
+Moreover, even if configured to request login credentials, many of them still have default access values, which can be easily acquired by reading user manual.<br />
+Generally, depending from the webcam model, the web control interface has a default page title and a defined pattern in the url used for browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet with the same technique used in the previous article.<br />
 An example is given by this simple query which exploits the web console interface title:</p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">intitle:"Live View / - AXIS"</code></pre></figure>
@@ -101,7 +101,7 @@ An example is given by this simple query which exploits the web console interfac
 <p>We can either use directly the search form or use the Explore button for a guided search through the available categories using predefined queries.
 I highly suggest to register to the site in order to gain access to features like <em>filters</em> and <em>reports</em> (including the API key).</p>
 
-<p>Suppose we want to search again for AXIS devices, we compile the search form and launch the query:</p>
+<p>Suppose we want to search for AXIS devices, we compile the search form and launch the query:</p>
 
 <p class="center"><a href="/images/shodan/axis.png"><img src="/images/shodan/axis.png" alt="" /></a></p>
 
@@ -115,11 +115,11 @@ I highly suggest to register to the site in order to gain access to features lik
 </ul>
 
 <p>Each of them reports the top five; for example, the first one shows the top five countries having the major number of devices of that type.
-On the right side, each result is reported with the corresponding IP address (which I have partially blacked out for privacy reasons) and the body text area which represents device response. By clicking on a device a new page opens up with more detailed informations, including a map showing the geolocation using Mapbox API (omitted in the next image).</p>
+On the right side, each result is reported with the corresponding device IP address (which I have partially blacked out for privacy reasons) and the <em>body text area</em> which represents device response. By clicking on a device a new page opens up with more detailed informations, including a map showing the geolocation using Mapbox API (omitted in the next image).</p>
 
 <p class="center"><a href="/images/shodan/axis_detail.png"><img src="/images/shodan/axis_detail.png" alt="" /></a></p>
 
-<p>Moreover, it is possible to generate reports by clicking on Create Report (only for registered users):</p>
+<p>Moreover, it is possible to generate reports by clicking on “Create Report”:</p>
 
 <p class="center"><a href="/images/shodan/top_countries.png"><img src="/images/shodan/top_countries.png" alt="" /></a>
 <a href="/images/shodan/top_services.png"><img src="/images/shodan/top_services.png" alt="" /></a>
@@ -131,14 +131,14 @@ On the right side, each result is reported with the corresponding IP address (wh
 <a href="/images/shodan/ssl_chain_lenght.png"><img src="/images/shodan/ssl_chain_lenght.png" alt="" /></a>
 <a href="/images/shodan/top_operating_systems.png"><img src="/images/shodan/top_operating_systems.png" alt="" /></a></p>
 
-<p>The other important feature is represented by filters; they are really useful to improve the search, just like we saw for Google advanced search operators and some of them are reported next:</p>
+<p>The other important feature is represented by filters; they are really useful to improve the search, just like we saw for Google advanced search operators. Some of them are reported next:</p>
 
 <ul>
-	<li>country - filters by usign a two letters country code (es. US, JP, FR, IT, RU);</li>
-	<li>city - filters by a specific city name;</li>
-	<li>hostname - filters by specified hostname or domain;</li>
-	<li>net - filters by a specific IP range;</li>
-	<li>product - filters by a certain technology (es. MySQL, Apache, IIS, Nginx);</li>
+	<li>country - filters by two letters country code (e.g. US, JP, FR, IT, RU);</li>
+	<li>city - filters by city name;</li>
+	<li>hostname - filters by hostname or domain;</li>
+	<li>net - filters by IP range;</li>
+	<li>product - filters by technology (es. MySQL, Apache, IIS, Nginx);</li>
 	<li>os - filters by operating system;</li>
 	<li>port - filters by specific port;</li>
 	<li>org - filters by organization;</li>
@@ -159,7 +159,7 @@ On the right side, each result is reported with the corresponding IP address (wh
 
 <p class="center"><a href="/images/shodan/mysql_us.png"><img src="/images/shodan/mysql_us.png" alt="" /></a></p>
 
-<p>They can be used to apply other two filters; for example, we can choose to search for old Windows XP operating systems (!) and then the 5.1.71-community version of MySQL (this version appears on the left after filtering the O.S.):</p>
+<p>They can be used to apply other two filters; for example, we can choose to search for old Windows XP operating systems (!) and then 5.1.71-community version of MySQL (this version appears on the left after filtering by O.S.):</p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">country:"US" product:"MySQL" os:"Windows XP" version:"5.1.71-community"</code></pre></figure>
 

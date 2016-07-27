@@ -82,14 +82,18 @@ For example, we can make a simple search for “cyber security” using Google S
 
 <p>By doing this we obtain a good amount of informations about the argument; note that we could achieve the same result by using the following url instead of compiling the search form:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">https://www.google.com/search?q=cyber+security</code></pre></figure>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>https://www.google.com/search?q=cyber+security
+</code></pre>
+</div>
 
 <p><b>Google Advanced Search Operators and Special Search Characters</b></p>
 
 <p>What if we want to do a more specific query, like obtaining all the results for that topic from a particular website? Here come advanced search operators.
 Suppose we want to analyze results coming from NIST (National Institute of Standards and Technology) for that topic; then the query should be:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">site:nist.gov "cyber security"</code></pre></figure>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>site:nist.gov "cyber security"
+</code></pre>
+</div>
 
 <p>The operator “site:” asks to the engine to show all the results associated to the website (which represent the argument of the operator) reported after the colon symbol; beware that there must be no space between the colon symbol and the argument of the operator.
 In addition to search operators, there are special search characters like the double quotes used before to search phrases or terms composed by more than one word.</p>
@@ -117,7 +121,9 @@ In addition to search operators, there are special search characters like the do
 
 <p>Now we will look for something more interesting in terms of confidential informations; suppose we want to know if in a certain website there is a PDF document containing the word “password”. For this purpose, we query Google with the following request:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">site:www.nameoftargetsite.com filetype:pdf intext:password</code></pre></figure>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>site:www.nameoftargetsite.com filetype:pdf intext:password
+</code></pre>
+</div>
 
 <p>The meaning of the previous line is explained next: the first operator is well known; the “filetype:” directive tells Google we want to search all the files with a particular extension, in this case PDF. Lastly, we add a third condition which makes the engine search for a specific word in the text.
 So, interpreting the whole query: we are asking to search through the site www.nameoftargetsite.com all PDF documents containing the word “password”.</p>

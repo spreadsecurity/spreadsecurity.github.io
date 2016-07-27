@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 26 Jul 2016 22:31:16 +0200</pubDate>
-    <lastBuildDate>Tue, 26 Jul 2016 22:31:16 +0200</lastBuildDate>
+    <pubDate>Wed, 27 Jul 2016 23:28:48 +0200</pubDate>
+    <lastBuildDate>Wed, 27 Jul 2016 23:28:48 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -24,7 +24,9 @@ Moreover, even if configured to request login credentials, many of them still ha
 Generally, depending from the webcam model, the web control interface has a default page title and a defined pattern in the url used for browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet with the same technique used in the previous article.&lt;br /&gt;
 An example is given by this simple query which exploits the web console interface title:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;intitle:&quot;Live View / - AXIS&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;intitle:&quot;Live View / - AXIS&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;In this way we can find all webcams from AXIS manufacturer with a public IP address indexed by Google.&lt;/p&gt;
 
@@ -88,13 +90,17 @@ On the right side, each result is reported with the corresponding device IP addr
 
 &lt;p&gt;The application of filters can be done by clicking on the items on the left contained in the top five groups seen before or manually in the search form by specifying the query in this way (example search for SSH port):&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;port:22&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;port:22
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Remember that making a search without filters, it is equivalent to tell to the engine to look for the requested information in the body text area.&lt;/p&gt;
 
 &lt;p&gt;If we want to find all MySQL servers in USA, the query will be:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;product:&quot;MySQL&quot; country:&quot;US&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;product:&quot;MySQL&quot; country:&quot;US&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;On the left side of the results page we get two interesting groups: top operating systems and top versions.&lt;/p&gt;
 
@@ -102,7 +108,9 @@ On the right side, each result is reported with the corresponding device IP addr
 
 &lt;p&gt;They can be used to apply other two filters; for example, we can choose to search for old Windows XP operating systems (!) and then 5.1.71-community version of MySQL (this version appears on the left after filtering by O.S.):&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;country:&quot;US&quot; product:&quot;MySQL&quot; os:&quot;Windows XP&quot; version:&quot;5.1.71-community&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;country:&quot;US&quot; product:&quot;MySQL&quot; os:&quot;Windows XP&quot; version:&quot;5.1.71-community&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;There is also an interesting application, available at https://maps.shodan.io, through which we can even look at a map with pinpoints indicating the geolocation of devices, in this case public MySQL servers in USA:&lt;/p&gt;
 
@@ -113,6 +121,12 @@ On the right side, each result is reported with the corresponding device IP addr
 &lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/shodan/ics_radar.png&quot;&gt;&lt;img src=&quot;/images/shodan/ics_radar.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;I suggest to experiment with filters of all types to get familiar with queries and take advantage of the full potential of this search engine. Shodan can be a very useful tool to verify if a company network has critical nodes publicly exposed or not properly configured.&lt;/p&gt;
+
+&lt;p&gt;Bonus query:&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;has_screenshot:true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Mon, 25 Jul 2016 00:00:00 +0200</pubDate>
         <link>https://spreadsecurity.github.io//2016/07/25/information-gathering-with-shodan.html</link>
@@ -139,14 +153,18 @@ For example, we can make a simple search for “cyber security” using Google S
 
 &lt;p&gt;By doing this we obtain a good amount of informations about the argument; note that we could achieve the same result by using the following url instead of compiling the search form:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;https://www.google.com/search?q=cyber+security&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://www.google.com/search?q=cyber+security
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;&lt;b&gt;Google Advanced Search Operators and Special Search Characters&lt;/b&gt;&lt;/p&gt;
 
 &lt;p&gt;What if we want to do a more specific query, like obtaining all the results for that topic from a particular website? Here come advanced search operators.
 Suppose we want to analyze results coming from NIST (National Institute of Standards and Technology) for that topic; then the query should be:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;site:nist.gov &quot;cyber security&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;site:nist.gov &quot;cyber security&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;The operator “site:” asks to the engine to show all the results associated to the website (which represent the argument of the operator) reported after the colon symbol; beware that there must be no space between the colon symbol and the argument of the operator.
 In addition to search operators, there are special search characters like the double quotes used before to search phrases or terms composed by more than one word.&lt;/p&gt;
@@ -174,7 +192,9 @@ In addition to search operators, there are special search characters like the do
 
 &lt;p&gt;Now we will look for something more interesting in terms of confidential informations; suppose we want to know if in a certain website there is a PDF document containing the word “password”. For this purpose, we query Google with the following request:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;site:www.nameoftargetsite.com filetype:pdf intext:password&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;site:www.nameoftargetsite.com filetype:pdf intext:password
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;The meaning of the previous line is explained next: the first operator is well known; the “filetype:” directive tells Google we want to search all the files with a particular extension, in this case PDF. Lastly, we add a third condition which makes the engine search for a specific word in the text.
 So, interpreting the whole query: we are asking to search through the site www.nameoftargetsite.com all PDF documents containing the word “password”.&lt;/p&gt;

@@ -84,7 +84,9 @@ Moreover, even if configured to request login credentials, many of them still ha
 Generally, depending from the webcam model, the web control interface has a default page title and a defined pattern in the url used for browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet with the same technique used in the previous article.<br />
 An example is given by this simple query which exploits the web console interface title:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">intitle:"Live View / - AXIS"</code></pre></figure>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>intitle:"Live View / - AXIS"
+</code></pre>
+</div>
 
 <p>In this way we can find all webcams from AXIS manufacturer with a public IP address indexed by Google.</p>
 
@@ -148,13 +150,17 @@ On the right side, each result is reported with the corresponding device IP addr
 
 <p>The application of filters can be done by clicking on the items on the left contained in the top five groups seen before or manually in the search form by specifying the query in this way (example search for SSH port):</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">port:22</code></pre></figure>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>port:22
+</code></pre>
+</div>
 
 <p>Remember that making a search without filters, it is equivalent to tell to the engine to look for the requested information in the body text area.</p>
 
 <p>If we want to find all MySQL servers in USA, the query will be:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">product:"MySQL" country:"US"</code></pre></figure>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>product:"MySQL" country:"US"
+</code></pre>
+</div>
 
 <p>On the left side of the results page we get two interesting groups: top operating systems and top versions.</p>
 
@@ -162,7 +168,9 @@ On the right side, each result is reported with the corresponding device IP addr
 
 <p>They can be used to apply other two filters; for example, we can choose to search for old Windows XP operating systems (!) and then 5.1.71-community version of MySQL (this version appears on the left after filtering by O.S.):</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">country:"US" product:"MySQL" os:"Windows XP" version:"5.1.71-community"</code></pre></figure>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>country:"US" product:"MySQL" os:"Windows XP" version:"5.1.71-community"
+</code></pre>
+</div>
 
 <p>There is also an interesting application, available at https://maps.shodan.io, through which we can even look at a map with pinpoints indicating the geolocation of devices, in this case public MySQL servers in USA:</p>
 
@@ -173,6 +181,12 @@ On the right side, each result is reported with the corresponding device IP addr
 <p class="center"><a href="/images/shodan/ics_radar.png"><img src="/images/shodan/ics_radar.png" alt="" /></a></p>
 
 <p>I suggest to experiment with filters of all types to get familiar with queries and take advantage of the full potential of this search engine. Shodan can be a very useful tool to verify if a company network has critical nodes publicly exposed or not properly configured.</p>
+
+<p>Bonus query:</p>
+
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>has_screenshot:true
+</code></pre>
+</div>
 
   </div>
 

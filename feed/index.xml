@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 27 Jul 2016 23:28:48 +0200</pubDate>
-    <lastBuildDate>Wed, 27 Jul 2016 23:28:48 +0200</lastBuildDate>
+    <pubDate>Sat, 30 Jul 2016 13:28:09 +0200</pubDate>
+    <lastBuildDate>Sat, 30 Jul 2016 13:28:09 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -138,6 +138,8 @@ On the right side, each result is reported with the corresponding device IP addr
         
         <category>IoT</category>
         
+        <category>OSINT</category>
+        
         
       </item>
     
@@ -249,13 +251,14 @@ Keep in mind that this type of information gathering through search engine is a 
 
 &lt;p&gt;&lt;b&gt;Vulnerability Analysis&lt;/b&gt;&lt;/p&gt;
 
-&lt;p&gt;Once we have collected enough informations about the target, we can start analyzing vulnerabilities, i.e. security flaws in target systems. Even if understanding how to find vulnerabilities by ourselves is important (especially in a security research perspective), sometimes it can be useful to take advantage of automatic tools for scanning a certain system in order to find known security issues, especially if the time available to discover them is limited. This is why we will look at some useful tools called Vulnerability Scanners: they namely scan the target, mostly in a invasive way, to check if there are known vulnerabilities or software misconfigurations; finally they report the results in a document.&lt;/p&gt;
+&lt;p&gt;Once we have collected enough informations about the target, we can start analyzing vulnerabilities, i.e. security flaws in target systems. Even if understanding how to find vulnerabilities by ourselves is important (especially in a security research perspective), sometimes it can be useful to take advantage of automatic tools for scanning a certain system in order to find known security issues, especially if the time available to discover them is limited. This is why we will look at some useful tools called Vulnerability Scanners: they namely scan the target, mostly in a invasive way, to check if there are known vulnerabilities or software misconfigurations; by probing hosts, the scanner looks for active addresses, open ports, operative systems, running applications versions and so on.&lt;br /&gt;
+Finally they report results in a document.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Exploitation&lt;/b&gt;&lt;/p&gt;
 
 &lt;p&gt;Finding a vulnerability does not necessarily mean we can exploit it to compromise systems or accounts: this is where the art of exploitation takes place and where the attacker shows his knowledge, capability and creativity.&lt;/p&gt;
 
-&lt;p&gt;We will go from Web Application testing (such as SQL Injection, Cross-Site Scripting, Local/Remote File Inclusion) to Client-side exploitation taking advantage of vulnerabilities in the software installed on target machines.&lt;/p&gt;
+&lt;p&gt;We will go from Web Application testing (such as SQL Injection, Cross-Site Scripting, Local/Remote File Inclusion) to Client-side exploitation taking advantage of vulnerabilities in the software installed on target machines in order to compromise them by taking the control.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Post-exploitation&lt;/b&gt;&lt;/p&gt;
 

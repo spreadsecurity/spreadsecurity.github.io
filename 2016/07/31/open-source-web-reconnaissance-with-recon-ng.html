@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Open source web reconnaissance with Recon-ng</title>
+  <meta name="description" content="During a penetration test, a big part of the success in the exploitation phase depends from how good the information gathering was performed. Since this acti...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://spreadsecurity.github.io//2016/07/31/open-source-web-reconnaissance-with-recon-ng.html">
+  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
+</head>
+
+  <body>
+    <nav class="single-post-nav">
+      <ul>
+        <li>
+          
+          <a href="/2016/07/25/information-gathering-with-shodan.html">&#8592; Previous post</a>
+          
+        </li>
+        <li><a href="/">Home Page</a></li>
+        <li>
+          
+        </li>
+      </ul>
+    </nav>
+    <div class="single-post">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header single-post-header" style="background-image:url('https://spreadsecurity.github.io//images/code_banner.jpg')">
+    <div>
+      <h1 class="post-title single-post-title" itemprop="name headline">Open source web reconnaissance with Recon-ng</h1>
+      <p class="post-meta single-post-meta">
+        <time datetime="2016-07-31T00:00:00+02:00" itemprop="datePublished">31 July 2016</time>
+        •
+        
+        
+          16 mins
+        
+        read
+      </p>
+    </div>
+  </header>
+  <div class="wrapper">
+    <div class="single-post-summary">
+      
+    </div>
+    <div class="post-content single-post-content" itemprop="articleBody">
+      <p>During a penetration test, a big part of the success in the exploitation phase depends from how good the information gathering was performed. Since this activity, especially when dealing with a huge amount of informations, is time consuming, it is a good idea to rely on tools which make reconnaissance in automated way.</p>
+
+<p>Recon-ng is an incredibly powerful tool for Open Source Intelligence Gathering (OSINT); actually, it is a reconnaissance framework written in Python built with a Metasploit like usage model (we will see what Metasploit is further on, for now it is enough to know that it is the most famous penetration testing framework).<br />
+<!--more-->
+Reconnaissance is considered as the activity of acquiring open source informations, i.e. available on the Internet, about a target in a passive way (passive reconnaissance); conversely, discovery is the activity which permits to acquire informations by sending packets directly to the target (active reconnaissance). Even if Recon-ng is mainly a passive reconnaissance framework, it includes also some elements for discovery and exploitation.</p>
+
+<p><strong>Installation</strong></p>
+
+<p>Since we will use a lot of tools during the next posts, I highly suggest to set up a Virtual Machine with a Penetration Testing distribution installed on.
+Personally I use VMware Workstation 12 Player as hypervisor for server and desktop virtualization which is free and can be downloaded from the official website. Regarding operating systems, I use mainly Kali Linux, which is a Debian based distribution. This distro is very useful because it has a pretty good number of tools preinstalled and preconfigured leaving to the user a ready to use PT machine. I will not explain how to set up a VM since you can find a lot of tutorials about that on the web.</p>
+
+<p>Anyway, you can still download Recon-ng on your favorite Linux distribution from author repository using <code class="highlighter-rouge">git clone</code> and installing required dependencies (this is also an option in Kali Linux in case you want the latest version available).</p>
+
+<p><strong>Usage</strong></p>
+
+<p>In Kali Linux, we can start Recon-ng in different ways. One is by navigating in the applications menu by clicking on <em>Applications &gt;  Information Gathering &gt; recon-ng</em> like shown in the following image:</p>
+
+<p class="center"><a href="/images/recon-ng/recon-ng_start.png"><img src="/images/recon-ng/recon-ng_start.png" alt="" /></a></p>
+
+<p>Same thing can be done by clicking on the “Show application” menu:</p>
+
+<p class="center"><a href="/images/recon-ng/recon-ng_start2.png"><img src="/images/recon-ng/recon-ng_start2.png" alt="" /></a></p>
+
+<p>Another possibility is launching it by simply opening the Terminal and typing <code class="highlighter-rouge">recon-ng</code>. In any case, we are prompted with the framework banner, version and number of modules for each category:</p>
+
+<p class="center"><img src="/images/recon-ng/recon-ng_intro.png" alt="" /></p>
+
+<p>Modules are the core of the framework and in the current version there are five categories:</p>
+
+<ul>
+  <li>Recon modules - for reconnaissance activities;</li>
+  <li>Reporting modules - for reporting results on a file;</li>
+  <li>Import modules - for importing values from a file into a database table;</li>
+  <li>Exploitation modules - for explotation activities;</li>
+  <li>Discovery modules - for discovery activities.</li>
+</ul>
+
+<p>The good thing is that everyone can implement his own module written in Python and integrate it inside the framework.<br />
+Since we are dealing with information gathering, we will focus on recon modules.<br />
+The framework accepts commands via command line; to have a list of the commands just type <code class="highlighter-rouge">help</code> and press enter:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][default] &gt; help
+
+Commands (type [help|?] &lt;topic&gt;):
+---------------------------------
+add             Adds records to the database
+back            Exits the current context
+delete          Deletes records from the database
+exit            Exits the framework
+help            Displays this menu
+keys            Manages framework API keys
+load            Loads specified module
+pdb             Starts a Python Debugger session
+query           Queries the database
+record          Records commands to a resource file
+reload          Reloads all modules
+resource        Executes commands from a resource file
+search          Searches available modules
+set             Sets module options
+shell           Executes shell commands
+show            Shows various framework items
+snapshots       Manages workspace snapshots
+spool           Spools output to a file
+unset           Unsets module options
+use             Loads specified module
+workspaces      Manages workspaces
+</code></pre>
+</div>
+
+<p>To display a list of all available modules for each category we can use the <code class="highlighter-rouge">show</code> command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>show modules
+</code></pre>
+</div>
+
+<p>Since right now we are only interested in recon modules, we can limit the search to them:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][default] &gt; show modules recon
+
+  Recon
+  -----
+    recon/companies-contacts/bing_linkedin_cache
+    recon/companies-contacts/indeed
+    recon/companies-contacts/jigsaw/point_usage
+    recon/companies-contacts/jigsaw/purchase_contact
+    recon/companies-contacts/jigsaw/search_contacts
+    recon/companies-contacts/linkedin_auth
+    recon/companies-multi/github_miner
+    recon/companies-multi/whois_miner
+    recon/contacts-contacts/mailtester
+    recon/contacts-contacts/mangle
+    recon/contacts-contacts/unmangle
+    recon/contacts-credentials/hibp_breach
+    recon/contacts-credentials/hibp_paste
+    recon/contacts-domains/migrate_contacts
+    recon/contacts-profiles/fullcontact
+    recon/credentials-credentials/adobe
+    recon/credentials-credentials/bozocrack
+    recon/credentials-credentials/hashes_org
+    recon/domains-contacts/metacrawler
+    recon/domains-contacts/pgp_search
+    recon/domains-contacts/whois_pocs
+    recon/domains-credentials/pwnedlist/account_creds
+    recon/domains-credentials/pwnedlist/api_usage
+    recon/domains-credentials/pwnedlist/domain_creds
+    recon/domains-credentials/pwnedlist/domain_ispwned
+    recon/domains-credentials/pwnedlist/leak_lookup
+    recon/domains-credentials/pwnedlist/leaks_dump
+    recon/domains-domains/brute_suffix
+    recon/domains-hosts/bing_domain_api
+    recon/domains-hosts/bing_domain_web
+    recon/domains-hosts/brute_hosts
+    recon/domains-hosts/builtwith
+    recon/domains-hosts/google_site_api
+    recon/domains-hosts/google_site_web
+    ...................................
+
+</code></pre>
+</div>
+
+<p>The structure for each module is the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>module-category/data-conversion/module-name
+</code></pre>
+</div>
+
+<p>Consider, for example, <code class="highlighter-rouge">recon/domains-hosts/google_site_web</code>: this performs a recon activity using Google Search Engine to convert an information about a domain into data about hosts of that domain. Keep in mind that certain modules require valid API key to run; some keys can be acquired by simply registering on the related website.<br />
+To select a module we need the <code class="highlighter-rouge">use</code> command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>use recon/domains-hosts/google_site_web
+</code></pre>
+</div>
+
+<p>Once the module is selected we can show informations about it:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][default][google_site_web] &gt; show info
+
+      Name: Google Hostname Enumerator
+      Path: modules/recon/domains-hosts/google_site_web.py
+    Author: Tim Tomes (@LaNMaSteR53)
+
+Description:
+  Harvests hosts from Google.com by using the 'site' search operator. Updates the 'hosts' table with
+  the results.
+
+Options:
+  Name    Current Value  Required  Description
+  ------  -------------  --------  -----------
+  SOURCE  default        yes       source of input (see 'show info' for details)
+
+Source Options:
+  default        SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL
+  &lt;string&gt;       string representing a single input
+  &lt;path&gt;         path to a file containing a list of inputs
+  query &lt;sql&gt;    database query returning one column of inputs
+</code></pre>
+</div>
+
+<p>In this way we can read the description and take a look at the options we can set before running the recon activity. As you can see, the action performed by this module is pretty the same as the one explained in the article <a href="https://spreadsecurity.github.io/2016/07/18/information-gathering-with-google-search-engine.html" target="_blank">Information gathering with Google Search Engine</a>, but this time it is done in an automated way.<br />
+In case we want to analyze module source code we can either use <code class="highlighter-rouge">show source</code> or navigate to <code class="highlighter-rouge">/usr/share/recon-ng/modules/recon/domains-hosts</code> where the python file <code class="highlighter-rouge">google_site_web.py</code> is located (note that folders structure reflects modules categories and data conversions).<br />
+Once all required options are set up through <code class="highlighter-rouge">set</code> command, the module can be executed with <code class="highlighter-rouge">run</code>.</p>
+
+<p>We will see now an example of reconnaissance activity performed on the National Institute of Standards and Technology (NIST) domain.<br />
+Before starting, we need to introduce the concept of workspace: Recon-ng allows to define a workspace for each target subject of reconnaissance; by doing this, it will create a database containing all gathered informations about the target itself. This is the reason why in the “framework help” shown before there is the <code class="highlighter-rouge">query</code> command, which allows to examine the DB using Standard Query Language (SQL), and also why import modules are present.</p>
+
+<p>We start by creating a new workspace:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>workspaces add NIST
+</code></pre>
+</div>
+
+<p>After that, the command line shows the change from the default workspace to the new one.
+Then we need to associate a domain with the created workspace and finally we can check that everything is set up correctly by listing domains with <code class="highlighter-rouge">show</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][default] &gt; workspaces add NIST
+[recon-ng][NIST] &gt; add domains nist.gov
+[recon-ng][NIST] &gt; show domains
+
+  +---------------------------------+
+  | rowid |  domain  |    module    |
+  +---------------------------------+
+  | 1     | nist.gov | user_defined |
+  +---------------------------------+
+
+[*] 1 rows returned
+</code></pre>
+</div>
+
+<p>Same result can be obtained with:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST] &gt; query select * from domains
+</code></pre>
+</div>
+
+<p>This can be checked also by querying the database with an external tool; the DB is located in the following folder:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>~/.recon-ng/workspaces/NIST
+</code></pre>
+</div>
+
+<p>Here there is a file called <code class="highlighter-rouge">data.db</code> which is the database for NIST workspace; to explore the DB we can use the tool <code class="highlighter-rouge">sqlite3</code> already installed in Kali Linux:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~/.recon-ng/workspaces/NIST# sqlite3 data.db 
+SQLite version 3.13.0 2016-05-18 10:57:30
+Enter ".help" for usage hints.
+sqlite&gt; select * from domains;
+nist.gov|user_defined
+</code></pre>
+</div>
+
+<p>To exit from the program, just type <code class="highlighter-rouge">.exit</code>.</p>
+
+<p>We can also add a company name:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST] &gt; add companies
+company (TEXT): NIST
+description (TEXT): National Institute of Standards and Technology
+[recon-ng][NIST] &gt; show companies
+
+  +---------------------------------------------------------------------------------+
+  | rowid | company |                  description                   |    module    |
+  +---------------------------------------------------------------------------------+
+  | 1     | NIST    | National Institute of Standards and Technology | user_defined |
+  +---------------------------------------------------------------------------------+
+
+[*] 1 rows returned
+</code></pre>
+</div>
+
+<p>Adding domains and companies is the initial step because they are inputs used by modules to perform information gathering. To check all modules using these two informations as a starting point we can leverage the <code class="highlighter-rouge">search</code> command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST] &gt; search domains-
+[*] Searching for 'domains-'...
+
+  Recon
+  -----
+    recon/domains-contacts/metacrawler
+    recon/domains-contacts/pgp_search
+    recon/domains-contacts/whois_pocs
+    recon/domains-credentials/pwnedlist/account_creds
+    recon/domains-credentials/pwnedlist/api_usage
+    recon/domains-credentials/pwnedlist/domain_creds
+    recon/domains-credentials/pwnedlist/domain_ispwned
+    recon/domains-credentials/pwnedlist/leak_lookup
+    recon/domains-credentials/pwnedlist/leaks_dump
+    recon/domains-domains/brute_suffix
+    recon/domains-hosts/bing_domain_api
+    recon/domains-hosts/bing_domain_web
+    recon/domains-hosts/brute_hosts
+    recon/domains-hosts/builtwith
+    recon/domains-hosts/google_site_api
+    recon/domains-hosts/google_site_web
+    recon/domains-hosts/hackertarget
+    recon/domains-hosts/netcraft
+    recon/domains-hosts/shodan_hostname
+    recon/domains-hosts/ssl_san
+    recon/domains-hosts/vpnhunter
+    recon/domains-vulnerabilities/ghdb
+    recon/domains-vulnerabilities/punkspider
+    recon/domains-vulnerabilities/xssed
+    recon/domains-vulnerabilities/xssposed
+
+[recon-ng][NIST] &gt; search companies-
+[*] Searching for 'companies-'...
+
+  Recon
+  -----
+    recon/companies-contacts/bing_linkedin_cache
+    recon/companies-contacts/indeed
+    recon/companies-contacts/jigsaw/point_usage
+    recon/companies-contacts/jigsaw/purchase_contact
+    recon/companies-contacts/jigsaw/search_contacts
+    recon/companies-contacts/linkedin_auth
+    recon/companies-multi/github_miner
+    recon/companies-multi/whois_miner
+
+</code></pre>
+</div>
+
+<p>Suppose we want to start populating our DB with hostnames related to <em>nist.gov</em> domain usign <code class="highlighter-rouge">google_site_web</code> module seen before; to check parameters required to run it we can display module options:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; show options
+
+  Name    Current Value  Required  Description
+  ------  -------------  --------  -----------
+  SOURCE  default        yes       source of input (see 'show info' for details)
+</code></pre>
+</div>
+
+<p>Since we have already set the domain, the “Current Value” which says “default” is taken directly from the DB. Then, we can just run the module and after a little while we get the results:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; run
+
+--------
+NIST.GOV
+--------
+[*] Searching Google for: site:nist.gov
+[*] [host] www.nsrl.nist.gov (&lt;blank&gt;)
+[*] [host] gams.nist.gov (&lt;blank&gt;)
+[*] [host] physics.nist.gov (&lt;blank&gt;)
+[*] [host] face.nist.gov (&lt;blank&gt;)
+[*] [host] scap.nist.gov (&lt;blank&gt;)
+[*] [host] patapsco.nist.gov (&lt;blank&gt;)
+[*] [host] nvd.nist.gov (&lt;blank&gt;)
+[*] [host] kinetics.nist.gov (&lt;blank&gt;)
+[*] [host] srdata.nist.gov (&lt;blank&gt;)
+[*] [host] www.cftt.nist.gov (&lt;blank&gt;)
+[*] [host] cccbdb.nist.gov (&lt;blank&gt;)
+[*] [host] museum.nist.gov (&lt;blank&gt;)
+[*] [host] thermosymposium.nist.gov (&lt;blank&gt;)
+[*] [host] www.atp.nist.gov (&lt;blank&gt;)
+[*] [host] www.ctcms.nist.gov (&lt;blank&gt;)
+[*] [host] usgcb.nist.gov (&lt;blank&gt;)
+[*] [host] www.nist.gov (&lt;blank&gt;)
+[*] [host] trecvid.nist.gov (&lt;blank&gt;)
+[*] [host] stonewall.nist.gov (&lt;blank&gt;)
+.......................................
+-------
+SUMMARY
+-------
+[*] 73 total (73 new) hosts found.
+</code></pre>
+</div>
+
+<p>In this case we discovered 73 hosts related to the domain; we can show the list of discovered host:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; show hosts
+
+  +-----------------------------------------------------------------------------------------------------------------+
+  | rowid |              host              | ip_address | region | country | latitude | longitude |      module     |
+  +-----------------------------------------------------------------------------------------------------------------+
+  | 1     | www.nsrl.nist.gov              |            |        |         |          |           | google_site_web |
+  | 2     | gams.nist.gov                  |            |        |         |          |           | google_site_web |
+  | 3     | physics.nist.gov               |            |        |         |          |           | google_site_web |
+  | 4     | face.nist.gov                  |            |        |         |          |           | google_site_web |
+  | 5     | scap.nist.gov                  |            |        |         |          |           | google_site_web |
+  | 6     | patapsco.nist.gov              |            |        |         |          |           | google_site_web |
+  | 7     | nvd.nist.gov                   |            |        |         |          |           | google_site_web |
+  | 8     | kinetics.nist.gov              |            |        |         |          |           | google_site_web |
+  | 9     | srdata.nist.gov                |            |        |         |          |           | google_site_web |
+  | 10    | www.cftt.nist.gov              |            |        |         |          |           | google_site_web |
+  | 11    | cccbdb.nist.gov                |            |        |         |          |           | google_site_web |
+  | 12    | museum.nist.gov                |            |        |         |          |           | google_site_web |
+  | 13    | thermosymposium.nist.gov       |            |        |         |          |           | google_site_web |
+  | 14    | www.atp.nist.gov               |            |        |         |          |           | google_site_web |
+  | 15    | www.ctcms.nist.gov             |            |        |         |          |           | google_site_web |
+  | 16    | usgcb.nist.gov                 |            |        |         |          |           | google_site_web |
+  | 17    | www.nist.gov                   |            |        |         |          |           | google_site_web |
+  | 18    | trecvid.nist.gov               |            |        |         |          |           | google_site_web |
+  | 19    | stonewall.nist.gov             |            |        |         |          |           | google_site_web |
+.....................................................................................................................
+</code></pre>
+</div>
+
+<p>As the table shows, we have empty columns ready to store additional informations for each host: these can be populated by hand or by running other modules using host informations we just gathered:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; search hosts-
+[*] Searching for 'hosts-'...
+
+  Recon
+  -----
+    recon/hosts-domains/migrate_hosts
+    recon/hosts-hosts/bing_ip
+    recon/hosts-hosts/freegeoip
+    recon/hosts-hosts/ipinfodb
+    recon/hosts-hosts/resolve
+    recon/hosts-hosts/reverse_resolve
+    recon/hosts-hosts/ssltools
+    recon/hosts-locations/migrate_hosts
+    recon/hosts-ports/shodan_ip
+</code></pre>
+</div>
+
+<p>We can find IP addresses for each host by running <code class="highlighter-rouge">recon/hosts-hosts/resolve</code> module, while the geolocation can be acquired with <code class="highlighter-rouge">recon/hosts-hosts/freegeoip</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST][freegeoip] &gt; show hosts 
+
+  +------------------------------------------------------------------------------------------------------------------------------------------+
+  | rowid |              host              |   ip_address  |         region         |    country    | latitude | longitude |      module     |
+  +------------------------------------------------------------------------------------------------------------------------------------------+
+  | 1     | www.nsrl.nist.gov              | 129.6.24.57   | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 2     | gams.nist.gov                  | 129.6.24.27   | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 3     | physics.nist.gov               | 129.6.13.152  | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 4     | face.nist.gov                  | 132.163.4.217 | Boulder, Colorado      | United States | 39.9668  | -105.2092 | google_site_web |
+  | 5     | scap.nist.gov                  | 129.6.13.177  | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 6     | patapsco.nist.gov              | 129.6.13.93   | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 7     | nvd.nist.gov                   | 129.6.13.177  | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 8     | kinetics.nist.gov              | 129.6.24.48   | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 9     | srdata.nist.gov                | 129.6.13.111  | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 10    | www.cftt.nist.gov              | 129.6.24.57   | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 11    | cccbdb.nist.gov                | 129.6.13.59   | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 12    | museum.nist.gov                | 129.6.13.111  | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 13    | thermosymposium.nist.gov       | 132.163.4.124 | Boulder, Colorado      | United States | 39.9668  | -105.2092 | google_site_web |
+  | 14    | www.atp.nist.gov               | 132.163.4.217 | Boulder, Colorado      | United States | 39.9668  | -105.2092 | google_site_web |
+  | 15    | www.ctcms.nist.gov             | 129.6.24.51   | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 16    | usgcb.nist.gov                 | 129.6.13.177  | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+  | 17    | www.nist.gov                   | 132.163.4.18  | Boulder, Colorado      | United States | 39.9668  | -105.2092 | google_site_web |
+  | 18    | trecvid.nist.gov               | 132.163.4.217 | Boulder, Colorado      | United States | 39.9668  | -105.2092 | google_site_web |
+  | 19    | stonewall.nist.gov             | 129.6.13.93   | Gaithersburg, Maryland | United States | 39.1403  | -77.222   | google_site_web |
+..............................................................................................................................................
+</code></pre>
+</div>
+
+<p>As shown, in minutes we have acquired tons of informations about target hosts.<br />
+Now we can lower the search level by digging even deeper: what about looking for contact informations such as names and email addresses?
+We can achieve this objective by running <code class="highlighter-rouge">recon/domains-contacts/pgp_search</code>: in fact as the description reports, this module searches the MIT public PGP key server for email addresses of the given domain. After module has been executed, we can display results stored in the DB (of course names and addresses in the following table are fictional for privacy reasons):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST][pgp_search] &gt; show contacts
+
+  +----------------------------------------------------------------------------------------------------------------------------------------------+
+  | rowid |   first_name  | middle_name |    last_name     |             email             |        title        | region | country |   module   |
+  +----------------------------------------------------------------------------------------------------------------------------------------------+
+  | 1     | Bugs          |             | Bunny            | bugs.bunny@nist.gov           | PGP key association |        |         | pgp_search |
+  | 2     | Foghorn       |             | Leghorn          | foghorn.leghorn@nist.gov      | PGP key association |        |         | pgp_search |
+  | 3     | Daffy         |             | Duck             | daffy.duck@nist.gov           | PGP key association |        |         | pgp_search |
+
+</code></pre>
+</div>
+
+<p>This is not over yet: we can also search if those contacts have been involved in a databreach, like Adobe one in 2013. For this purpose there are two interesting modules, <code class="highlighter-rouge">recon/contacts-credentials/hibp_breach</code> and <code class="highlighter-rouge">recon/contacts-credentials/hibp_paste</code>: the first one leverages haveibeenpwned.com API to determine if email addresses are associated with breached credentials, while the other one uses the API to determine if email addresses have been published to various paste sites.</p>
+
+<p>You can check if your email address has been compromised in data breaches by simply going on the <em>Have I Been Pwned?</em> (HIBP) website and launching a search. This service collects and analyzes database dumps and pastes leaked by data breaches happened over the years regarding millions of accounts.</p>
+
+<p>All these informations can be useful during next phases of the attack, especially for Social Engineering (we will look into this technique in future articles).</p>
+
+<p>Once collected enough informations, it is useful to report them in a document. Fortunately, Recon-ng offers modules to report results in different formats:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST] &gt; show modules reporting
+
+  Reporting
+  ---------
+    reporting/csv
+    reporting/html
+    reporting/json
+    reporting/list
+    reporting/pushpin
+    reporting/xlsx
+    reporting/xml
+</code></pre>
+</div>
+<p>For example, we can choose to save the returns in an HTML page file:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[recon-ng][NIST] &gt; use reporting/html
+[recon-ng][NIST][html] &gt; show options
+
+  Name      Current Value                                 Required  Description
+  --------  -------------                                 --------  -----------
+  CREATOR                                                 yes       creator name for the report footer
+  CUSTOMER                                                yes       customer name for the report header
+  FILENAME  /root/.recon-ng/workspaces/NIST/results.html  yes       path and filename for report output
+  SANITIZE  True                                          yes       mask sensitive data in the report
+
+[recon-ng][NIST][html] &gt; set CREATOR Spread Security
+CREATOR =&gt; Spread Security
+[recon-ng][NIST][html] &gt; set CUSTOMER NIST
+CUSTOMER =&gt; NIST
+[recon-ng][NIST][html] &gt; run
+[*] Report generated at '/root/.recon-ng/workspaces/NIST/results.html'.
+</code></pre>
+</div>
+
+<p>Results can be then visualized using a common web browser:</p>
+
+<p class="center"><a href="/images/recon-ng/recon-ng_report.png"><img src="/images/recon-ng/recon-ng_report.png" alt="" /></a></p>
+
+<p>As you can see Recon-ng is a valuable framework for information gathering and we have seen only a small part of its real capabilities, so take your time to explore and experiment with it to take advantage of its full potential.</p>
+
+    </div>
+  </div>
+</article>
+
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+        <p align=right>© 2016 Spread Security | All Rights Reserved 
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+  </body>
+</html>

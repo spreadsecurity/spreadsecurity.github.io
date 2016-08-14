@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 14 Aug 2016 14:25:24 +0200</pubDate>
-    <lastBuildDate>Sun, 14 Aug 2016 14:25:24 +0200</lastBuildDate>
+    <pubDate>Sun, 14 Aug 2016 14:34:41 +0200</pubDate>
+    <lastBuildDate>Sun, 14 Aug 2016 14:34:41 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -29,7 +29,7 @@ Macros are essentially scripts written in VBA (Visual Basic for Applications), a
 
 &lt;p&gt;&lt;strong&gt;Macro code examination&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Since we are working with Object Linking and Embedding (OLE), which is a Microsoft proprietary technology for compound documents (like the “.docm” we are threating), one possible way to start analyzing this kind of file is using a very nice utility called &lt;strong&gt;oledump&lt;/strong&gt;: &lt;a href=&quot;https://blog.didierstevens.com/programs/oledump-py&quot;&gt;https://blog.didierstevens.com/programs/oledump-py&lt;/a&gt;.&lt;br /&gt;
+&lt;p&gt;Since we are working with Object Linking and Embedding (OLE), which is a Microsoft proprietary technology for compound documents (like the “.docm” we are threating), one possible way to start analyzing this kind of file is using a very nice utility called &lt;em&gt;oledump&lt;/em&gt;: &lt;a href=&quot;https://blog.didierstevens.com/programs/oledump-py&quot;&gt;https://blog.didierstevens.com/programs/oledump-py&lt;/a&gt;.&lt;br /&gt;
 This tool allows to extract macro code so we can take a look at the source; we can launch the program and insert as input argument our “.docm” file which I have renamed “malware.docm”:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/oledump_V0_0_25# ./oledump.py malware.docm 

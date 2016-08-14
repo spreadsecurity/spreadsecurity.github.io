@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 14 Aug 2016 11:51:13 +0200</pubDate>
-    <lastBuildDate>Sun, 14 Aug 2016 11:51:13 +0200</lastBuildDate>
+    <pubDate>Sun, 14 Aug 2016 13:31:30 +0200</pubDate>
+    <lastBuildDate>Sun, 14 Aug 2016 13:31:30 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -70,7 +70,7 @@ End Sub
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Immediately, there is something that catches the attention: in the last three lines there is the “autoopen()”” function, which is used for launching macro execution at the opening of the file; this is a first sign of malware activity.&lt;br /&gt;
+&lt;p&gt;Immediately, there is something that catches the attention: in the last three lines there is the &lt;em&gt;autoopen()&lt;/em&gt; function, which is used for launching macro execution at the opening of the file; this is a first sign of malware activity.&lt;br /&gt;
 Since there is nothing else here, we can continue the analysis by checking “Module1”. This file is pretty big, but it contains a lot of junk code and uses encryption; this is done for two main reasons: one is to decrease the chances of detection by Antivirus softwares and the other one is to increase difficulty, for a security analyst, of blocking the attack as fast as possible.&lt;br /&gt;
 The code starts with some variables definitions and here I have reported only the useful ones:&lt;/p&gt;
 

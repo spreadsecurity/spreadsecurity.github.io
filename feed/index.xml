@@ -6,12 +6,198 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 20 Aug 2016 11:54:59 +0200</pubDate>
-    <lastBuildDate>Sat, 20 Aug 2016 11:54:59 +0200</lastBuildDate>
+    <pubDate>Mon, 22 Aug 2016 13:10:27 +0200</pubDate>
+    <lastBuildDate>Mon, 22 Aug 2016 13:10:27 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
-        <title>Macro Malware Analysis</title>
+        <title>Open Source Intelligence with theHarvester</title>
+        <description>&lt;p&gt;Another interesting tool for gathering informations, which can be used in combination with &lt;a href=&quot;https://spreadsecurity.github.io/2016/08/01/open-source-web-reconnaissance-with-recon-ng.html&quot;&gt;Recon-ng&lt;/a&gt;, is theHarvester.&lt;br /&gt;
+Even if this tool is not as complex as Recon-ng, it helps to harvest a huge quantity of data in an automated way by using web search engines and social networks. By doing so, this information gathering suite allows to understand target footprints on the Internet, so it is useful to know what an attacker can see on the web about a certain company.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Installation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If you are using Kali Linux, theHarvester is already a part of your arsenal. Otherwise you can get the latest version from author repository using &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone&lt;/code&gt; and install the tool on your favourite Linux distro: &lt;a href=&quot;https://github.com/laramies/theHarvester&quot;&gt;https://github.com/laramies/theHarvester&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In Kali Linux, theHarvester can be started by navigating in the applications menu by clicking on &lt;em&gt;Applications &amp;gt; Information Gathering &amp;gt; OSINT Analysis &amp;gt; theharvester&lt;/em&gt; like shown in the following image:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/theharvester/theharvester_start.png&quot;&gt;&lt;img src=&quot;/images/theharvester/theharvester_start.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Same thing can be done by clicking on the “Show application” menu:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/theharvester/theharvester_start2.png&quot;&gt;&lt;img src=&quot;/images/theharvester/theharvester_start2.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Another possibility is launching it by simply opening the Terminal and typing &lt;code class=&quot;highlighter-rouge&quot;&gt;theharvester&lt;/code&gt;. In any case, we are prompted with the tool banner, version, author informations and usage instructions:&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/theharvester/theharvester_intro.png&quot;&gt;&lt;img src=&quot;/images/theharvester/theharvester_intro.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The instructions are pretty clear: we have a series of parameters to set as arguments through which we can customize the search. For each of them there is a description of what they do; the most importants are “-d” and “-b” which are mandatory and determine respectively the &lt;em&gt;target domain&lt;/em&gt; about which we want to gather informations and the &lt;em&gt;data sources&lt;/em&gt; we want to use to find them (the list of the sources that can be set is reported in the description).&lt;br /&gt;
+Some data sources require an API key to work: while the acquisition of some of them is free, like the Bing one, other require the payment of a fee, like the Shodan one.&lt;/p&gt;
+
+&lt;p&gt;We will see now an example of information gathering activity performed on the National Institute of Standards and Technology (NIST) domain.&lt;br /&gt;
+Since Google is one of the mentioned data sources we can use for the search, we can start with a simple request by asking all hosts and emails that Google Search Engine can find in the first 100 results for the domain “nist.gov” (email addresses written here are fictional for privacy reasons):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# theharvester -d nist.gov -b google -l 100
+......................................................
+[-] Searching in Google:
+	Searching 0 results...
+	Searching 100 results...
+
+
+[+] Emails found:
+------------------
+bugsbunny@nist.gov
+daffyduck@nist.gov
+foghornleghorn@nist.gov
+
+[+] Hosts found in search engines:
+------------------------------------
+[-] Resolving hostnames IPs... 
+52.71.87.193:acvp.nist.gov
+132.163.4.217:csrc.nist.gov
+132.163.4.217:face.nist.gov
+129.6.89.132:inside.nist.gov
+132.163.4.217:itl.nist.gov
+129.6.13.177:nvd.nist.gov
+129.6.13.111:nvlpubs.nist.gov
+52.71.217.42:pages.nist.gov
+24.56.178.140:time.nist.gov
+129.6.13.178:web.nvd.nist.gov
+129.6.24.30:webbook.nist.gov
+132.163.4.18:www.glb.nist.gov
+132.163.4.18:www.nist.gov
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As reported above, the tool has quickly found emails, hostnames and has also resolved IP addresses.&lt;/p&gt;
+
+&lt;p&gt;Another interesting feature is the capability to check for virtual hosts: through DNS resolution, the tool verifies if a certain IP address is associated with multiple hostnames. This is a really important information because the Security for a given host on that IP depends not only on its Security level, but also from how securely are configured the others hosted on that same IP. In fact, if an attacker comprimises one of them and gains access to the underlying server, then he can easily reach every other virtual host.&lt;br /&gt;
+To launch a virtual host search we just need to add “-v”:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# theharvester -d nist.gov -b google -l 100 -v
+.........................................................
+[+] Virtual hosts:
+==================
+132.163.4.217:csrc.nist.gov
+132.163.4.217:trecvid.nist.gov
+132.163.4.217:www.atp.nist.gov
+132.163.4.217:www.itl.nist.gov
+132.163.4.217:fire.nist.gov
+132.163.4.217:www.iapws.org
+132.163.4.217:www.boulder.nist.gov
+132.163.4.217:itl.nist.gov
+132.163.4.217:trec.nist.gov
+132.163.4.217:duc.nist.gov
+132.163.4.217:www.baldrige.nist.gov
+132.163.4.217:zing.ncsl.nist.gov
+132.163.4.217:biometrics.nist.gov
+132.163.4.217:baldrige.nist.gov
+132.163.4.217:ovrt.nist.gov
+132.163.4.217:cryogenics.nist.gov
+132.163.4.217:www.cryogenics.nist.gov
+132.163.4.217:www-nlpir.nist.gov
+132.163.4.217:ieee1451.nist.gov
+132.163.4.217:w3.antd.nist.gov
+132.163.4.217:tides.nist.gov
+132.163.4.217:blea.doc.gov
+132.163.4.217:motion.aptd.nist.gov
+132.163.4.217:www.antd.nist.gov
+132.163.4.217:iapws.org
+129.6.13.111:nvlpubs.nist
+129.6.13.111:gsi.nist
+129.6.13.111:museum.nist
+129.6.13.111:nvlpubs.nist.gov
+129.6.13.111:gsi.nist.gov
+129.6.13.111:museum.nist.gov
+129.6.13.111:srdata.nist.gov
+129.6.24.30:webbook.nist.gov
+132.163.4.162:www.nist.gov
+132.163.4.162:www.itl.nist.gov
+132.163.4.162:tf.nist.gov
+132.163.4.162:cnst.nist.gov
+132.163.4.162:www.baldrige
+132.163.4.162:fire.nist.gov
+132.163.4.162:www.bldrdoc.gov
+132.163.4.162:nvl.nist.gov
+132.163.4.162:www.glb.nist.gov
+132.163.4.162:gsi.nist.gov
+132.163.4.162:math.nist.gov
+132.163.4.162:ieee1451.nist.gov
+132.163.4.162:www.tf.nist.gov
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;theHarvester is also able to acquire names of persons related to the target domain by crawling social networks such as LinkedIn; this can be done by simply using as data source the argument “linkedin” (fictional names are reported here for privacy reasons):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# theharvester -d nist.gov -b linkedin
+.................................................
+[-] Searching in Linkedin..
+	Searching 100 results..
+Users from Linkedin:
+====================
+Bugs Bunny
+Daffy Duck
+Foghorn Leghorn
+.................................................
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Once you have emails and names you can try to associate them to find a correspondence.&lt;/p&gt;
+
+&lt;p&gt;It is ok to have results printed on the terminal standard output, but when we are dealing with a big amount of data it is nice to report them in a file for later use. theHarvester offers the opportunity to save results on both XML and HTML formats by specifying file name with “-f” option.&lt;br /&gt;
+Before launching the command, it is always a good practice to create a folder where we can store gathered data about the target:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# mkdir NIST
+root@kali:~# cd NIST
+root@kali:~/NIST#
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Then we can start the search and this time we use “-b all” which harvest informations using Google, PGP key server, Bing and Exalead:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/NIST# theharvester -d nist.gov -b all -l 100 -v -f results.html
+........................................................................
+[+] Saving files...
+Files saved!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If the files are correctly saved we get the “Files saved!” message and we find them inside our current folder:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/NIST# ls
+results.xml  results.html 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Finally we can open the HTML file with our favourite web browser:
+&lt;a href=&quot;/images/theharvester/theharvester_report.png&quot;&gt;&lt;img src=&quot;/images/theharvester/theharvester_report.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As shown in the above image, we get a nice graph reporting the percentage of gathered data for each category part of our search: emails, hosts and virtual hosts. After that we just get a list of all the elements for each category (only a few lines are displayed here).&lt;/p&gt;
+
+&lt;p&gt;Even if these are the parameters I use the most, feel free to play with the others.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;theHarvester is a valuable tool for OSINT which allows to quickly discover a good amount of data, especially email addresses. Remember that you need to verify informations: for example, it could be that an employer is not working anymore on a certain company, but his email address is still present on the web and so it will be returned in the results.&lt;br /&gt;
+Automatic tools are useful, but still their outputs need to be correctly managed and interpreted.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 22 Aug 2016 00:00:00 +0200</pubDate>
+        <link>https://spreadsecurity.github.io//2016/08/22/open-source-intelligence-with-theharvester.html</link>
+        <guid isPermaLink="true">https://spreadsecurity.github.io//2016/08/22/open-source-intelligence-with-theharvester.html</guid>
+        
+        <category>Information gathering</category>
+        
+        <category>OSINT</category>
+        
+        <category>theHarvester</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Macro malware analysis</title>
         <description>&lt;p&gt;Malware, in general, is any kind of malicious program which executes on a machine; it can be used for a large variety of purposes such as influence computer behavior, display ads, steal personal informations, take control of remote machines and so on.&lt;br /&gt;
 &lt;!--more--&gt;&lt;/p&gt;
 
@@ -289,7 +475,7 @@ Reconnaissance is considered as the activity of acquiring open source informatio
 &lt;p&gt;Since we will use a lot of tools during the next posts, I highly suggest to set up a Virtual Machine with a Penetration Testing distribution installed on.
 Personally I use VMware Workstation 12 Player as hypervisor for server and desktop virtualization which is free and can be downloaded from the official website. Regarding operating systems, I use mainly Kali Linux, which is a Debian based distribution. This distro is very useful because it has a pretty good number of tools preinstalled and preconfigured leaving to the user a ready to use PT machine. I will not explain how to set up a VM since you can find a lot of tutorials about that on the web.&lt;/p&gt;
 
-&lt;p&gt;Anyway, you can still download Recon-ng on your favorite Linux distribution from author repository using &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone&lt;/code&gt; and installing required dependencies (this is also an option in Kali Linux in case you want the latest version available).&lt;/p&gt;
+&lt;p&gt;Anyway, you can still download Recon-ng on your favorite Linux distribution from author repository using &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone&lt;/code&gt; and installing required dependencies (this is also an option in Kali Linux in case you want the latest version available): &lt;a href=&quot;https://bitbucket.org/LaNMaSteR53/recon-ng&quot;&gt;https://bitbucket.org/LaNMaSteR53/recon-ng&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Usage&lt;/strong&gt;&lt;/p&gt;
 
@@ -743,7 +929,10 @@ CUSTOMER =&amp;gt; NIST
 
 &lt;p class=&quot;center&quot;&gt;&lt;a href=&quot;/images/recon-ng/recon-ng_report.png&quot;&gt;&lt;img src=&quot;/images/recon-ng/recon-ng_report.png&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;As you can see Recon-ng is a valuable framework for information gathering and we have seen only a small part of its real capabilities, so take your time to explore and experiment with it to take advantage of its true power.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Conclusions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Recon-ng is a valuable framework for reconnaissance which has a really good system for storing and managing data for later use.&lt;br /&gt;
+We have seen only a small part of its real capabilities, so take your time to explore and experiment with it to take advantage of its true power.&lt;/p&gt;
 </description>
         <pubDate>Mon, 01 Aug 2016 00:00:00 +0200</pubDate>
         <link>https://spreadsecurity.github.io//2016/08/01/open-source-web-reconnaissance-with-recon-ng.html</link>
@@ -1017,7 +1206,7 @@ Moreover, if the compromised system is connected to other systems it is possible
 
 &lt;p&gt;In the next articles, we will discuss about topics regarding these four macro-phases.&lt;/p&gt;
 
-&lt;p&gt;References: &lt;i&gt;http://www.pentest-standard.org&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;References: &lt;a href=&quot;http://www.pentest-standard.org&quot;&gt;http://www.pentest-standard.org&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 11 Jul 2016 00:00:00 +0200</pubDate>
         <link>https://spreadsecurity.github.io//2016/07/11/main-steps-of-an-attack.html</link>

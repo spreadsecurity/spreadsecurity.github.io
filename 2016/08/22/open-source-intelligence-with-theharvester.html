@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+  <head>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82489724-1', 'auto');
+  ga('send', 'pageview');
+
+  </script>
+  <meta name="google-site-verification" content="2sf0nOsdmxOwb35mzYgNoZLo3dWw5VuhtdWLaSGSekA" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Open Source Intelligence with theHarvester</title>
+  <meta name="description" content="Another interesting tool for gathering informations, which can be used in combination with Recon-ng, is theHarvester.Even if this tool is not as complex as R...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://spreadsecurity.github.io//2016/08/22/open-source-intelligence-with-theharvester.html">
+  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
+</head>
+
+  <body>
+    <nav class="single-post-nav">
+      <ul>
+        <li>
+          
+          <a href="/2016/08/14/macro-malware-analysis.html">&#8592; Previous post</a>
+          
+        </li>
+        <li><a href="/">Home Page</a></li>
+        <li>
+          
+        </li>
+      </ul>
+    </nav>
+    <div class="single-post">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header single-post-header" style="background-image:url('https://spreadsecurity.github.io//images/code_banner.jpg')">
+    <div>
+      <h1 class="post-title single-post-title" itemprop="name headline">Open Source Intelligence with theHarvester</h1>
+      <p class="post-meta single-post-meta">
+        <time datetime="2016-08-22T00:00:00+02:00" itemprop="datePublished">22 August 2016</time>
+        •
+        
+        
+          5 mins
+        
+        read
+      </p>
+    </div>
+  </header>
+  <div class="wrapper">
+    <div class="single-post-summary">
+      
+    <ul class="tag-box inline">
+      
+        <li><a href="/tags#Information gathering" class="tag">• Information gathering</a></li>
+      
+        <li><a href="/tags#OSINT" class="tag">• OSINT</a></li>
+      
+        <li><a href="/tags#theHarvester" class="tag">• theHarvester</a></li>
+      
+    </ul>  
+    </div>
+    <div class="post-content single-post-content" itemprop="articleBody">
+      <p>Another interesting tool for gathering informations, which can be used in combination with <a href="https://spreadsecurity.github.io/2016/08/01/open-source-web-reconnaissance-with-recon-ng.html">Recon-ng</a>, is theHarvester.<br />
+Even if this tool is not as complex as Recon-ng, it helps to harvest a huge quantity of data in an automated way by using web search engines and social networks. By doing so, this information gathering suite allows to understand target footprints on the Internet, so it is useful to know what an attacker can see on the web about a certain company.
+<!--more--></p>
+
+<p><strong>Installation</strong></p>
+
+<p>If you are using Kali Linux, theHarvester is already a part of your arsenal. Otherwise you can get the latest version from author repository using <code class="highlighter-rouge">git clone</code> and install the tool on your favourite Linux distro: <a href="https://github.com/laramies/theHarvester">https://github.com/laramies/theHarvester</a>.</p>
+
+<p><strong>Usage</strong></p>
+
+<p>In Kali Linux, theHarvester can be started by navigating in the applications menu by clicking on <em>Applications &gt; Information Gathering &gt; OSINT Analysis &gt; theharvester</em> like shown in the following image:</p>
+
+<p class="center"><a href="/images/theharvester/theharvester_start.png"><img src="/images/theharvester/theharvester_start.png" alt="" /></a></p>
+
+<p>Same thing can be done by clicking on the “Show application” menu:</p>
+
+<p class="center"><a href="/images/theharvester/theharvester_start2.png"><img src="/images/theharvester/theharvester_start2.png" alt="" /></a></p>
+
+<p>Another possibility is launching it by simply opening the Terminal and typing <code class="highlighter-rouge">theharvester</code>. In any case, we are prompted with the tool banner, version, author informations and usage instructions:</p>
+
+<p class="center"><a href="/images/theharvester/theharvester_intro.png"><img src="/images/theharvester/theharvester_intro.png" alt="" /></a></p>
+
+<p>The instructions are pretty clear: we have a series of parameters to set as arguments through which we can customize the search. For each of them there is a description of what they do; the most importants are “-d” and “-b” which are mandatory and determine respectively the <em>target domain</em> about which we want to gather informations and the <em>data sources</em> we want to use to find them (the list of the sources that can be set is reported in the description).<br />
+Some data sources require an API key to work: while the acquisition of some of them is free, like the Bing one, other require the payment of a fee, like the Shodan one.</p>
+
+<p>We will see now an example of information gathering activity performed on the National Institute of Standards and Technology (NIST) domain.<br />
+Since Google is one of the mentioned data sources we can use for the search, we can start with a simple request by asking all hosts and emails that Google Search Engine can find in the first 100 results for the domain “nist.gov” (email addresses written here are fictional for privacy reasons):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b google -l 100
+......................................................
+[-] Searching in Google:
+	Searching 0 results...
+	Searching 100 results...
+
+
+[+] Emails found:
+------------------
+bugsbunny@nist.gov
+daffyduck@nist.gov
+foghornleghorn@nist.gov
+
+[+] Hosts found in search engines:
+------------------------------------
+[-] Resolving hostnames IPs... 
+52.71.87.193:acvp.nist.gov
+132.163.4.217:csrc.nist.gov
+132.163.4.217:face.nist.gov
+129.6.89.132:inside.nist.gov
+132.163.4.217:itl.nist.gov
+129.6.13.177:nvd.nist.gov
+129.6.13.111:nvlpubs.nist.gov
+52.71.217.42:pages.nist.gov
+24.56.178.140:time.nist.gov
+129.6.13.178:web.nvd.nist.gov
+129.6.24.30:webbook.nist.gov
+132.163.4.18:www.glb.nist.gov
+132.163.4.18:www.nist.gov
+</code></pre>
+</div>
+
+<p>As reported above, the tool has quickly found emails, hostnames and has also resolved IP addresses.</p>
+
+<p>Another interesting feature is the capability to check for virtual hosts: through DNS resolution, the tool verifies if a certain IP address is associated with multiple hostnames. This is a really important information because the Security for a given host on that IP depends not only on its Security level, but also from how securely are configured the others hosted on that same IP. In fact, if an attacker comprimises one of them and gains access to the underlying server, then he can easily reach every other virtual host.<br />
+To launch a virtual host search we just need to add “-v”:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b google -l 100 -v
+.........................................................
+[+] Virtual hosts:
+==================
+132.163.4.217:csrc.nist.gov
+132.163.4.217:trecvid.nist.gov
+132.163.4.217:www.atp.nist.gov
+132.163.4.217:www.itl.nist.gov
+132.163.4.217:fire.nist.gov
+132.163.4.217:www.iapws.org
+132.163.4.217:www.boulder.nist.gov
+132.163.4.217:itl.nist.gov
+132.163.4.217:trec.nist.gov
+132.163.4.217:duc.nist.gov
+132.163.4.217:www.baldrige.nist.gov
+132.163.4.217:zing.ncsl.nist.gov
+132.163.4.217:biometrics.nist.gov
+132.163.4.217:baldrige.nist.gov
+132.163.4.217:ovrt.nist.gov
+132.163.4.217:cryogenics.nist.gov
+132.163.4.217:www.cryogenics.nist.gov
+132.163.4.217:www-nlpir.nist.gov
+132.163.4.217:ieee1451.nist.gov
+132.163.4.217:w3.antd.nist.gov
+132.163.4.217:tides.nist.gov
+132.163.4.217:blea.doc.gov
+132.163.4.217:motion.aptd.nist.gov
+132.163.4.217:www.antd.nist.gov
+132.163.4.217:iapws.org
+129.6.13.111:nvlpubs.nist
+129.6.13.111:gsi.nist
+129.6.13.111:museum.nist
+129.6.13.111:nvlpubs.nist.gov
+129.6.13.111:gsi.nist.gov
+129.6.13.111:museum.nist.gov
+129.6.13.111:srdata.nist.gov
+129.6.24.30:webbook.nist.gov
+132.163.4.162:www.nist.gov
+132.163.4.162:www.itl.nist.gov
+132.163.4.162:tf.nist.gov
+132.163.4.162:cnst.nist.gov
+132.163.4.162:www.baldrige
+132.163.4.162:fire.nist.gov
+132.163.4.162:www.bldrdoc.gov
+132.163.4.162:nvl.nist.gov
+132.163.4.162:www.glb.nist.gov
+132.163.4.162:gsi.nist.gov
+132.163.4.162:math.nist.gov
+132.163.4.162:ieee1451.nist.gov
+132.163.4.162:www.tf.nist.gov
+</code></pre>
+</div>
+
+<p>theHarvester is also able to acquire names of persons related to the target domain by crawling social networks such as LinkedIn; this can be done by simply using as data source the argument “linkedin” (fictional names are reported here for privacy reasons):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b linkedin
+.................................................
+[-] Searching in Linkedin..
+	Searching 100 results..
+Users from Linkedin:
+====================
+Bugs Bunny
+Daffy Duck
+Foghorn Leghorn
+.................................................
+</code></pre>
+</div>
+
+<p>Once you have emails and names you can try to associate them to find a correspondence.</p>
+
+<p>It is ok to have results printed on the terminal standard output, but when we are dealing with a big amount of data it is nice to report them in a file for later use. theHarvester offers the opportunity to save results on both XML and HTML formats by specifying file name with “-f” option.<br />
+Before launching the command, it is always a good practice to create a folder where we can store gathered data about the target:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# mkdir NIST
+root@kali:~# cd NIST
+root@kali:~/NIST#
+</code></pre>
+</div>
+<p>Then we can start the search and this time we use “-b all” which harvest informations using Google, PGP key server, Bing and Exalead:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~/NIST# theharvester -d nist.gov -b all -l 100 -v -f results.html
+........................................................................
+[+] Saving files...
+Files saved!
+</code></pre>
+</div>
+
+<p>If the files are correctly saved we get the “Files saved!” message and we find them inside our current folder:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~/NIST# ls
+results.xml  results.html 
+</code></pre>
+</div>
+
+<p>Finally we can open the HTML file with our favourite web browser:
+<a href="/images/theharvester/theharvester_report.png"><img src="/images/theharvester/theharvester_report.png" alt="" /></a></p>
+
+<p>As shown in the above image, we get a nice graph reporting the percentage of gathered data for each category part of our search: emails, hosts and virtual hosts. After that we just get a list of all the elements for each category (only a few lines are displayed here).</p>
+
+<p>Even if these are the parameters I use the most, feel free to play with the others.</p>
+
+<p><strong>Conclusions</strong></p>
+
+<p>theHarvester is a valuable tool for OSINT which allows to quickly discover a good amount of data, especially email addresses. Remember that you need to verify informations: for example, it could be that an employer is not working anymore on a certain company, but his email address is still present on the web and so it will be returned in the results.<br />
+Automatic tools are useful, but still their outputs need to be correctly managed and interpreted.</p>
+
+    </div>
+  </div>
+</article>
+
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+        <p align=right>© 2016 Spread Security | All Rights Reserved 
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+  </body>
+</html>

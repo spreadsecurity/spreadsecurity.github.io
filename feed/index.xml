@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 22 Aug 2016 13:10:27 +0200</pubDate>
-    <lastBuildDate>Mon, 22 Aug 2016 13:10:27 +0200</lastBuildDate>
+    <pubDate>Tue, 23 Aug 2016 17:44:54 +0200</pubDate>
+    <lastBuildDate>Tue, 23 Aug 2016 17:44:54 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -197,7 +197,7 @@ Automatic tools are useful, but still their outputs need to be correctly managed
       </item>
     
       <item>
-        <title>Macro malware analysis</title>
+        <title>Macro Malware Analysis</title>
         <description>&lt;p&gt;Malware, in general, is any kind of malicious program which executes on a machine; it can be used for a large variety of purposes such as influence computer behavior, display ads, steal personal informations, take control of remote machines and so on.&lt;br /&gt;
 &lt;!--more--&gt;&lt;/p&gt;
 
@@ -948,7 +948,7 @@ We have seen only a small part of its real capabilities, so take your time to ex
       </item>
     
       <item>
-        <title>Information gathering with Shodan</title>
+        <title>Information Gathering with Shodan</title>
         <description>&lt;p&gt;Today a large number of devices are connected to Internet, from smartphones or watches to air-conditioning devices or even refrigerators: this is what has been called “Internet of Things” (IoT), i.e. the network composed by physical devices collecting and exchanging data between themselves.&lt;/p&gt;
 
 &lt;!--more--&gt;
@@ -1081,7 +1081,7 @@ On the right side, each result is reported with the corresponding device IP addr
       </item>
     
       <item>
-        <title>Information gathering with Google Search Engine</title>
+        <title>Information Gathering with Google Search Engine</title>
         <description>&lt;p&gt;Generally, when we want to search for a particular argument, we open up our favourite browser, navigate to a Web Search Engine and type in some words related to that matter. Depending from how good we set up the research, we obtain more or less pertinent results.&lt;/p&gt;
 
 &lt;p&gt;Basically, everytime we launch a search we make a query to the web search engine: there are some particular expressions known to the engine, called Advanced Search Operators, which make a search more effective. Queries built like these are also called “Google dorks”.&lt;br /&gt;

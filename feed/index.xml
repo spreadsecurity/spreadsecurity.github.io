@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 23 Aug 2016 17:44:54 +0200</pubDate>
-    <lastBuildDate>Tue, 23 Aug 2016 17:44:54 +0200</lastBuildDate>
+    <pubDate>Tue, 23 Aug 2016 17:45:57 +0200</pubDate>
+    <lastBuildDate>Tue, 23 Aug 2016 17:45:57 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -463,7 +463,7 @@ Hybrid Analysis is powered by Payload Security and offers a free service which p
       </item>
     
       <item>
-        <title>Open source web reconnaissance with Recon-ng</title>
+        <title>Open Source Web Reconnaissance with Recon-ng</title>
         <description>&lt;p&gt;During a penetration test, a big part of the success in the exploitation phase depends from how good the information gathering was performed. Since this activity, especially when dealing with a huge amount of informations, is time consuming, it is a good idea to rely on tools which make reconnaissance in automated way.&lt;/p&gt;
 
 &lt;p&gt;Recon-ng is an incredibly powerful tool for Open Source Intelligence Gathering (OSINT); actually, it is a reconnaissance framework written in Python built with a Metasploit like usage model (we will see what Metasploit is further on, for now it is enough to know that it is the most famous penetration testing framework).&lt;br /&gt;

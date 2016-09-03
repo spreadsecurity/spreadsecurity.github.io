@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+  <head>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82489724-1', 'auto');
+  ga('send', 'pageview');
+
+  </script>
+  <meta name="google-site-verification" content="2sf0nOsdmxOwb35mzYgNoZLo3dWw5VuhtdWLaSGSekA" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Open Source Intelligence with Maltego</title>
+  <meta name="description" content="Maltego is a visual link analysis and data mining tool and it is the most famous software for performing Open Source Intelligence. It provides a library of p...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://spreadsecurity.github.io//2016/09/03/open-source-intelligence-with-maltego.html">
+  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
+</head>
+
+  <body>
+    <nav class="single-post-nav">
+      <ul>
+        <li>
+          
+          <a href="/2016/08/22/open-source-intelligence-with-theharvester.html">&#8592; Previous post</a>
+          
+        </li>
+        <li><a href="/">Home Page</a></li>
+        <li>
+          
+        </li>
+      </ul>
+    </nav>
+    <div class="single-post">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header single-post-header" style="background-image:url('https://spreadsecurity.github.io//images/code_banner.jpg')">
+    <div>
+      <h1 class="post-title single-post-title" itemprop="name headline">Open Source Intelligence with Maltego</h1>
+      <p class="post-meta single-post-meta">
+        <time datetime="2016-09-03T00:00:00+02:00" itemprop="datePublished">03 September 2016</time>
+        •
+        
+        
+          9 mins
+        
+        read
+      </p>
+    </div>
+  </header>
+  <div class="wrapper">
+    <div class="single-post-summary">
+      
+    <ul class="tag-box inline">
+      
+        <li><a href="/tags#Information gathering" class="tag">• Information gathering</a></li>
+      
+        <li><a href="/tags#OSINT" class="tag">• OSINT</a></li>
+      
+        <li><a href="/tags#Maltego" class="tag">• Maltego</a></li>
+      
+    </ul>  
+    </div>
+    <div class="post-content single-post-content" itemprop="articleBody">
+      <p>Maltego is a visual link analysis and data mining tool and it is the most famous software for performing Open Source Intelligence. It provides a library of plugins, called “transforms”, which are used to execute queries on open sources in order to gather information about a certain target and display them on a nice graph. In fact, differently from the command line tools seen until now, Maltego has a Graphical User Interface through which the user performs his research and analyzes results returned on the graph.</p>
+
+<!--more-->
+
+<p>It is developed by Paterva which distributes three different versions: Maltego XL, Classic and CE.
+We are interested in Maltego CE which stands for Community Edition: this is the non commercial version and it is available for everyone after a quick registration.</p>
+
+<p><strong>Installation</strong></p>
+
+<p>Before proceeding with the installation it is a good idea to register at this link: <a href="https://www.paterva.com/web7/community/community.php">https://www.paterva.com/web7/community/community.php</a>. In fact, in order to use the software it is mandatory to have a Maltego account which is required at the startup of the application.</p>
+
+<p>If you are using Kali Linux, Maltego CE is already installed. Moreover you will find that Kali has its own custom version called Maltego Chlorine, which has been made on purpose for this distro.<br />
+Otherwise you can download the package from <a href="https://www.paterva.com/web7/downloads.php#tab-3">https://www.paterva.com/web7/downloads.php#tab-3</a> and install it on your operating system (the software is available for Windows, Linux or Mac OSX).</p>
+
+<p><strong>Usage</strong></p>
+
+<p>In Kali Linux, Maltego can be started by navigating in the applications menu by clicking on <em>Applications &gt; Information Gathering &gt; maltegoce</em> like shown in the following image:</p>
+
+<p class="center"><a href="/images/maltego/maltego_start.png"><img src="/images/maltego/maltego_start.png" alt="" /></a></p>
+
+<p>Same thing can be done by clicking on the “Show application” menu:</p>
+
+<p class="center"><a href="/images/maltego/maltego_start2.png"><img src="/images/maltego/maltego_start2.png" alt="" /></a></p>
+
+<p>Maltego can also be started by opening the Terminal and typing <code class="highlighter-rouge">maltegoce</code>, but since it is not a command line tool, this is not the best choice.</p>
+
+<p>At the start up, after all the modules are correctly loaded, we get prompted with the Startup Wizard which asks for Maltego account credentials:</p>
+
+<p class="center"><a href="/images/maltego/maltego_account.png"><img src="/images/maltego/maltego_account.png" alt="" /></a></p>
+
+<p>If you have inserted them and correctly solved the captcha, you will get a welcome message and the information about the validity of the API key.  At the next prompt just leave “Install Transforms from Maltego public servers” which will install the transforms on the client.<br />
+At the final screen we get the correct initialization message with different possibilities for starting to use Maltego:</p>
+
+<p><a href="/images/maltego/maltego_ready.png"><img src="/images/maltego/maltego_ready.png" alt="" /></a></p>
+
+<p>“Run a machine” allows you to run predefined searches, called “machines”: for example, the “Company Stalker” machine gets all email addresses it can find on the web for a certain domain and look for related account on social networks; it also gets documents and extract metadata from them.<br />
+Since we want to perform a custom search we need to select “Open a blank graph and let me play around” and then click on “Finish”. This action opens a new empty graph where we can start a new OSINT activity:</p>
+
+<p class="center"><a href="/images/maltego/maltego_new.png"><img src="/images/maltego/maltego_new.png" alt="" /></a></p>
+
+<p>We could have also opened a new graph by simply clicking on Maltego icon on the top left choosing “New”.<br />
+As the image shows, on the top part we have six tabs:</p>
+
+<ul>
+  <li>Investigate - offers options to quickly search through the graph or to select entities;</li>
+  <li>Manage - allows to import/export configurations, manage entities and transforms;</li>
+  <li>View - allows to choose which panels are active;</li>
+  <li>Organize - sets the node layout mode and the alignment type;</li>
+  <li>Machines - allows to run, stop, create and manage machines;</li>
+  <li>Collaboration - offers options to share projects and results.</li>
+</ul>
+
+<p>There is a big central window which is where the graph will be developed and on the tab it is reported the name of the graph (you can save the project and give it a proper name).<br />
+On the left side we have the “Palette” panel which contains the following categories:</p>
+
+<ul>
+  <li>Devices - adds a node such as a phone or camera;</li>
+  <li>Infrastructure - adds a node such as a domain, MX record or Website;</li>
+  <li>Locations - adds a node such as a GPS coordinate or location name;</li>
+  <li>Malware - adds a node as hash entity;</li>
+  <li>Penetration Testing - adds a node which identifies a technology;</li>
+  <li>Personal - adds a node such as a document, email address or person name;</li>
+  <li>Social Network - adds a node related to social networks like Facebook or Twitter.</li>
+</ul>
+
+<p>Each of them contains objects related to that category: these items can be dragged on the graph and, once placed there, it is possible to use them as starting point for a search activity. This can be done thanks to the application of <em>transforms</em>.</p>
+
+<p>As done in the previous Information Gathering posts, we can use as target the National Institute of Standards and Technology (NIST).
+We can start by clicking on “Infrastructure” and dragging on the graph a “Domain” object; by double clicking on it we can change its name into “nist.gov”:</p>
+
+<p class="center"><a href="/images/maltego/maltego_nist.png"><img src="/images/maltego/maltego_nist.png" alt="" /></a></p>
+
+<p>Now informations are displayed also in the other four panels:</p>
+<ul>
+  <li>Run View - contains Transforms and Machines that it is possible to run against the selected object;</li>
+  <li>Overview - shows a schematic graph where nodes are represented by colored circles;</li>
+  <li>Detail View - displays informations about the selected object;</li>
+  <li>Property View - shows properties regarding the selected object.</li>
+</ul>
+
+<p>To run a transform on the object we can either access them through the “Run View” panel or by simply clicking on the object with the right mouse button. “All Transforms”  contains all the possible transforms we can apply to that object type, which in this case is a Domain object.<br />
+The same transforms can also be found by looking inside the following four groups (of course they vary depending on the object type):</p>
+
+<ul>
+  <li>DNS from Domain;</li>
+  <li>Domain owner detail;</li>
+  <li>Email addresses from Domain;</li>
+  <li>Files and Documents from Domain.</li>
+</ul>
+
+<p class="center"><a href="/images/maltego/maltego_transforms.png"><img src="/images/maltego/maltego_transforms.png" alt="" /></a></p>
+
+<p>We can start by running the transform <em>DNS from Domain &gt; DomainToDNSNameSchema</em> which tries various name schema’s against the object domain; once the disclaimer is accepted, we can run the transform:</p>
+
+<p class="center"><a href="/images/maltego/maltego_DomainToDNSNameSchema.png"><img src="/images/maltego/maltego_DomainToDNSNameSchema.png" alt="" /></a></p>
+
+<p>The execution of the transform can be verified in the “Output - Transform Output” panel: as reported, the tool searches for subdomains using lists of common names which are loaded on Paterva servers as files with extension “.bfdns”.<br />
+We can see that the graph is populated with subdomains found by the search; it is possible to switch from the Main View to the Bubble View or to the Entity List by simply clicking on the respective buttons on the top of the graph.<br />
+There is also the chance to change the layout mode by clicking on the icons on the upper part of the graph window; the default one is called “Block”.<br />
+Note that entities belonging to the same category are represented by circles of the same color in the Overview panel.</p>
+
+<p>Suppose we want to find the IP address for a certain subdomain, then we right click on the object and run <em>Resolve to IP</em>; we can even select multiple objects using the “Shift” button and apply the transform to all of them:</p>
+
+<p class="center"><a href="/images/maltego/maltego_ResolveToIP.png"><img src="/images/maltego/maltego_ResolveToIP.png" alt="" /></a></p>
+
+<p>Once we have the IP addresses we can run a further transform that returns the geolocation for that IP; just right click on the object, then <em>IP owner detail &gt; toLocation</em> and run it by clicking on the yellow arrow:</p>
+
+<p class="center"><a href="/images/maltego/maltego_ToLocation.png"><img src="/images/maltego/maltego_ToLocation.png" alt="" /></a></p>
+
+<p>The transform group “IP owner detail” is also really useful to find informations like email addresses, entities (person names) and phone numbers, so it is a good idea to take a look at the others transforms inside it.</p>
+
+<p>Now suppose we want to check, in a passive way, which websites are associated to the target domain: <em>DNS from Domain &gt; To Website DNS [using Search Engines]</em> is the transform we want to use. We can also choose which search engine we want to launch the query against (default is Bing); this can be done by clicking on the “Configure” icon near the yellow arrow key:</p>
+
+<p class="center"><a href="/images/maltego/maltego_configure.png"><img src="/images/maltego/maltego_configure.png" alt="" /></a></p>
+
+<p>In this configuration menu there are also reported all the other transforms loaded in Maltego with their Status, Transform Server Location, Default Set, Input and Output informations.<br />
+Keep in mind that some transforms are more invasive than others: for example, it is possible to discover websites querying directly port 80 using the transform <em>To Web site [Query port 80]</em>.</p>
+
+<p>This is the resulting graph with a focus on the websites:</p>
+
+<p class="center"><a href="/images/maltego/maltego_ToWebsite.png"><img src="/images/maltego/maltego_ToWebsite.png" alt="" /></a></p>
+
+<p>Note how Maltego automatically organizes nodes on the graph.</p>
+
+<p>A really useful transform which can be applied to Website objects is <em>ToServerTechnologiesWebsite</em>; using the BuiltWith.com API it is able to retrieve informations about the technologies running on the target website:</p>
+
+<p class="center"><a href="/images/maltego/maltego_ToServerTechnologiesWebsite.png"><img src="/images/maltego/maltego_ToServerTechnologiesWebsite.png" alt="" /></a></p>
+
+<p>If you think the graph is becoming heavy, it is possible to remove unwanted nodes by selecting them and pressing the “Canc” button.<br />
+Another interesting transform is the one named <em>Files and Documents from Domain</em>: this will search for files and documents inside the given domain with the extensions reported in the configuration menu; by clicking on the node representing a file we can get informations about the query used to find it with the document download link.</p>
+
+<p class="center"><a href="/images/maltego/maltego_ToFiles.png"><img src="/images/maltego/maltego_ToFiles.png" alt="" /></a></p>
+
+<p>The following step could be to find email addresses related to the target domain by using <em>Email addresses from Domain</em> transform on the “Domain” object; then we could run <em>To Person</em> transform on the “Email” object to get person identity related to that email address or <em>To Phone number [using Search Engine]</em> transform to try a phone number discovery.</p>
+
+<p>Like seen before, another way to proceed is to use predefined search machines which are configured to run with a more or less invasive approach against the target; be aware that you can create your own machine so as to exactly perform the queries you need and nothing more.</p>
+
+<p>You can even create your own transforms: <a href="http://dev.paterva.com/developer/getting_started/building_your_own_tds_transform.php">http://dev.paterva.com/developer/getting_started/building_your_own_tds_transform.php</a>.</p>
+
+<p><strong>Conclusions</strong></p>
+
+<p>Maltego is a powerful graphical tool for OSINT and it can be customized depending on your own needs. Since it generates graphs it gives a rapid overview of the target structure, differently from command line tools. This is why it is always important to work with more than one tool so as to have a better picture of the target.<br />
+As always,  experiment with the transforms by yourself (there is a very good amount of them) to make the most of Maltego potential.</p>
+
+    </div>
+  </div>
+</article>
+
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+        <p align=right>© 2016 Spread Security | All Rights Reserved 
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+  </body>
+</html>

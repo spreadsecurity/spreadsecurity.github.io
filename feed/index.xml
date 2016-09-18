@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 03 Sep 2016 18:14:17 +0200</pubDate>
-    <lastBuildDate>Sat, 03 Sep 2016 18:14:17 +0200</lastBuildDate>
+    <pubDate>Sun, 18 Sep 2016 11:59:43 +0200</pubDate>
+    <lastBuildDate>Sun, 18 Sep 2016 11:59:43 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -1403,8 +1403,9 @@ This is why the idea here is to show theory of attacks followed by â€œhands-onâ€
   &lt;li&gt;Open Source Intelligence (OSINT);&lt;/li&gt;
   &lt;li&gt;Theory behind attacks;&lt;/li&gt;
   &lt;li&gt;Practical simulations of attacks in a virtual environment;&lt;/li&gt;
+  &lt;li&gt;Malware Reverse Engineering;&lt;/li&gt;
   &lt;li&gt;Security best practices;&lt;/li&gt;
-  &lt;li&gt;Suggestions on how to secure your systems and networks.&lt;/li&gt;
+  &lt;li&gt;Suggestions on how to secure systems and networks.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;I really hope you will find this blog useful, so enjoy the reading and see you in the next post.&lt;/p&gt;
 </description>

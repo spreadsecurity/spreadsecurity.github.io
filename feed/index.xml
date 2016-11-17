@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 17 Nov 2016 22:55:53 +0100</pubDate>
-    <lastBuildDate>Thu, 17 Nov 2016 22:55:53 +0100</lastBuildDate>
+    <pubDate>Thu, 17 Nov 2016 23:26:39 +0100</pubDate>
+    <lastBuildDate>Thu, 17 Nov 2016 23:26:39 +0100</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -654,7 +654,8 @@ Session completed
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Considering the worst case for the attacker, we suppose that the local Administrator password is different in every client belonging to the domain (otherwise he would already had access to every machine without performing any further action).&lt;/p&gt;
+&lt;p&gt;JTR has successfully found the password for the Administrator account: “password1”.
+Considering the worst case for the attacker, we suppose that the local Administrator password is different in every client belonging to the domain (otherwise he would already had access to every machine without performing any further action).&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Token Impersonation&lt;/strong&gt;&lt;/p&gt;
 

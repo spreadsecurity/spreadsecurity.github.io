@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 17 Nov 2016 22:43:04 +0100</pubDate>
-    <lastBuildDate>Thu, 17 Nov 2016 22:43:04 +0100</lastBuildDate>
+    <pubDate>Thu, 17 Nov 2016 22:55:53 +0100</pubDate>
+    <lastBuildDate>Thu, 17 Nov 2016 22:55:53 +0100</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -198,7 +198,8 @@ Active sessions
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;We have an established connection between the attacker machine with IP address 192.168.1.10 and the victim machine with IP address 192.168.1.208; this connection starts from the victim machine and connects back to the attacker one using port 443. Choosing this port was not random: a connection of this type will be less suspicious since it mimics an ordinary SSL session like if the user is just visiting a webpage in HTTPS.&lt;/p&gt;
+&lt;p&gt;We have an established connection between the attacker machine with IP address 192.168.1.10 and the victim machine with IP address 192.168.1.208; this connection starts from the victim machine and connects back to the attacker one using port 443. Choosing this port was not random: a connection of this type will be less suspicious since it mimics an ordinary SSL session like if the user is just visiting a webpage in HTTPS.&lt;br /&gt;
+Beware that this exploit works both on Internet Explorer (version 8 in this test) and Mozilla Firefox (of course Java plugin must be active).&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Post Exploitation&lt;/strong&gt;&lt;/p&gt;
 

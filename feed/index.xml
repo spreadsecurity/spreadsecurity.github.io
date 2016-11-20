@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 17 Nov 2016 23:26:39 +0100</pubDate>
-    <lastBuildDate>Thu, 17 Nov 2016 23:26:39 +0100</lastBuildDate>
+    <pubDate>Sun, 20 Nov 2016 19:13:52 +0100</pubDate>
+    <lastBuildDate>Sun, 20 Nov 2016 19:13:52 +0100</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -879,14 +879,14 @@ WIN7SP164$:1117:aad3b435b51404eeaad3b435b51404ee:031b3d01c20cb5f1ad6cceb4bccbd0c
 
 &lt;ul&gt;
   &lt;li&gt;Update Java to the latest version released so as to get rid of the CVE-2013-2465 and othere Java related vulnerabilities;&lt;/li&gt;
-  &lt;li&gt;Install Microsoft Security patch KB3057191 in order to remove MS15-051 vulnerability;&lt;/li&gt;
+  &lt;li&gt;Install Microsoft Security patch KB3057191 in order to remove MS15-051 vulnerability.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Regarding Microsoft Windows access control model based on tokens, keep in mind that this is how Windows handles the authentication so it cannot be considered a vulnerability. This means that in order to secure the environment the countermeasures are more about processes and procedures. This is why it is important to follow Security best practices; here is a list of Security rules it is good to follow to lower the risk level related to token impersonation attacks:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Limit number of Domain Admins accounts&lt;/li&gt;
-  &lt;li&gt;Users with Domain Admnins account must use their unprivileged account for standard use;&lt;/li&gt;
+  &lt;li&gt;Limit number of Domain Admin accounts&lt;/li&gt;
+  &lt;li&gt;Users with Domain Admin account must use their unprivileged account for standard use;&lt;/li&gt;
   &lt;li&gt;Create administrative groups with access restricted to their competence area (for example, development, test and production groups) so as to limit possible data breaches.&lt;/li&gt;
 &lt;/ul&gt;
 

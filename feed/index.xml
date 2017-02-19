@@ -6,13 +6,13 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 19 Feb 2017 14:08:08 +0100</pubDate>
-    <lastBuildDate>Sun, 19 Feb 2017 14:08:08 +0100</lastBuildDate>
+    <pubDate>Sun, 19 Feb 2017 15:26:50 +0100</pubDate>
+    <lastBuildDate>Sun, 19 Feb 2017 15:26:50 +0100</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
         <title>Nmap Scripting Engine</title>
-        <description>&lt;p&gt;In &lt;a href=&quot;https://spreadsecurity.github.io/2016/10/23/port-scanning-with-nmap.html&quot;&gt;this&lt;/a&gt; topic we have seen how Nmap can be used to perform port scanning against a given target.&lt;br /&gt;
+        <description>&lt;p&gt;In &lt;a href=&quot;https://spreadsecurity.github.io/2016/10/23/port-scanning-with-nmap.html&quot;&gt;this&lt;/a&gt; previous topic we have seen how Nmap can be used to perform port scanning against a given target.&lt;br /&gt;
 Of course, this is just one of the capabilities of this great tool. In fact, another very useful feature is represented by Nmap Scripting Engine (NSE).&lt;/p&gt;
 
 &lt;!--more--&gt;

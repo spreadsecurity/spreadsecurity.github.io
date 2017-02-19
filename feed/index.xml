@@ -2,13 +2,210 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Spread Security</title>
-    <description>© 2016 Spread Security | All Rights Reserved 
+    <description>© 2016-2017 Spread Security | All Rights Reserved 
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 14 Dec 2016 19:33:57 +0100</pubDate>
-    <lastBuildDate>Wed, 14 Dec 2016 19:33:57 +0100</lastBuildDate>
+    <pubDate>Sun, 19 Feb 2017 12:38:43 +0100</pubDate>
+    <lastBuildDate>Sun, 19 Feb 2017 12:38:43 +0100</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Nmap Scripting Engine</title>
+        <description>&lt;p&gt;In &lt;a href=&quot;https://spreadsecurity.github.io/2016/10/23/port-scanning-with-nmap.html&quot;&gt;this&lt;/a&gt; topic we have seen how Nmap can be used to perform port scanning against a given target.&lt;br /&gt;
+Of course, this is just one of the capabilities of this great tool. In fact, another very useful feature is represented by Nmap Scripting Engine (NSE).&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;NSE allows to include scripts, coded with Lua programming language, inside Nmap and run them to perform networking tasks in an autonomous way: this includes discovery, version detection, vulnerability discovery and even exploitation.&lt;/p&gt;
+
+&lt;p&gt;This is the reason why there are different categories for the scripts inside the engine: auth, broadcast, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. For a description of each one, take a look &lt;a href=&quot;https://nmap.org/book/nse-usage.html#nse-categories&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It is possible to check the complete scripts list &lt;a href=&quot;https://nmap.org/nsedoc&quot;&gt;here&lt;/a&gt;. If you are using Kali Linux, the scripts folder is located at &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/share/nmap/scripts&lt;/code&gt; and scripts have the extensione “.nse”.&lt;br /&gt;
+In order to update scripts database, we can just run &lt;code class=&quot;highlighter-rouge&quot;&gt;nmap --script-updatedb&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;As the help section reports, to run the engine with a predefined number of scripts, the parameter to use is “-sC”:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# nmap -h
+.....................................................................
+
+SCRIPT SCAN:
+  -sC: equivalent to --script=default
+  --script=&amp;lt;Lua scripts&amp;gt;: &amp;lt;Lua scripts&amp;gt; is a comma separated list of
+           directories, script-files or script-categories
+  --script-args=&amp;lt;n1=v1,[n2=v2,...]&amp;gt;: provide arguments to scripts
+  --script-args-file=filename: provide NSE script args in a file
+  --script-trace: Show all data sent and received
+  --script-updatedb: Update the script database.
+  --script-help=&amp;lt;Lua scripts&amp;gt;: Show help about scripts.
+           &amp;lt;Lua scripts&amp;gt; is a comma-separated list of script-files or
+           script-categories.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This will execute all the scripts included in the “default” category against the specified target. It is recommended to use this option with caution, since some of the scripts included in the default category might be particularly intrusive.&lt;/p&gt;
+
+&lt;p&gt;Instead of launching the engine using a particular category, we can run a single script by using the “–script” parameter. This can be done, for example, after a previous scan where we detected an active service on some port that might be of interest.&lt;/p&gt;
+
+&lt;p&gt;Since the best way to understand how a tool works is to practice with it, we will see an example of NSE capabilities using a laboratory environment composed by an attacking Kali Linux machine and a vulnerable target, Metaspoitable 2 VM.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Metasploitable 2: NFS misconfiguration&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Considering the results of the Nmap scan performed on the target in &lt;a href=&quot;https://spreadsecurity.github.io/2016/10/23/port-scanning-with-nmap.html&quot;&gt;this&lt;/a&gt; article, we can take a look at the following services:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PORT     STATE SERVICE
+......................
+111/tcp  open  rpcbind
+......................
+2049/tcp open  nfs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of filesystem over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.&lt;/p&gt;
+
+&lt;p&gt;The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use “–script-help” followed by the name of the script:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# nmap --script-help nfs-ls
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2017-02-18 19:30 CET
+
+nfs-ls
+Categories: discovery safe
+https://nmap.org/nsedoc/scripts/nfs-ls.html
+  Attempts to get useful information about files from NFS exports.
+  The output is intended to resemble the output of &amp;lt;code&amp;gt;ls&amp;lt;/code&amp;gt;.
+
+  The script starts by enumerating and mounting the remote NFS exports. After
+  that it performs an NFS GETATTR procedure call for each mounted point
+  in order to get its ACLs.
+  For each mounted directory the script will try to list its file entries
+  with their attributes.
+
+  Since the file attributes shown in the results are the result of
+  GETATTR, READDIRPLUS, and similar procedures, the attributes
+  are the attributes of the local filesystem.
+
+  These access permissions are shown only with NFSv3:
+  * Read:     Read data from file or read a directory.
+  * Lookup:   Look up a name in a directory
+              (no meaning for non-directory objects).
+  * Modify:   Rewrite existing file data or modify existing
+              directory entries.
+  * Extend:   Write new data or add directory entries.
+  * Delete:   Delete an existing directory entry.
+  * Execute:  Execute file (no meaning for a directory).
+
+  Recursive listing is not implemented.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The target has IP address 192.168.1.100 (discovered, for example, using Netdiscover or Nmap itself), so we can start running the NFS discovery script against the machine.&lt;br /&gt;
+In order to trigger as less alerts as possible, it is always a good idea to scan only ports we are focusing on. The port we are interested in is not the one on which runs the NFS service, but the “rpcbind” one: this service performs the task of routing requests between clients and NFS server.&lt;br /&gt;
+Then, we can launch Nmap against port 111:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# nmap -p 111 --script=nfs-ls 192.168.1.100
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2017-02-19 09:14 CET
+Nmap scan report for metasploitable2 (192.168.1.100)
+Host is up (0.00012s latency).
+PORT    STATE SERVICE
+111/tcp open  rpcbind
+| nfs-ls: Volume /
+|   access: Read Lookup Modify Extend Delete NoExecute
+| PERMISSION  UID  GID  SIZE   TIME                 FILENAME
+| -rwx------  0    0    134    2016-02-27T18:28:03  .7RSS8eUhMslnW9Zc
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:33  bin
+| drwxr-xr-x  0    0    4096   2016-03-06T13:45:42  home
+| drwxr-xr-x  0    0    4096   2010-03-16T22:57:40  initrd
+| lrwxrwxrwx  0    0    32     2010-04-28T20:26:18  initrd.img
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:22  lib
+| drwx------  0    0    16384  2010-03-16T22:55:15  lost+found
+| drwxr-xr-x  0    0    4096   2010-03-16T22:55:52  media
+| drwxr-xr-x  0    0    4096   2010-04-28T20:16:56  mnt
+| drwxr-xr-x  0    0    4096   2012-05-14T01:54:53  sbin
+|_
+MAC Address: 00:0C:29:59:72:BC (VMware)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As the outputs reports, we have the directory listing, with details about permissions, for the NFS share; the mounting point is the root directory “/” (&lt;code class=&quot;highlighter-rouge&quot;&gt;nfs-ls: Volume /&lt;/code&gt;).&lt;br /&gt;
+This can be confirmed with a command for showing mount points:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+root@kali:~# showmount -e 192.168.1.100
+Export list for 192.168.1.100:
+/ *
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This shows a really bad configuration: NFS service is useful to share portions of the file system to predefined users or groups, but if it is not configured properly it can turn into a huge security risk like in this case where anyone can access the root directory remotely.&lt;/p&gt;
+
+&lt;p&gt;To verify the possibility to mount the volume, we can create a temporary directory and try to mount Metasploitable 2 root directory on it:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# mkdir /tmp/nfs
+
+root@kali:~# mount -o nolock -t nfs 192.168.1.100:/ /tmp/nfs
+
+root@kali:~# ls -l /tmp/nfs/
+total 160
+drwxr-xr-x  2 root root  4096 May 14  2012 bin
+drwxr-xr-x  3 root root  4096 Apr 28  2010 boot
+lrwxrwxrwx  1 root root    11 Apr 28  2010 cdrom -&amp;gt; media/cdrom
+drwxr-xr-x  2 root root  4096 May 20  2012 dev
+drwxr-xr-x 95 root root  4096 Feb 19 09:01 etc
+drwxr-xr-x  6 root root  4096 Mar  6  2016 home
+drwxr-xr-x  2 root root  4096 Mar 16  2010 initrd
+lrwxrwxrwx  1 root root    32 Apr 28  2010 initrd.img -&amp;gt; boot/initrd.img-2.6.24-16-server
+drwxr-xr-x 13 root root  4096 May 14  2012 lib
+drwx------  2 root root 16384 Mar 16  2010 lost+found
+drwxr-xr-x  4 root root  4096 Mar 16  2010 media
+drwxr-xr-x  3 root root  4096 Apr 28  2010 mnt
+-rw-------  1 root root 65699 Feb 19 09:01 nohup.out
+drwxr-xr-x  2 root root  4096 Mar  6  2016 opt
+dr-xr-xr-x  2 root root  4096 Apr 28  2010 proc
+drwxr-xr-x 13 root root  4096 Feb 19 09:01 root
+drwxr-xr-x  2 root root  4096 May 14  2012 sbin
+drwxr-xr-x  2 root root  4096 Mar 16  2010 srv
+drwxr-xr-x  2 root root  4096 Apr 28  2010 sys
+drwxrwxrwt  4 root root  4096 Feb 19 09:01 tmp
+drwxr-xr-x 12 root root  4096 Apr 28  2010 usr
+drwxr-xr-x 15 root root  4096 May 20  2012 var
+lrwxrwxrwx  1 root root    29 Apr 28  2010 vmlinuz -&amp;gt; boot/vmlinuz-2.6.24-16-server
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;“ls -l” shows the mount operation has been executed successfully. Now, we can read or write files in the compromised machine.&lt;br /&gt;
+Once we have done with it, we can unmount the volume with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# umount /tmp/nfs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Conclusions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In this article we have seen how NSE can be used to discover useful information about the target system. Of course, this is just a simple example to give an idea of what you can do with the engine. Since everyone can contribute to the scripts, this project has a lot of potential because you can write your own code and run it in Nmap.&lt;br /&gt;
+Take your time to practice with this powerful tool taking also a look at the other scripts categories.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 18 Feb 2017 00:00:00 +0100</pubDate>
+        <link>https://spreadsecurity.github.io//2017/02/18/nmap-scripting-engine.html</link>
+        <guid isPermaLink="true">https://spreadsecurity.github.io//2017/02/18/nmap-scripting-engine.html</guid>
+        
+        <category>Nmap</category>
+        
+        <category>NSE</category>
+        
+        <category>Metasploitable 2</category>
+        
+        <category>Penetration testing</category>
+        
+        <category>NFS</category>
+        
+        <category>RPC</category>
+        
+        
+      </item>
     
       <item>
         <title>Attack Simulation: from No Access to Domain Admin</title>
@@ -2779,67 +2976,6 @@ Keep in mind that this type of information gathering through search engine is a 
         <category>Google advanced search operators</category>
         
         <category>OSINT</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Main Steps of an Attack</title>
-        <description>&lt;p&gt;Following a portion of the phases presented in the Penetration Testing Execution Standards (PTES), which represents a technical guideline for performing a penetration test, i.e. a simulation of a real attack against a certain target, we will focus on the theory and practice behind the following main steps:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Information gathering or reconnaissance;&lt;/li&gt;
-  &lt;li&gt;Vulnerability analysis;&lt;/li&gt;
-  &lt;li&gt;Exploitation;&lt;/li&gt;
-  &lt;li&gt;Post-exploitation.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Since these steps mimic how the attacker thinks and acts, performing this process via previous authorization is also called “Ethical Hacking”.
-&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/main_phases.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Information gathering&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;There is a huge amount of informations we can acquire about a certain target by simply crawling the Internet using proper searches and tools, namely &lt;i&gt;passive reconnaissance&lt;/i&gt;; this type of information gathering is really safe for the attacker: in fact, since it does not interact directly with the systems because it uses only web search engines, it is difficult to detect.&lt;/p&gt;
-
-&lt;p&gt;Understanding how it is important to limit the visibility of our personal informations is a first important step in the road to security. Many times users are the same ones giving the attackers a huge help by simply leaving personal data publicly available on the net.&lt;/p&gt;
-
-&lt;p&gt;On the other side, &lt;i&gt;active reconnaissance&lt;/i&gt; is more invasive and can trigger alerts on Intrusion Detection Systems (IDS), but gives a lot more specific informations such as version of operating system and applications running on target machine, services and open ports.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Vulnerability Analysis&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;Once we have collected enough informations about the target, we can start analyzing vulnerabilities, i.e. security flaws in target systems. Even if understanding how to find vulnerabilities by ourselves is important (especially in a security research perspective), sometimes it can be useful to take advantage of automatic tools for scanning a certain system in order to find known security issues, especially if the time available to discover them is limited. This is why we will look at some useful tools called Vulnerability Scanners: they namely scan the target, mostly in a invasive way, to check if there are known vulnerabilities or software misconfigurations; by probing hosts, scanners look for active addresses, open ports, operative systems, running applications versions and so on.&lt;br /&gt;
-Finally they report results in a document.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Exploitation&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;Finding a vulnerability does not necessarily mean we can exploit it to compromise systems or accounts: this is where the art of exploitation takes place and where the attacker shows his knowledge, capability and creativity.&lt;/p&gt;
-
-&lt;p&gt;We will go from Web Application testing (such as SQL Injection, Cross-Site Scripting, Local/Remote File Inclusion) to Client-side exploitation taking advantage of vulnerabilities in the software installed on target machines in order to compromise them by taking the control.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Post-exploitation&lt;/b&gt;&lt;/p&gt;
-
-&lt;p&gt;Once the access to the system is obtained, the attacker can start the real intrusion: in fact, this is where the concrete attack starts. Generally, one of the first things to do is to try to escalate privileges, i.e. getting full access to all folders and files on the system so as to exfiltrate as much data as possible. Furthermore the attacker may want to be able to reconnect back to the compromised system whenever he wants to, so another post-exploitation activity could be the implemetation of the so called “persistence”.
-Moreover, if the compromised system is connected to other systems it is possible to leverage this feature to get access to other devices connected to the same network interface subnet.&lt;/p&gt;
-
-&lt;p&gt;This is just a high-level view of how an attacker plans and executes an attack; we will perform in detail these steps in a virtual laboratory environment on intentionally vulnerable machines created for didactic purpose.&lt;/p&gt;
-
-&lt;p&gt;In the next articles, we will discuss about topics regarding these four macro-phases.&lt;/p&gt;
-
-&lt;p&gt;References: &lt;a href=&quot;http://www.pentest-standard.org&quot;&gt;http://www.pentest-standard.org&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Mon, 11 Jul 2016 00:00:00 +0200</pubDate>
-        <link>https://spreadsecurity.github.io//2016/07/11/main-steps-of-an-attack.html</link>
-        <guid isPermaLink="true">https://spreadsecurity.github.io//2016/07/11/main-steps-of-an-attack.html</guid>
-        
-        <category>Penetration test</category>
-        
-        <category>Information gathering</category>
-        
-        <category>Vulnerability analysis</category>
-        
-        <category>Exploitation</category>
-        
-        <category>Post-exploitation</category>
         
         
       </item>

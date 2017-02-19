@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
+  <head>
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82489724-1', 'auto');
+  ga('send', 'pageview');
+
+  </script>
+  <meta name="google-site-verification" content="2sf0nOsdmxOwb35mzYgNoZLo3dWw5VuhtdWLaSGSekA" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Nmap Scripting Engine</title>
+  <meta name="description" content="In this topic we have seen how Nmap can be used to perform port scanning against a given target.Of course, this is just one of the capabilities of this great...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://spreadsecurity.github.io//2017/02/18/nmap-scripting-engine.html">
+  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
+</head>
+
+  <body>
+    <nav class="single-post-nav">
+      <ul>
+        <li>
+          
+          <a href="/2016/11/17/attack-simulation-from-no-access-to-domain-admin.html">&#8592; Previous post</a>
+          
+        </li>
+        <li><a href="/">Home Page</a></li>
+        <li>
+          
+        </li>
+      </ul>
+    </nav>
+    <div class="single-post">
+      <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header single-post-header" style="background-image:url('https://spreadsecurity.github.io//images/code_banner.jpg')">
+    <div>
+      <h1 class="post-title single-post-title" itemprop="name headline">Nmap Scripting Engine</h1>
+      <p class="post-meta single-post-meta">
+        <time datetime="2017-02-18T00:00:00+01:00" itemprop="datePublished">18 February 2017</time>
+        •
+        
+        
+          7 mins
+        
+        read
+      </p>
+    </div>
+  </header>
+  <div class="wrapper">
+    <div class="single-post-summary">
+      
+    <ul class="tag-box inline">
+      
+        <li><a href="/tags#Nmap" class="tag">• Nmap</a></li>
+      
+        <li><a href="/tags#NSE" class="tag">• NSE</a></li>
+      
+        <li><a href="/tags#Metasploitable 2" class="tag">• Metasploitable 2</a></li>
+      
+        <li><a href="/tags#Penetration testing" class="tag">• Penetration testing</a></li>
+      
+        <li><a href="/tags#NFS" class="tag">• NFS</a></li>
+      
+        <li><a href="/tags#RPC" class="tag">• RPC</a></li>
+      
+    </ul>  
+    </div>
+    <div class="post-content single-post-content" itemprop="articleBody">
+      <p>In <a href="https://spreadsecurity.github.io/2016/10/23/port-scanning-with-nmap.html">this</a> topic we have seen how Nmap can be used to perform port scanning against a given target.<br />
+Of course, this is just one of the capabilities of this great tool. In fact, another very useful feature is represented by Nmap Scripting Engine (NSE).</p>
+
+<!--more-->
+
+<p>NSE allows to include scripts, coded with Lua programming language, inside Nmap and run them to perform networking tasks in an autonomous way: this includes discovery, version detection, vulnerability discovery and even exploitation.</p>
+
+<p>This is the reason why there are different categories for the scripts inside the engine: auth, broadcast, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. For a description of each one, take a look <a href="https://nmap.org/book/nse-usage.html#nse-categories">here</a>.</p>
+
+<p>It is possible to check the complete scripts list <a href="https://nmap.org/nsedoc">here</a>. If you are using Kali Linux, the scripts folder is located at <code class="highlighter-rouge">/usr/share/nmap/scripts</code> and scripts have the extensione “.nse”.<br />
+In order to update scripts database, we can just run <code class="highlighter-rouge">nmap --script-updatedb</code>.</p>
+
+<p>As the help section reports, to run the engine with a predefined number of scripts, the parameter to use is “-sC”:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# nmap -h
+.....................................................................
+
+SCRIPT SCAN:
+  -sC: equivalent to --script=default
+  --script=&lt;Lua scripts&gt;: &lt;Lua scripts&gt; is a comma separated list of
+           directories, script-files or script-categories
+  --script-args=&lt;n1=v1,[n2=v2,...]&gt;: provide arguments to scripts
+  --script-args-file=filename: provide NSE script args in a file
+  --script-trace: Show all data sent and received
+  --script-updatedb: Update the script database.
+  --script-help=&lt;Lua scripts&gt;: Show help about scripts.
+           &lt;Lua scripts&gt; is a comma-separated list of script-files or
+           script-categories.
+</code></pre>
+</div>
+
+<p>This will execute all the scripts included in the “default” category against the specified target. It is recommended to use this option with caution, since some of the scripts included in the default category might be particularly intrusive.</p>
+
+<p>Instead of launching the engine using a particular category, we can run a single script by using the “–script” parameter. This can be done, for example, after a previous scan where we detected an active service on some port that might be of interest.</p>
+
+<p>Since the best way to understand how a tool works is to practice with it, we will see an example of NSE capabilities using a laboratory environment composed by an attacking Kali Linux machine and a vulnerable target, Metaspoitable 2 VM.</p>
+
+<p><strong>Metasploitable 2: NFS misconfiguration</strong></p>
+
+<p>Considering the results of the Nmap scan performed on the target in <a href="https://spreadsecurity.github.io/2016/10/23/port-scanning-with-nmap.html">this</a> article, we can take a look at the following services:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>PORT     STATE SERVICE
+......................
+111/tcp  open  rpcbind
+......................
+2049/tcp open  nfs
+</code></pre>
+</div>
+
+<p>NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of filesystem over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.</p>
+
+<p>The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use “–script-help” followed by the name of the script:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# nmap --script-help nfs-ls
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2017-02-18 19:30 CET
+
+nfs-ls
+Categories: discovery safe
+https://nmap.org/nsedoc/scripts/nfs-ls.html
+  Attempts to get useful information about files from NFS exports.
+  The output is intended to resemble the output of &lt;code&gt;ls&lt;/code&gt;.
+
+  The script starts by enumerating and mounting the remote NFS exports. After
+  that it performs an NFS GETATTR procedure call for each mounted point
+  in order to get its ACLs.
+  For each mounted directory the script will try to list its file entries
+  with their attributes.
+
+  Since the file attributes shown in the results are the result of
+  GETATTR, READDIRPLUS, and similar procedures, the attributes
+  are the attributes of the local filesystem.
+
+  These access permissions are shown only with NFSv3:
+  * Read:     Read data from file or read a directory.
+  * Lookup:   Look up a name in a directory
+              (no meaning for non-directory objects).
+  * Modify:   Rewrite existing file data or modify existing
+              directory entries.
+  * Extend:   Write new data or add directory entries.
+  * Delete:   Delete an existing directory entry.
+  * Execute:  Execute file (no meaning for a directory).
+
+  Recursive listing is not implemented.
+</code></pre>
+</div>
+
+<p>The target has IP address 192.168.1.100 (discovered, for example, using Netdiscover or Nmap itself), so we can start running the NFS discovery script against the machine.<br />
+In order to trigger as less alerts as possible, it is always a good idea to scan only ports we are focusing on. The port we are interested in is not the one on which runs the NFS service, but the “rpcbind” one: this service performs the task of routing requests between clients and NFS server.<br />
+Then, we can launch Nmap against port 111:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# nmap -p 111 --script=nfs-ls 192.168.1.100
+
+Starting Nmap 7.40 ( https://nmap.org ) at 2017-02-19 09:14 CET
+Nmap scan report for metasploitable2 (192.168.1.100)
+Host is up (0.00012s latency).
+PORT    STATE SERVICE
+111/tcp open  rpcbind
+| nfs-ls: Volume /
+|   access: Read Lookup Modify Extend Delete NoExecute
+| PERMISSION  UID  GID  SIZE   TIME                 FILENAME
+| -rwx------  0    0    134    2016-02-27T18:28:03  .7RSS8eUhMslnW9Zc
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:33  bin
+| drwxr-xr-x  0    0    4096   2016-03-06T13:45:42  home
+| drwxr-xr-x  0    0    4096   2010-03-16T22:57:40  initrd
+| lrwxrwxrwx  0    0    32     2010-04-28T20:26:18  initrd.img
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:22  lib
+| drwx------  0    0    16384  2010-03-16T22:55:15  lost+found
+| drwxr-xr-x  0    0    4096   2010-03-16T22:55:52  media
+| drwxr-xr-x  0    0    4096   2010-04-28T20:16:56  mnt
+| drwxr-xr-x  0    0    4096   2012-05-14T01:54:53  sbin
+|_
+MAC Address: 00:0C:29:59:72:BC (VMware)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds
+</code></pre>
+</div>
+
+<p>As the outputs reports, we have the directory listing, with details about permissions, for the NFS share; the mounting point is the root directory “/” (<code class="highlighter-rouge">nfs-ls: Volume /</code>).<br />
+This can be confirmed with a command for showing mount points:</p>
+
+<p><code class="highlighter-rouge">
+root@kali:~# showmount -e 192.168.1.100
+Export list for 192.168.1.100:
+/ *
+</code></p>
+
+<p>This shows a really bad configuration: NFS service is useful to share portions of the file system to predefined users or groups, but if it is not configured properly it can turn into a huge security risk like in this case where anyone can access the root directory remotely.</p>
+
+<p>To verify the possibility to mount the volume, we can create a temporary directory and try to mount Metasploitable 2 root directory on it:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# mkdir /tmp/nfs
+
+root@kali:~# mount -o nolock -t nfs 192.168.1.100:/ /tmp/nfs
+
+root@kali:~# ls -l /tmp/nfs/
+total 160
+drwxr-xr-x  2 root root  4096 May 14  2012 bin
+drwxr-xr-x  3 root root  4096 Apr 28  2010 boot
+lrwxrwxrwx  1 root root    11 Apr 28  2010 cdrom -&gt; media/cdrom
+drwxr-xr-x  2 root root  4096 May 20  2012 dev
+drwxr-xr-x 95 root root  4096 Feb 19 09:01 etc
+drwxr-xr-x  6 root root  4096 Mar  6  2016 home
+drwxr-xr-x  2 root root  4096 Mar 16  2010 initrd
+lrwxrwxrwx  1 root root    32 Apr 28  2010 initrd.img -&gt; boot/initrd.img-2.6.24-16-server
+drwxr-xr-x 13 root root  4096 May 14  2012 lib
+drwx------  2 root root 16384 Mar 16  2010 lost+found
+drwxr-xr-x  4 root root  4096 Mar 16  2010 media
+drwxr-xr-x  3 root root  4096 Apr 28  2010 mnt
+-rw-------  1 root root 65699 Feb 19 09:01 nohup.out
+drwxr-xr-x  2 root root  4096 Mar  6  2016 opt
+dr-xr-xr-x  2 root root  4096 Apr 28  2010 proc
+drwxr-xr-x 13 root root  4096 Feb 19 09:01 root
+drwxr-xr-x  2 root root  4096 May 14  2012 sbin
+drwxr-xr-x  2 root root  4096 Mar 16  2010 srv
+drwxr-xr-x  2 root root  4096 Apr 28  2010 sys
+drwxrwxrwt  4 root root  4096 Feb 19 09:01 tmp
+drwxr-xr-x 12 root root  4096 Apr 28  2010 usr
+drwxr-xr-x 15 root root  4096 May 20  2012 var
+lrwxrwxrwx  1 root root    29 Apr 28  2010 vmlinuz -&gt; boot/vmlinuz-2.6.24-16-server
+
+</code></pre>
+</div>
+
+<p>“ls -l” shows the mount operation has been executed successfully. Now, we can read or write files in the compromised machine.<br />
+Once we have done with it, we can unmount the volume with:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# umount /tmp/nfs
+</code></pre>
+</div>
+
+<p><strong>Conclusions</strong></p>
+
+<p>In this article we have seen how NSE can be used to discover useful information about the target system. Of course, this is just a simple example to give an idea of what you can do with the engine. Since everyone can contribute to the scripts, this project has a lot of potential because you can write your own code and run it in Nmap.<br />
+Take your time to practice with this powerful tool taking also a look at the other scripts categories.</p>
+
+    </div>
+  </div>
+</article>
+
+    </div>
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+        <p align=right>© 2016-2017 Spread Security | All Rights Reserved 
+</p>
+    </div>
+
+  </div>
+
+</footer>
+
+  </body>
+</html>

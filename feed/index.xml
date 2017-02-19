@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 19 Feb 2017 13:15:23 +0100</pubDate>
-    <lastBuildDate>Sun, 19 Feb 2017 13:15:23 +0100</lastBuildDate>
+    <pubDate>Sun, 19 Feb 2017 14:08:08 +0100</pubDate>
+    <lastBuildDate>Sun, 19 Feb 2017 14:08:08 +0100</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -19,9 +19,9 @@ Of course, this is just one of the capabilities of this great tool. In fact, ano
 
 &lt;p&gt;NSE allows to include scripts, coded with Lua programming language, inside Nmap and run them to perform networking tasks in an autonomous way: this includes discovery, version detection, vulnerability discovery and even exploitation.&lt;/p&gt;
 
-&lt;p&gt;This is the reason why there are different categories for the scripts inside the engine: auth, broadcast, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. For a description of each one, take a look &lt;a href=&quot;https://nmap.org/book/nse-usage.html#nse-categories&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This is the reason why there are different categories for the scripts inside the engine: auth, broadcast, default, discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. For a description of each one, take a look &lt;a href=&quot;https://nmap.org/book/nse-usage.html#nse-categories&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;It is possible to check the complete scripts list &lt;a href=&quot;https://nmap.org/nsedoc&quot;&gt;here&lt;/a&gt;. If you are using Kali Linux, the scripts folder is located at &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/share/nmap/scripts&lt;/code&gt; and scripts have the extensione “.nse”.&lt;br /&gt;
+&lt;p&gt;It is possible to check the complete scripts list &lt;a href=&quot;https://nmap.org/nsedoc&quot;&gt;here&lt;/a&gt;. If you are using Kali Linux, the scripts folder is located at &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/share/nmap/scripts&lt;/code&gt; and scripts have the extension “.nse”.&lt;br /&gt;
 In order to update scripts database, we can just run &lt;code class=&quot;highlighter-rouge&quot;&gt;nmap --script-updatedb&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;As the help section reports, to run the engine with a predefined number of scripts, the parameter to use is “-sC”:&lt;/p&gt;
@@ -61,7 +61,7 @@ SCRIPT SCAN:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of filesystem over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.&lt;/p&gt;
+&lt;p&gt;NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of file systems over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.&lt;/p&gt;
 
 &lt;p&gt;The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use “–script-help” followed by the name of the script:&lt;/p&gt;
 

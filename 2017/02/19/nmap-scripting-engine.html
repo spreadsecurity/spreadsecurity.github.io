@@ -82,9 +82,9 @@ Of course, this is just one of the capabilities of this great tool. In fact, ano
 
 <p>NSE allows to include scripts, coded with Lua programming language, inside Nmap and run them to perform networking tasks in an autonomous way: this includes discovery, version detection, vulnerability discovery and even exploitation.</p>
 
-<p>This is the reason why there are different categories for the scripts inside the engine: auth, broadcast, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. For a description of each one, take a look <a href="https://nmap.org/book/nse-usage.html#nse-categories">here</a>.</p>
+<p>This is the reason why there are different categories for the scripts inside the engine: auth, broadcast, default, discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. For a description of each one, take a look <a href="https://nmap.org/book/nse-usage.html#nse-categories">here</a>.</p>
 
-<p>It is possible to check the complete scripts list <a href="https://nmap.org/nsedoc">here</a>. If you are using Kali Linux, the scripts folder is located at <code class="highlighter-rouge">/usr/share/nmap/scripts</code> and scripts have the extensione “.nse”.<br />
+<p>It is possible to check the complete scripts list <a href="https://nmap.org/nsedoc">here</a>. If you are using Kali Linux, the scripts folder is located at <code class="highlighter-rouge">/usr/share/nmap/scripts</code> and scripts have the extension “.nse”.<br />
 In order to update scripts database, we can just run <code class="highlighter-rouge">nmap --script-updatedb</code>.</p>
 
 <p>As the help section reports, to run the engine with a predefined number of scripts, the parameter to use is “-sC”:</p>
@@ -124,7 +124,7 @@ SCRIPT SCAN:
 </code></pre>
 </div>
 
-<p>NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of filesystem over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.</p>
+<p>NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of file systems over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.</p>
 
 <p>The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use “–script-help” followed by the name of the script:</p>
 

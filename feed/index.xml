@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Feb 2017 17:05:13 +0100</pubDate>
-    <lastBuildDate>Mon, 20 Feb 2017 17:05:13 +0100</lastBuildDate>
+    <pubDate>Mon, 20 Feb 2017 17:07:02 +0100</pubDate>
+    <lastBuildDate>Mon, 20 Feb 2017 17:07:02 +0100</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -45,7 +45,7 @@ SCRIPT SCAN:
 
 &lt;p&gt;This will execute all the scripts included in the “default” category against the specified target. It is recommended to use this option with caution, since some of the scripts included in the default category might be particularly intrusive.&lt;/p&gt;
 
-&lt;p&gt;Instead of launching the engine using a particular category, we can run a single script by using the “–script” parameter. This can be done, for example, after a previous scan where we detected an active service on some port that might be of interest.&lt;/p&gt;
+&lt;p&gt;Instead of launching the engine using a particular category, we can run a single script by using the &lt;code class=&quot;highlighter-rouge&quot;&gt;--script&lt;/code&gt; parameter. This can be done, for example, after a previous scan where we detected an active service on some port that might be of interest.&lt;/p&gt;
 
 &lt;p&gt;Since the best way to understand how a tool works is to practice with it, we will see an example of NSE capabilities using a laboratory environment composed by an attacking Kali Linux machine and a vulnerable target, Metaspoitable 2 VM.&lt;/p&gt;
 
@@ -195,6 +195,8 @@ Take your time to practice with this powerful tool taking also a look at the oth
         <category>Nmap</category>
         
         <category>NSE</category>
+        
+        <category>Reconnaissance</category>
         
         <category>Metasploitable 2</category>
         

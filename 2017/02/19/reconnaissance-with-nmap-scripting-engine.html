@@ -128,7 +128,7 @@ SCRIPT SCAN:
 
 <p>NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of file systems over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.</p>
 
-<p>The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use “–script-help” followed by the name of the script:</p>
+<p>The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use <code class="highlighter-rouge">--script-help</code> followed by the name of the script:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# nmap --script-help nfs-ls
 

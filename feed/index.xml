@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Feb 2017 17:07:02 +0100</pubDate>
-    <lastBuildDate>Mon, 20 Feb 2017 17:07:02 +0100</lastBuildDate>
+    <pubDate>Mon, 20 Feb 2017 17:10:12 +0100</pubDate>
+    <lastBuildDate>Mon, 20 Feb 2017 17:10:12 +0100</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -63,7 +63,7 @@ SCRIPT SCAN:
 
 &lt;p&gt;NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of file systems over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.&lt;/p&gt;
 
-&lt;p&gt;The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use “–script-help” followed by the name of the script:&lt;/p&gt;
+&lt;p&gt;The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use &lt;code class=&quot;highlighter-rouge&quot;&gt;--script-help&lt;/code&gt; followed by the name of the script:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# nmap --script-help nfs-ls
 

@@ -6,8 +6,8 @@
 </description>
     <link>https://spreadsecurity.github.io//</link>
     <atom:link href="https://spreadsecurity.github.io//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 20 Feb 2017 17:10:12 +0100</pubDate>
-    <lastBuildDate>Mon, 20 Feb 2017 17:10:12 +0100</lastBuildDate>
+    <pubDate>Sun, 04 Jun 2017 18:53:58 +0200</pubDate>
+    <lastBuildDate>Sun, 04 Jun 2017 18:53:58 +0200</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -2162,7 +2162,7 @@ We can then substitute these values everytime they appear in the code so as to d
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Moving through the code, there is an strange series of numbers separated by the string “112112112112” and saved in the array “InTheAfrikaMountainsAreHighXSAOO”:&lt;/p&gt;
+&lt;p&gt;Moving through the code, there is a strange series of numbers separated by the string “112112112112” and saved in the array “InTheAfrikaMountainsAreHighXSAOO”:&lt;/p&gt;
 
 &lt;div class=&quot;language-visualbasic highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;InTheAfrikaMountainsAreHighXSAOO&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;634411211211211270761121121121127076112112112112683211211211211235381121121121122867112112112112286711211211211272591121121121127259112112112112725911211211211228061121121121126832112112112112695411211211211264051121121121127015112112112112664911211211211259171121121121122745112112112112701511211211211269541121121121126588112112112112280611211211211267101121121121126161112112112112707611211211211228671121121121122928112112112112347711211211211271371121121121126344112112112112341611211211211267101121121121127381&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;112112112112&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
@@ -2185,7 +2185,7 @@ We can then substitute these values everytime they appear in the code so as to d
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;It performs a computation by dividing each value of the array “InTheAfrikaMountainsAreHighXSAOO” by 61, converting the value to the corrensponding character using function &lt;em&gt;Chr()&lt;/em&gt; and saving the results in “InTheAfrikaMountainsAreHigh4”, that is the variable seen before representing malware download url.&lt;br /&gt;
+&lt;p&gt;It performs a computation by dividing each value of the array “InTheAfrikaMountainsAreHighXSAOO” by 61, converting the value to the corresponding character using function &lt;em&gt;Chr()&lt;/em&gt; and saving the results in “InTheAfrikaMountainsAreHigh4”, that is the variable seen before representing malware download url.&lt;br /&gt;
 Converting the first values we get:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~# python

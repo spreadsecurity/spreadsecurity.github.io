@@ -198,11 +198,11 @@ Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds
 <p>As the outputs reports, we have the directory listing, with details about permissions, for the NFS share; the mounting point is the root directory “/” (<code class="highlighter-rouge">nfs-ls: Volume /</code>).<br />
 This can be confirmed with a command for showing mount points:</p>
 
-<p><code class="highlighter-rouge">
-root@kali:~# showmount -e 192.168.1.100
+<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# showmount -e 192.168.1.100
 Export list for 192.168.1.100:
 / *
-</code></p>
+</code></pre>
+</div>
 
 <p>This shows a really bad configuration: NFS service is useful to share portions of the file system to predefined users or groups, but if it is not configured properly it can turn into a huge security risk like in this case where anyone can access the root directory remotely.</p>
 

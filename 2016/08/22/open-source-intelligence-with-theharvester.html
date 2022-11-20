@@ -2,16 +2,6 @@
 <html>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
   <head>
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-82489724-1', 'auto');
-  ga('send', 'pageview');
-
-  </script>
   <meta name="google-site-verification" content="2sf0nOsdmxOwb35mzYgNoZLo3dWw5VuhtdWLaSGSekA" />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,9 +11,8 @@
   <meta name="description" content="Another interesting tool for gathering informations, which can be used in combination with Recon-ng, is theHarvester.Even if this tool is not as complex as R...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://spreadsecurity.github.io//2016/08/22/open-source-intelligence-with-theharvester.html">
-  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
-</head>
+  <link rel="canonical" href="http://0.0.0.0:4000/2016/08/22/open-source-intelligence-with-theharvester.html">
+ </head>
 
   <body>
     <nav class="single-post-nav">
@@ -43,7 +32,7 @@
     </nav>
     <div class="single-post">
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header single-post-header" style="background-image:url('https://spreadsecurity.github.io//images/code_banner.jpg')">
+  <header class="post-header single-post-header" style="background-image:url('http://0.0.0.0:4000/images/code_banner.jpg')">
     <div>
       <h1 class="post-title single-post-title" itemprop="name headline">Open Source Intelligence with theHarvester</h1>
       <p class="post-meta single-post-meta">
@@ -99,7 +88,7 @@ Some data sources require an API key to work: while the acquisition of some of t
 <p>We will see now an example of information gathering activity performed on the National Institute of Standards and Technology (NIST) domain.<br />
 Since Google is one of the mentioned data sources we can use for the search, we can start with a simple request by asking all hosts and emails that Google Search Engine can find in the first 100 results for the domain “nist.gov” (email addresses written here are fictional for privacy reasons):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b google -l 100
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b google -l 100
 ......................................................
 [-] Searching in Google:
 	Searching 0 results...
@@ -128,15 +117,14 @@ foghornleghorn@nist.gov
 129.6.24.30:webbook.nist.gov
 132.163.4.18:www.glb.nist.gov
 132.163.4.18:www.nist.gov
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As reported above, the tool has quickly found emails, hostnames and has also resolved IP addresses.</p>
 
 <p>Another interesting feature is the capability to check for virtual hosts: through DNS resolution, the tool verifies if a certain IP address is associated with multiple hostnames. This is a really important information because the Security for a given host on that IP depends not only on its Security level, but also from how securely are configured the others hosted on that same IP. In fact, if an attacker comprimises one of them and gains access to the underlying server, then he can easily reach every other virtual host.<br />
 To launch a virtual host search we just need to add “-v”:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b google -l 100 -v
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b google -l 100 -v
 .........................................................
 [+] Virtual hosts:
 ==================
@@ -186,12 +174,11 @@ To launch a virtual host search we just need to add “-v”:</p>
 132.163.4.162:math.nist.gov
 132.163.4.162:ieee1451.nist.gov
 132.163.4.162:www.tf.nist.gov
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>theHarvester is also able to acquire names of persons related to the target domain by crawling social networks such as LinkedIn; this can be done by simply using as data source the argument “linkedin” (fictional names are reported here for privacy reasons):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b linkedin
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# theharvester -d nist.gov -b linkedin
 .................................................
 [-] Searching in Linkedin..
 	Searching 100 results..
@@ -201,34 +188,30 @@ Bugs Bunny
 Daffy Duck
 Foghorn Leghorn
 .................................................
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Once you have emails and names you can try to associate them to find a correspondence.</p>
 
 <p>It is ok to have results printed on the terminal standard output, but when we are dealing with a big amount of data it is nice to report them in a file for later use. theHarvester offers the opportunity to save results on both XML and HTML formats by specifying file name with “-f” option.<br />
 Before launching the command, it is always a good practice to create a folder where we can store gathered data about the target:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# mkdir NIST
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# mkdir NIST
 root@kali:~# cd NIST
 root@kali:~/NIST#
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Then we can start the search and this time we use “-b all” which harvest informations using Google, PGP key server, Bing and Exalead:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~/NIST# theharvester -d nist.gov -b all -l 100 -v -f results.html
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/NIST# theharvester -d nist.gov -b all -l 100 -v -f results.html
 ........................................................................
 [+] Saving files...
 Files saved!
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>If the files are correctly saved we get the “Files saved!” message and we find them inside our current folder:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~/NIST# ls
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/NIST# ls
 results.xml  results.html 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Finally we can open the HTML file with our favourite web browser:
 <a href="/images/theharvester/theharvester_report.png"><img src="/images/theharvester/theharvester_report.png" alt="" /></a></p>
@@ -252,7 +235,7 @@ Automatic tools are useful, but still their outputs need to be correctly managed
   <div class="wrapper">
 
     <div class="footer-col-wrapper">
-        <p align=right>© 2016-2018 Spread Security | All Rights Reserved 
+        <p align=right>© 2016-2022 Spread Security | All Rights Reserved 
 </p>
     </div>
 

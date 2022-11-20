@@ -2,16 +2,6 @@
 <html>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
   <head>
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-82489724-1', 'auto');
-  ga('send', 'pageview');
-
-  </script>
   <meta name="google-site-verification" content="2sf0nOsdmxOwb35mzYgNoZLo3dWw5VuhtdWLaSGSekA" />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,9 +11,8 @@
   <meta name="description" content="Today a large number of devices are connected to Internet, from smartphones or watches to air-conditioning devices or even refrigerators: this is what has be...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://spreadsecurity.github.io//2016/07/25/information-gathering-with-shodan.html">
-  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
-</head>
+  <link rel="canonical" href="http://0.0.0.0:4000/2016/07/25/information-gathering-with-shodan.html">
+ </head>
 
   <body>
     <nav class="single-post-nav">
@@ -43,7 +32,7 @@
     </nav>
     <div class="single-post">
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header single-post-header" style="background-image:url('https://spreadsecurity.github.io//images/code_banner.jpg')">
+  <header class="post-header single-post-header" style="background-image:url('http://0.0.0.0:4000/images/code_banner.jpg')">
     <div>
       <h1 class="post-title single-post-title" itemprop="name headline">Information Gathering with Shodan</h1>
       <p class="post-meta single-post-meta">
@@ -85,9 +74,8 @@ Moreover, even if configured to request login credentials, many of them still ha
 Generally, depending from the webcam model, the web control interface has a default page title and a defined pattern in the url used for browser access (the only difference will be the IP address). So, once we know the title or the url pattern for a specific model, we can generate a Google query to search all the devices of that type exposed on the Internet with the same technique used in the previous article.<br />
 An example is given by this simple query which exploits the web console interface title:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>intitle:"Live View / - AXIS"
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>intitle:"Live View / - AXIS"
+</code></pre></div></div>
 
 <p>In this way we can find all webcams from AXIS manufacturer with a public IP address indexed by Google.</p>
 
@@ -151,17 +139,15 @@ On the right side, each result is reported with the corresponding device IP addr
 
 <p>The application of filters can be done by clicking on the items on the left contained in the top five groups seen before or manually in the search form by specifying the query in this way (example search for SSH port):</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>port:22
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>port:22
+</code></pre></div></div>
 
 <p>Remember that making a search without filters, it is equivalent to tell to the engine to look for the requested information in the body text area.</p>
 
 <p>If we want to find all MySQL servers in USA, the query will be:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>product:"MySQL" country:"US"
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>product:"MySQL" country:"US"
+</code></pre></div></div>
 
 <p>On the left side of the results page we get two interesting groups: top operating systems and top versions.</p>
 
@@ -169,9 +155,8 @@ On the right side, each result is reported with the corresponding device IP addr
 
 <p>They can be used to apply other two filters; for example, we can choose to search for old Windows XP operating systems (!) and then 5.1.71-community version of MySQL (this version appears on the left after filtering by O.S.):</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>country:"US" product:"MySQL" os:"Windows XP" version:"5.1.71-community"
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>country:"US" product:"MySQL" os:"Windows XP" version:"5.1.71-community"
+</code></pre></div></div>
 
 <p>There is also an interesting application, available at https://maps.shodan.io, through which we can even look at a map with pinpoints indicating the geolocation of devices, in this case public MySQL servers in USA:</p>
 
@@ -185,9 +170,8 @@ On the right side, each result is reported with the corresponding device IP addr
 
 <p>Bonus query:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>has_screenshot:true
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>has_screenshot:true
+</code></pre></div></div>
 
     </div>
   </div>
@@ -199,7 +183,7 @@ On the right side, each result is reported with the corresponding device IP addr
   <div class="wrapper">
 
     <div class="footer-col-wrapper">
-        <p align=right>© 2016-2018 Spread Security | All Rights Reserved 
+        <p align=right>© 2016-2022 Spread Security | All Rights Reserved 
 </p>
     </div>
 

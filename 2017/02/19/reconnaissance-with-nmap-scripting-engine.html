@@ -2,16 +2,6 @@
 <html>
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?">
   <head>
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-82489724-1', 'auto');
-  ga('send', 'pageview');
-
-  </script>
   <meta name="google-site-verification" content="2sf0nOsdmxOwb35mzYgNoZLo3dWw5VuhtdWLaSGSekA" />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,9 +11,8 @@
   <meta name="description" content="In this previous topic, we have seen how Nmap can be used to perform port scanning against a given target.Of course, this is just one of the capabilities of ...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://spreadsecurity.github.io//2017/02/19/reconnaissance-with-nmap-scripting-engine.html">
-  <link rel="alternate" type="application/rss+xml" title="Spread Security" href="https://spreadsecurity.github.io//feed.xml">
-</head>
+  <link rel="canonical" href="http://0.0.0.0:4000/2017/02/19/reconnaissance-with-nmap-scripting-engine.html">
+ </head>
 
   <body>
     <nav class="single-post-nav">
@@ -41,7 +30,7 @@
     </nav>
     <div class="single-post">
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header single-post-header" style="background-image:url('https://spreadsecurity.github.io//images/code_banner.jpg')">
+  <header class="post-header single-post-header" style="background-image:url('http://0.0.0.0:4000/images/code_banner.jpg')">
     <div>
       <h1 class="post-title single-post-title" itemprop="name headline">Reconnaissance with Nmap Scripting Engine</h1>
       <p class="post-meta single-post-meta">
@@ -91,7 +80,7 @@ In order to update scripts database, we can just run <code class="highlighter-ro
 
 <p>As the help section reports, to run the engine with a predefined number of scripts, the parameter to use is “-sC”:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# nmap -h
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -h
 .....................................................................
 
 SCRIPT SCAN:
@@ -105,8 +94,7 @@ SCRIPT SCAN:
   --script-help=&lt;Lua scripts&gt;: Show help about scripts.
            &lt;Lua scripts&gt; is a comma-separated list of script-files or
            script-categories.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This will execute all the scripts included in the “default” category against the specified target. It is recommended to use this option with caution, since some of the scripts included in the default category might be particularly intrusive.</p>
 
@@ -118,19 +106,18 @@ SCRIPT SCAN:
 
 <p>Considering the results of the Nmap scan performed on the target in <a href="https://spreadsecurity.github.io/2016/10/23/port-scanning-with-nmap.html">this</a> article, we can take a look at the following services:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>PORT     STATE SERVICE
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT     STATE SERVICE
 ......................
 111/tcp  open  rpcbind
 ......................
 2049/tcp open  nfs
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of file systems over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.</p>
 
 <p>The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use <code class="highlighter-rouge">--script-help</code> followed by the name of the script:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# nmap --script-help nfs-ls
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap --script-help nfs-ls
 
 Starting Nmap 7.40 ( https://nmap.org ) at 2017-02-18 19:30 CET
 
@@ -161,14 +148,13 @@ https://nmap.org/nsedoc/scripts/nfs-ls.html
   * Execute:  Execute file (no meaning for a directory).
 
   Recursive listing is not implemented.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The target has IP address 192.168.1.100 (discovered, for example, using Netdiscover or Nmap itself), so we can start running the NFS discovery script against the machine.<br />
 In order to trigger as less alerts as possible, it is always a good idea to scan only ports we are focusing on. The port we are interested in is not the one on which runs the NFS service, but the “rpcbind” one: this service performs the task of routing requests between clients and NFS server.<br />
 Then, we can launch Nmap against port 111:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# nmap -p 111 --script=nfs-ls 192.168.1.100
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -p 111 --script=nfs-ls 192.168.1.100
 
 Starting Nmap 7.40 ( https://nmap.org ) at 2017-02-19 09:14 CET
 Nmap scan report for metasploitable2 (192.168.1.100)
@@ -192,23 +178,21 @@ PORT    STATE SERVICE
 MAC Address: 00:0C:29:59:72:BC (VMware)
 
 Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As the outputs reports, we have the directory listing, with details about permissions, for the NFS share; the mounting point is the root directory “/” (<code class="highlighter-rouge">nfs-ls: Volume /</code>).<br />
 This can be confirmed with a command for showing mount points:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# showmount -e 192.168.1.100
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# showmount -e 192.168.1.100
 Export list for 192.168.1.100:
 / *
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>This shows a really bad configuration: NFS service is useful to share portions of the file system to predefined users or groups, but if it is not configured properly it can turn into a huge security risk like in this case where anyone can access the root directory remotely.</p>
 
 <p>To verify the possibility to mount the volume, we can create a temporary directory and try to mount Metasploitable 2 root directory on it:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# mkdir /tmp/nfs
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# mkdir /tmp/nfs
 
 root@kali:~# mount -o nolock -t nfs 192.168.1.100:/ /tmp/nfs
 
@@ -238,15 +222,13 @@ drwxr-xr-x 12 root root  4096 Apr 28  2010 usr
 drwxr-xr-x 15 root root  4096 May 20  2012 var
 lrwxrwxrwx  1 root root    29 Apr 28  2010 vmlinuz -&gt; boot/vmlinuz-2.6.24-16-server
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>“ls -l” shows the mount operation has been executed successfully. Now, we can read or write files in the compromised machine.<br />
 Once we have done with it, we can unmount the volume with:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>root@kali:~# umount /tmp/nfs
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# umount /tmp/nfs
+</code></pre></div></div>
 
 <p><strong>Conclusions</strong></p>
 
@@ -263,7 +245,7 @@ Take your time to practice with this powerful tool taking also a look at the oth
   <div class="wrapper">
 
     <div class="footer-col-wrapper">
-        <p align=right>© 2016-2018 Spread Security | All Rights Reserved 
+        <p align=right>© 2016-2022 Spread Security | All Rights Reserved 
 </p>
     </div>
 

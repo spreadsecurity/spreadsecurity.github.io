@@ -11,7 +11,7 @@
   <meta name="description" content="Port scanning is a technique used to identify if a port on the target host is open or closed; a port can be open if there is a service that uses that specifi...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://0.0.0.0:4000/2016/10/23/port-scanning-with-nmap.html">
+  <link rel="canonical" href="/2016/10/23/port-scanning-with-nmap.html">
  </head>
 
   <body>
@@ -32,7 +32,7 @@
     </nav>
     <div class="single-post">
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header single-post-header" style="background-image:url('http://0.0.0.0:4000/images/code_banner.jpg')">
+  <header class="post-header single-post-header" style="background-image:url('/images/code_banner.jpg')">
     <div>
       <h1 class="post-title single-post-title" itemprop="name headline">Port Scanning with Nmap</h1>
       <p class="post-meta single-post-meta">
@@ -94,7 +94,7 @@ The virtual machine can be downloaded for free from <a href="https://sourceforge
 
 <p>We can start by taking a look at the huge list of scanning options:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SCAN TECHNIQUES:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SCAN TECHNIQUES:
   -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
   -sU: UDP Scan
   -sN/sF/sX: TCP Null, FIN, and Xmas scans
@@ -192,8 +192,8 @@ SEE THE MAN PAGE (https://nmap.org/book/man.html) FOR MORE OPTIONS AND EXAMPLES
 
 <p>Even if we will not go through all of them, we will analyze the most useful ones.</p>
 
-<p>The first thing we need to know to start a scan is the IP address of the target host. We could easily acquire that by simply logging into the just launched Metasploitable VM and then using <code class="highlighter-rouge">ifconfig</code> command, but, since we want to mimic the actions of a real attacker that has no direct access to the machine, we have to move in a different way.<br />
-Remembering the previous post we can either use Nmap or Netdiscover for this matter: <code class="highlighter-rouge">nmap -sn 192.168.1.0/24</code> or <code class="highlighter-rouge">netdiscover -r 192.168.1.0/24</code> will do the job. We discover that Metasploitable 2 machine has IP address 192.168.1.100 (by default the IP address is assigned by DHCP, but we can set a static IP address modifying <code class="highlighter-rouge">/etc/network/interfaces</code>).</p>
+<p>The first thing we need to know to start a scan is the IP address of the target host. We could easily acquire that by simply logging into the just launched Metasploitable VM and then using <code class="language-plaintext highlighter-rouge">ifconfig</code> command, but, since we want to mimic the actions of a real attacker that has no direct access to the machine, we have to move in a different way.<br />
+Remembering the previous post we can either use Nmap or Netdiscover for this matter: <code class="language-plaintext highlighter-rouge">nmap -sn 192.168.1.0/24</code> or <code class="language-plaintext highlighter-rouge">netdiscover -r 192.168.1.0/24</code> will do the job. We discover that Metasploitable 2 machine has IP address 192.168.1.100 (by default the IP address is assigned by DHCP, but we can set a static IP address modifying <code class="language-plaintext highlighter-rouge">/etc/network/interfaces</code>).</p>
 
 <p>Once we know the target IP address we can launch the port scanning attack. By default, if no option is selected, Nmap runs a TCP SYN Scan also known as Stealth Scan.</p>
 
@@ -218,7 +218,7 @@ Resuming and detailing:</p>
 
 <p>Even if this type of scan is the default one, we can set it up with the “-sS” parameter followed by the IP address of the target:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sS 192.168.1.100
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sS 192.168.1.100
 
 Starting Nmap 7.30 ( https://nmap.org ) at 2016-10-22 20:07 CEST
 Nmap scan report for 192.168.1.100
@@ -269,7 +269,7 @@ As we can see from the results, we have scanned 1000 ports in 0.20 seconds and 9
 <p>We can add some parameters to acquire additional details about the version of services running on those open ports (“-sV”) and to identify the Operating System (“-O”). We can also specify we want to scan not only the top 1000 ports, but all of them (“-p 1-65535”). Finally we can set up a time aggressive scan with “-T4”, since we do not care of being detected in a testing lab environment (the less the number after “T” the bigger the time between the probes).
 Of course, because this is a more complex scan, it will take more time to execute w.r.t the previous one:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sV -O -T4 -p 1-65535 192.168.1.100
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sV -O -T4 -p 1-65535 192.168.1.100
 
 Starting Nmap 7.30 ( https://nmap.org ) at 2016-10-22 20:10 CEST
 Nmap scan report for 192.168.1.100
@@ -328,7 +328,7 @@ Keep in mind that an aggressive scan is more likely to be detected and there is 
 
 <p>A UDP scan can be launched with the option “-sU”:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sU 192.168.1.100
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sU 192.168.1.100
 
 Starting Nmap 7.30 ( https://nmap.org ) at 2016-10-22 20:14 CEST
 Nmap scan report for --- (192.168.1.100)
@@ -353,7 +353,7 @@ Nmap done: 1 IP address (1 host up) scanned in 1082.85 seconds
 <p>An interesting feature is the possibility to report results into different formats like XML. In particular, it is useful to convert XML results into HTML files, so they can be displayed in your favourite Web Browser.<br />
 The following command generates the XML report, process it and gives as output the HTML file:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap 192.168.1.100 -oX metasploitable_scan.xml &amp;&amp; xsltproc metasploitable_scan.xml -o metasploitable_report.html
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap 192.168.1.100 -oX metasploitable_scan.xml &amp;&amp; xsltproc metasploitable_scan.xml -o metasploitable_report.html
 </code></pre></div></div>
 
 <p>And this is the HTML report:</p>

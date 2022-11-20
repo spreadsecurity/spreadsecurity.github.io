@@ -11,7 +11,7 @@
   <meta name="description" content="During a penetration test, a big part of the success in the exploitation phase depends from how good the information gathering was performed. Since this acti...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://0.0.0.0:4000/2016/08/01/open-source-web-reconnaissance-with-recon-ng.html">
+  <link rel="canonical" href="/2016/08/01/open-source-web-reconnaissance-with-recon-ng.html">
  </head>
 
   <body>
@@ -32,7 +32,7 @@
     </nav>
     <div class="single-post">
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header single-post-header" style="background-image:url('http://0.0.0.0:4000/images/code_banner.jpg')">
+  <header class="post-header single-post-header" style="background-image:url('/images/code_banner.jpg')">
     <div>
       <h1 class="post-title single-post-title" itemprop="name headline">Open Source Web Reconnaissance with Recon-ng</h1>
       <p class="post-meta single-post-meta">
@@ -71,7 +71,7 @@ Reconnaissance is considered as the activity of acquiring open source informatio
 <p>Since we will use a lot of tools during the next posts, I highly suggest to set up a Virtual Machine with a Penetration Testing distribution installed on.
 Personally I use VMware Workstation 12 Player as hypervisor for server and desktop virtualization which is free and can be downloaded from the official website. Regarding operating systems, I use mainly Kali Linux, which is a Debian based distribution. This distro is very useful because it has a pretty good number of tools preinstalled and preconfigured leaving to the user a ready to use PT machine. I will not explain how to set up a VM since you can find a lot of tutorials about that on the web.</p>
 
-<p>Anyway, you can still download Recon-ng on your favorite Linux distribution from author repository using <code class="highlighter-rouge">git clone</code> and installing required dependencies (this is also an option in Kali Linux in case you want the latest version available): <a href="https://bitbucket.org/LaNMaSteR53/recon-ng">https://bitbucket.org/LaNMaSteR53/recon-ng</a>.</p>
+<p>Anyway, you can still download Recon-ng on your favorite Linux distribution from author repository using <code class="language-plaintext highlighter-rouge">git clone</code> and installing required dependencies (this is also an option in Kali Linux in case you want the latest version available): <a href="https://bitbucket.org/LaNMaSteR53/recon-ng">https://bitbucket.org/LaNMaSteR53/recon-ng</a>.</p>
 
 <p><strong>Usage</strong></p>
 
@@ -83,7 +83,7 @@ Personally I use VMware Workstation 12 Player as hypervisor for server and deskt
 
 <p class="center"><a href="/images/recon-ng/recon-ng_start2.png"><img src="/images/recon-ng/recon-ng_start2.png" alt="" /></a></p>
 
-<p>Another possibility is launching it by simply opening the Terminal and typing <code class="highlighter-rouge">recon-ng</code>. In any case, we are prompted with the framework banner, version and number of modules for each category:</p>
+<p>Another possibility is launching it by simply opening the Terminal and typing <code class="language-plaintext highlighter-rouge">recon-ng</code>. In any case, we are prompted with the framework banner, version and number of modules for each category:</p>
 
 <p class="center"><img src="/images/recon-ng/recon-ng_intro.png" alt="" /></p>
 
@@ -99,9 +99,9 @@ Personally I use VMware Workstation 12 Player as hypervisor for server and deskt
 
 <p>The good thing is that everyone can implement his own module written in Python and integrate it inside the framework.<br />
 Since we are dealing with information gathering, we will focus on recon modules.<br />
-The framework accepts commands via command line; to have a list of the commands just type <code class="highlighter-rouge">help</code> and press enter:</p>
+The framework accepts commands via command line; to have a list of the commands just type <code class="language-plaintext highlighter-rouge">help</code> and press enter:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][default] &gt; help
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][default] &gt; help
 
 Commands (type [help|?] &lt;topic&gt;):
 ---------------------------------
@@ -128,14 +128,14 @@ use             Loads specified module
 workspaces      Manages workspaces
 </code></pre></div></div>
 
-<p>To display a list of all available modules for each category we can use the <code class="highlighter-rouge">show</code> command:</p>
+<p>To display a list of all available modules for each category we can use the <code class="language-plaintext highlighter-rouge">show</code> command:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show modules
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show modules
 </code></pre></div></div>
 
 <p>Since right now we are only interested in recon modules, we can limit the search to them:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][default] &gt; show modules recon
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][default] &gt; show modules recon
 
   Recon
   -----
@@ -179,18 +179,18 @@ workspaces      Manages workspaces
 
 <p>The structure for each module is the following:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module-category/data-conversion/module-name
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module-category/data-conversion/module-name
 </code></pre></div></div>
 
-<p>Consider, for example, <code class="highlighter-rouge">recon/domains-hosts/google_site_web</code>: this performs a recon activity using Google Search Engine to convert an information about a domain into data about hosts of that domain. Keep in mind that certain modules require valid API key to run; some keys can be acquired by simply registering on the related website.<br />
-To select a module we need the <code class="highlighter-rouge">use</code> command:</p>
+<p>Consider, for example, <code class="language-plaintext highlighter-rouge">recon/domains-hosts/google_site_web</code>: this performs a recon activity using Google Search Engine to convert an information about a domain into data about hosts of that domain. Keep in mind that certain modules require valid API key to run; some keys can be acquired by simply registering on the related website.<br />
+To select a module we need the <code class="language-plaintext highlighter-rouge">use</code> command:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use recon/domains-hosts/google_site_web
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use recon/domains-hosts/google_site_web
 </code></pre></div></div>
 
 <p>Once the module is selected we can show informations about it:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][default][google_site_web] &gt; show info
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][default][google_site_web] &gt; show info
 
       Name: Google Hostname Enumerator
       Path: modules/recon/domains-hosts/google_site_web.py
@@ -213,21 +213,21 @@ Source Options:
 </code></pre></div></div>
 
 <p>In this way we can read the description and take a look at the options we can set before running the recon activity. As you can see, the action performed by this module is pretty the same as the one explained in the article <a href="https://spreadsecurity.github.io/2016/07/18/information-gathering-with-google-search-engine.html" target="_blank">Information gathering with Google Search Engine</a>, but this time it is done in an automated way.<br />
-In case we want to analyze module source code we can either use <code class="highlighter-rouge">show source</code> or navigate to <code class="highlighter-rouge">/usr/share/recon-ng/modules/recon/domains-hosts</code> where the python file <code class="highlighter-rouge">google_site_web.py</code> is located (note that folders structure reflects modules categories and data conversions).<br />
-Once all required options are set up through <code class="highlighter-rouge">set</code> command, the module can be executed with <code class="highlighter-rouge">run</code>.</p>
+In case we want to analyze module source code we can either use <code class="language-plaintext highlighter-rouge">show source</code> or navigate to <code class="language-plaintext highlighter-rouge">/usr/share/recon-ng/modules/recon/domains-hosts</code> where the python file <code class="language-plaintext highlighter-rouge">google_site_web.py</code> is located (note that folders structure reflects modules categories and data conversions).<br />
+Once all required options are set up through <code class="language-plaintext highlighter-rouge">set</code> command, the module can be executed with <code class="language-plaintext highlighter-rouge">run</code>.</p>
 
 <p>We will see now an example of reconnaissance activity performed on the National Institute of Standards and Technology (NIST) domain.<br />
-Before starting, we need to introduce the concept of workspace: Recon-ng allows to define a workspace for each target subject of reconnaissance; by doing this, it will create a database containing all gathered informations about the target itself. This is the reason why in the “framework help” shown before there is the <code class="highlighter-rouge">query</code> command, which allows to examine the DB using Standard Query Language (SQL), and also why import modules are present.</p>
+Before starting, we need to introduce the concept of workspace: Recon-ng allows to define a workspace for each target subject of reconnaissance; by doing this, it will create a database containing all gathered informations about the target itself. This is the reason why in the “framework help” shown before there is the <code class="language-plaintext highlighter-rouge">query</code> command, which allows to examine the DB using Standard Query Language (SQL), and also why import modules are present.</p>
 
 <p>We start by creating a new workspace:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>workspaces add NIST
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>workspaces add NIST
 </code></pre></div></div>
 
 <p>After that, the command line shows the change from the default workspace to the new one.
-Then we need to associate a domain with the created workspace and finally we can check that everything is set up correctly by listing domains with <code class="highlighter-rouge">show</code>:</p>
+Then we need to associate a domain with the created workspace and finally we can check that everything is set up correctly by listing domains with <code class="language-plaintext highlighter-rouge">show</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][default] &gt; workspaces add NIST
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][default] &gt; workspaces add NIST
 [recon-ng][NIST] &gt; add domains nist.gov
 [recon-ng][NIST] &gt; show domains
 
@@ -242,28 +242,28 @@ Then we need to associate a domain with the created workspace and finally we can
 
 <p>Same result can be obtained with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; query select * from domains
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; query select * from domains
 </code></pre></div></div>
 
 <p>This can be checked also by querying the database with an external tool; the DB is located in the following folder:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.recon-ng/workspaces/NIST
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.recon-ng/workspaces/NIST
 </code></pre></div></div>
 
-<p>Here there is a file called <code class="highlighter-rouge">data.db</code> which is the database for NIST workspace; to explore the DB we can use the tool <code class="highlighter-rouge">sqlite3</code> already installed in Kali Linux:</p>
+<p>Here there is a file called <code class="language-plaintext highlighter-rouge">data.db</code> which is the database for NIST workspace; to explore the DB we can use the tool <code class="language-plaintext highlighter-rouge">sqlite3</code> already installed in Kali Linux:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/.recon-ng/workspaces/NIST# sqlite3 data.db 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/.recon-ng/workspaces/NIST# sqlite3 data.db 
 SQLite version 3.13.0 2016-05-18 10:57:30
 Enter ".help" for usage hints.
 sqlite&gt; select * from domains;
 nist.gov|user_defined
 </code></pre></div></div>
 
-<p>To exit from the program, just type <code class="highlighter-rouge">.exit</code>.</p>
+<p>To exit from the program, just type <code class="language-plaintext highlighter-rouge">.exit</code>.</p>
 
 <p>We can also add a company name:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; add companies
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; add companies
 company (TEXT): NIST
 description (TEXT): National Institute of Standards and Technology
 [recon-ng][NIST] &gt; show companies
@@ -277,9 +277,9 @@ description (TEXT): National Institute of Standards and Technology
 [*] 1 rows returned
 </code></pre></div></div>
 
-<p>Adding domains and companies is the initial step because they are inputs used by modules to perform information gathering. To check all modules using these two informations as a starting point we can leverage the <code class="highlighter-rouge">search</code> command:</p>
+<p>Adding domains and companies is the initial step because they are inputs used by modules to perform information gathering. To check all modules using these two informations as a starting point we can leverage the <code class="language-plaintext highlighter-rouge">search</code> command:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; search domains-
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; search domains-
 [*] Searching for 'domains-'...
 
   Recon
@@ -326,9 +326,9 @@ description (TEXT): National Institute of Standards and Technology
 
 </code></pre></div></div>
 
-<p>Suppose we want to start populating our DB with hostnames related to <em>nist.gov</em> domain usign <code class="highlighter-rouge">google_site_web</code> module seen before; to check parameters required to run it we can display module options:</p>
+<p>Suppose we want to start populating our DB with hostnames related to <em>nist.gov</em> domain usign <code class="language-plaintext highlighter-rouge">google_site_web</code> module seen before; to check parameters required to run it we can display module options:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; show options
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; show options
 
   Name    Current Value  Required  Description
   ------  -------------  --------  -----------
@@ -337,7 +337,7 @@ description (TEXT): National Institute of Standards and Technology
 
 <p>Since we have already set the domain, the “Current Value” which says “default” is taken directly from the DB. Then, we can just run the module and after a little while we get the results:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; run
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; run
 
 --------
 NIST.GOV
@@ -371,7 +371,7 @@ SUMMARY
 
 <p>In this case we discovered 73 hosts related to the domain; we can show the list of discovered host:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; show hosts
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; show hosts
 
   +-----------------------------------------------------------------------------------------------------------------+
   | rowid |              host              | ip_address | region | country | latitude | longitude |      module     |
@@ -400,7 +400,7 @@ SUMMARY
 
 <p>As the table shows, we have empty columns ready to store additional informations for each host: these can be populated by hand or by running other modules using host informations we just gathered:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; search hosts-
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][google_site_web] &gt; search hosts-
 [*] Searching for 'hosts-'...
 
   Recon
@@ -416,9 +416,9 @@ SUMMARY
     recon/hosts-ports/shodan_ip
 </code></pre></div></div>
 
-<p>We can find IP addresses for each host by running <code class="highlighter-rouge">recon/hosts-hosts/resolve</code> module, while the geolocation can be acquired with <code class="highlighter-rouge">recon/hosts-hosts/freegeoip</code>:</p>
+<p>We can find IP addresses for each host by running <code class="language-plaintext highlighter-rouge">recon/hosts-hosts/resolve</code> module, while the geolocation can be acquired with <code class="language-plaintext highlighter-rouge">recon/hosts-hosts/freegeoip</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][freegeoip] &gt; show hosts 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][freegeoip] &gt; show hosts 
 
   +------------------------------------------------------------------------------------------------------------------------------------------+
   | rowid |              host              |   ip_address  |         region         |    country    | latitude | longitude |      module     |
@@ -447,9 +447,9 @@ SUMMARY
 
 <p>As shown, in minutes we have acquired tons of informations about target hosts.<br />
 Now we can lower the search level by digging even deeper: what about looking for contact informations such as names and email addresses?
-We can achieve this objective by running <code class="highlighter-rouge">recon/domains-contacts/pgp_search</code>: in fact as the description reports, this module searches the MIT public PGP key server for email addresses of the given domain. After module has been executed, we can display results stored in the DB (of course names and addresses in the following table are fictional for privacy reasons):</p>
+We can achieve this objective by running <code class="language-plaintext highlighter-rouge">recon/domains-contacts/pgp_search</code>: in fact as the description reports, this module searches the MIT public PGP key server for email addresses of the given domain. After module has been executed, we can display results stored in the DB (of course names and addresses in the following table are fictional for privacy reasons):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][pgp_search] &gt; show contacts
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST][pgp_search] &gt; show contacts
 
   +----------------------------------------------------------------------------------------------------------------------------------------------+
   | rowid |   first_name  | middle_name |    last_name     |             email             |        title        | region | country |   module   |
@@ -460,7 +460,7 @@ We can achieve this objective by running <code class="highlighter-rouge">recon/d
 
 </code></pre></div></div>
 
-<p>This is not over yet: we can also search if those contacts have been involved in a databreach, like Adobe one in 2013. For this purpose there are two interesting modules, <code class="highlighter-rouge">recon/contacts-credentials/hibp_breach</code> and <code class="highlighter-rouge">recon/contacts-credentials/hibp_paste</code>: the first one leverages haveibeenpwned.com API to determine if email addresses are associated with breached credentials, while the other one uses the API to determine if email addresses have been published to various paste sites.</p>
+<p>This is not over yet: we can also search if those contacts have been involved in a databreach, like Adobe one in 2013. For this purpose there are two interesting modules, <code class="language-plaintext highlighter-rouge">recon/contacts-credentials/hibp_breach</code> and <code class="language-plaintext highlighter-rouge">recon/contacts-credentials/hibp_paste</code>: the first one leverages haveibeenpwned.com API to determine if email addresses are associated with breached credentials, while the other one uses the API to determine if email addresses have been published to various paste sites.</p>
 
 <p>You can check if your email address has been compromised in data breaches by simply going on the <em>Have I Been Pwned?</em> (HIBP) website and launching a search. This service collects and analyzes database dumps and pastes leaked by data breaches happened over the years regarding millions of accounts.</p>
 
@@ -468,7 +468,7 @@ We can achieve this objective by running <code class="highlighter-rouge">recon/d
 
 <p>Once collected enough informations, it is useful to report them in a document. Fortunately, Recon-ng offers modules to report results in different formats:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; show modules reporting
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; show modules reporting
 
   Reporting
   ---------
@@ -482,7 +482,7 @@ We can achieve this objective by running <code class="highlighter-rouge">recon/d
 </code></pre></div></div>
 <p>For example, we can choose to save the returns in an HTML page file:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; use reporting/html
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[recon-ng][NIST] &gt; use reporting/html
 [recon-ng][NIST][html] &gt; show options
 
   Name      Current Value                                 Required  Description

@@ -11,7 +11,7 @@
   <meta name="description" content="Network discovery represents an important phase in the Information Gathering activity: it is the process of identifying live hosts on the network. This means...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://0.0.0.0:4000/2016/09/25/network-discovery-with-nmap-and-netdiscover.html">
+  <link rel="canonical" href="/2016/09/25/network-discovery-with-nmap-and-netdiscover.html">
  </head>
 
   <body>
@@ -32,7 +32,7 @@
     </nav>
     <div class="single-post">
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header single-post-header" style="background-image:url('http://0.0.0.0:4000/images/code_banner.jpg')">
+  <header class="post-header single-post-header" style="background-image:url('/images/code_banner.jpg')">
     <div>
       <h1 class="post-title single-post-title" itemprop="name headline">Network Discovery with Nmap and Netdiscover</h1>
       <p class="post-meta single-post-meta">
@@ -76,7 +76,7 @@
 
 <p><strong>Installation</strong></p>
 
-<p>If you are using Kali Linux, Nmap is already part of your arsenal. Otherwise you can install it from package repositories by using <code class="highlighter-rouge">apt-get install nmap</code> or <code class="highlighter-rouge">yum install nmap</code> or similar commands depending on your Linux distro. You can even download the latest release from <a href="https://nmap.org/download.html">https://nmap.org/download.html</a>.</p>
+<p>If you are using Kali Linux, Nmap is already part of your arsenal. Otherwise you can install it from package repositories by using <code class="language-plaintext highlighter-rouge">apt-get install nmap</code> or <code class="language-plaintext highlighter-rouge">yum install nmap</code> or similar commands depending on your Linux distro. You can even download the latest release from <a href="https://nmap.org/download.html">https://nmap.org/download.html</a>.</p>
 
 <p><strong>Usage</strong></p>
 
@@ -88,9 +88,9 @@
 
 <p class="center"><a href="/images/network_discovery/nmap_start2.png"><img src="/images/network_discovery/nmap_start2.png" alt="" /></a></p>
 
-<p>Another possibility is launching it by simply opening the Terminal and typing <code class="highlighter-rouge">nmap</code>. In any case, we are prompted with tool version and usage instructions:</p>
+<p>Another possibility is launching it by simply opening the Terminal and typing <code class="language-plaintext highlighter-rouge">nmap</code>. In any case, we are prompted with tool version and usage instructions:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap
 Nmap 7.25BETA2 ( https://nmap.org )
 Usage: nmap [Scan Type(s)] [Options] {target specification}
 TARGET SPECIFICATION:
@@ -126,7 +126,7 @@ SEE THE MAN PAGE (https://nmap.org/book/man.html) FOR MORE OPTIONS AND EXAMPLES
 <p>In this article, we focus on host discovery techniques.
 We can list hosts belonging to a certain subnet by setting the “-sL” switch; this can be helpful to check the IP addresses belonging to that subnet. The range can be expressed, for example, using the Classless Inter-Domain Routing (CIDR) notation:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sL 192.168.1.0/24
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sL 192.168.1.0/24
 
 Starting Nmap 7.25BETA2 ( https://nmap.org ) at 2016-09-18 15:37 CEST
 Nmap scan report for 192.168.1.0
@@ -146,7 +146,7 @@ Nmap done: 256 IP addresses (0 hosts up) scanned in 4.26 seconds
 In fact referring to the ISO/OSI stack model, since ARP is a layer 2 protocol, it cannot discover remote systems due to its non routable nature; in that case Nmap automatically switches to ICMP requests which are instead layer 3.<br />
 Everytime it is possible, i.e. for hosts on the local subnet, it is better to use ARP discovery since it is faster and highly relayable (ICMP requests can be filtered by Firewalls).</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sn 192.168.1.0/24
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -sn 192.168.1.0/24
 
 Starting Nmap 7.25BETA2 ( https://nmap.org ) at 2016-09-18 16:25 CEST
 Nmap scan report for 192.168.1.1
@@ -186,7 +186,7 @@ We can see that in the network defined by the range 192.168.1.0-255 there are 4 
 
 <p><strong>Installation</strong></p>
 
-<p>If you are using Kali Linux, you have it already available. Otherwise, if for example you are using Ubuntu, you can install it from package repositories by using <code class="highlighter-rouge">apt-get install netdiscover</code> . You can even download the latest release from <a href="https://sourceforge.net/projects/netdiscover/">https://sourceforge.net/projects/netdiscover/</a>.</p>
+<p>If you are using Kali Linux, you have it already available. Otherwise, if for example you are using Ubuntu, you can install it from package repositories by using <code class="language-plaintext highlighter-rouge">apt-get install netdiscover</code> . You can even download the latest release from <a href="https://sourceforge.net/projects/netdiscover/">https://sourceforge.net/projects/netdiscover/</a>.</p>
 
 <p><strong>Usage</strong></p>
 
@@ -200,7 +200,7 @@ We can see that in the network defined by the range 192.168.1.0-255 there are 4 
 
 <p>This opens up a Terminal with usage instructions:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Netdiscover 0.3-pre-beta7 [Active/passive arp reconnaissance tool]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Netdiscover 0.3-pre-beta7 [Active/passive arp reconnaissance tool]
 Written by: Jaime Penalba &lt;jpenalbae@gmail.com&gt;
 
 Usage: netdiscover [-i device] [-r range | -l file | -p] [-m file] [-s time] [-n node] [-c count] [-f] [-d] [-S] [-P] [-c]
@@ -225,7 +225,7 @@ If -r, -l or -p are not enabled, netdiscover will scan for common lan addresses.
 
 <p>They are pretty explanatory; an example of active ARP reconnaissance is this one:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# netdiscover -r 192.168.1.0/24
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# netdiscover -r 192.168.1.0/24
  Currently scanning: Finished!   |   Screen View: Unique Hosts
  4 Captured ARP Req/Rep packets, from 4 hosts.   Total size: 240
  _____________________________________________________________________________
@@ -241,7 +241,7 @@ If -r, -l or -p are not enabled, netdiscover will scan for common lan addresses.
 
 <p>If we want to maintain a low profile to avoid getting caught, we can set up a passive ARP discovery; in this case we just sit sniffing the network traffic:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# netdiscover -p
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# netdiscover -p
  Currently scanning: (passive)   |   Screen View: Unique Hosts
  10 Captured ARP Req/Rep packets, from 4 hosts.   Total size: 600
  _____________________________________________________________________________

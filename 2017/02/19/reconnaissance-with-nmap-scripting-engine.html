@@ -11,7 +11,7 @@
   <meta name="description" content="In this previous topic, we have seen how Nmap can be used to perform port scanning against a given target.Of course, this is just one of the capabilities of ...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://0.0.0.0:4000/2017/02/19/reconnaissance-with-nmap-scripting-engine.html">
+  <link rel="canonical" href="/2017/02/19/reconnaissance-with-nmap-scripting-engine.html">
  </head>
 
   <body>
@@ -30,7 +30,7 @@
     </nav>
     <div class="single-post">
       <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header single-post-header" style="background-image:url('http://0.0.0.0:4000/images/code_banner.jpg')">
+  <header class="post-header single-post-header" style="background-image:url('/images/code_banner.jpg')">
     <div>
       <h1 class="post-title single-post-title" itemprop="name headline">Reconnaissance with Nmap Scripting Engine</h1>
       <p class="post-meta single-post-meta">
@@ -75,12 +75,12 @@ Of course, this is just one of the capabilities of this great tool. In fact, ano
 
 <p>This is the reason why there are different categories for the scripts inside the engine: auth, broadcast, default, discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. For a description of each one, take a look <a href="https://nmap.org/book/nse-usage.html#nse-categories">here</a>.</p>
 
-<p>It is possible to check the complete scripts list <a href="https://nmap.org/nsedoc">here</a>. If you are using Kali Linux, the scripts folder is located at <code class="highlighter-rouge">/usr/share/nmap/scripts</code> and scripts have the extension “.nse”.<br />
-In order to update scripts database, we can just run <code class="highlighter-rouge">nmap --script-updatedb</code>.</p>
+<p>It is possible to check the complete scripts list <a href="https://nmap.org/nsedoc">here</a>. If you are using Kali Linux, the scripts folder is located at <code class="language-plaintext highlighter-rouge">/usr/share/nmap/scripts</code> and scripts have the extension “.nse”.<br />
+In order to update scripts database, we can just run <code class="language-plaintext highlighter-rouge">nmap --script-updatedb</code>.</p>
 
 <p>As the help section reports, to run the engine with a predefined number of scripts, the parameter to use is “-sC”:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -h
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -h
 .....................................................................
 
 SCRIPT SCAN:
@@ -98,7 +98,7 @@ SCRIPT SCAN:
 
 <p>This will execute all the scripts included in the “default” category against the specified target. It is recommended to use this option with caution, since some of the scripts included in the default category might be particularly intrusive.</p>
 
-<p>Instead of launching the engine using a particular category, we can run a single script by using the <code class="highlighter-rouge">--script</code> parameter. This can be done, for example, after a previous scan where we detected an active service on some port that might be of interest.</p>
+<p>Instead of launching the engine using a particular category, we can run a single script by using the <code class="language-plaintext highlighter-rouge">--script</code> parameter. This can be done, for example, after a previous scan where we detected an active service on some port that might be of interest.</p>
 
 <p>Since the best way to understand how a tool works is to practice with it, we will see an example of NSE capabilities using a laboratory environment composed by an attacking Kali Linux machine and a vulnerable target, Metaspoitable 2 VM.</p>
 
@@ -106,7 +106,7 @@ SCRIPT SCAN:
 
 <p>Considering the results of the Nmap scan performed on the target in <a href="https://spreadsecurity.github.io/2016/10/23/port-scanning-with-nmap.html">this</a> article, we can take a look at the following services:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT     STATE SERVICE
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT     STATE SERVICE
 ......................
 111/tcp  open  rpcbind
 ......................
@@ -115,9 +115,9 @@ SCRIPT SCAN:
 
 <p>NFS means Network File System: this protocol allows, through Remote Procedure Calls (RPC), to share portion of file systems over a computer network. Since this machine is intentionally vulnerable, the service has been misconfigured on purpose and we can use NSE to detect the misconfiguration.</p>
 
-<p>The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use <code class="highlighter-rouge">--script-help</code> followed by the name of the script:</p>
+<p>The script we are interested in is nfs-ls in the “discovery safe” category; to display the description we just use <code class="language-plaintext highlighter-rouge">--script-help</code> followed by the name of the script:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap --script-help nfs-ls
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap --script-help nfs-ls
 
 Starting Nmap 7.40 ( https://nmap.org ) at 2017-02-18 19:30 CET
 
@@ -154,7 +154,7 @@ https://nmap.org/nsedoc/scripts/nfs-ls.html
 In order to trigger as less alerts as possible, it is always a good idea to scan only ports we are focusing on. The port we are interested in is not the one on which runs the NFS service, but the “rpcbind” one: this service performs the task of routing requests between clients and NFS server.<br />
 Then, we can launch Nmap against port 111:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -p 111 --script=nfs-ls 192.168.1.100
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# nmap -p 111 --script=nfs-ls 192.168.1.100
 
 Starting Nmap 7.40 ( https://nmap.org ) at 2017-02-19 09:14 CET
 Nmap scan report for metasploitable2 (192.168.1.100)
@@ -180,10 +180,10 @@ MAC Address: 00:0C:29:59:72:BC (VMware)
 Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds
 </code></pre></div></div>
 
-<p>As the outputs reports, we have the directory listing, with details about permissions, for the NFS share; the mounting point is the root directory “/” (<code class="highlighter-rouge">nfs-ls: Volume /</code>).<br />
+<p>As the outputs reports, we have the directory listing, with details about permissions, for the NFS share; the mounting point is the root directory “/” (<code class="language-plaintext highlighter-rouge">nfs-ls: Volume /</code>).<br />
 This can be confirmed with a command for showing mount points:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# showmount -e 192.168.1.100
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# showmount -e 192.168.1.100
 Export list for 192.168.1.100:
 / *
 </code></pre></div></div>
@@ -192,7 +192,7 @@ Export list for 192.168.1.100:
 
 <p>To verify the possibility to mount the volume, we can create a temporary directory and try to mount Metasploitable 2 root directory on it:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# mkdir /tmp/nfs
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# mkdir /tmp/nfs
 
 root@kali:~# mount -o nolock -t nfs 192.168.1.100:/ /tmp/nfs
 
@@ -227,7 +227,7 @@ lrwxrwxrwx  1 root root    29 Apr 28  2010 vmlinuz -&gt; boot/vmlinuz-2.6.24-16-
 <p>“ls -l” shows the mount operation has been executed successfully. Now, we can read or write files in the compromised machine.<br />
 Once we have done with it, we can unmount the volume with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# umount /tmp/nfs
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~# umount /tmp/nfs
 </code></pre></div></div>
 
 <p><strong>Conclusions</strong></p>
